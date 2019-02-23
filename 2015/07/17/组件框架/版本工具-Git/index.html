@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-tw">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="kFp8mZ25PsFpJW_ipN268gzlsa4pfBk-LYkLTBR2jQc">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="GIT,Maven,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="花辭" type="application/atom+xml">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('该文章被加密, 输入访问口令!') !== ''){
+                alert('密码错误！');
+                //history.go(-1);
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<meta name="description" content="克隆代码到本地123$ git clone https://git.oschina.net/wuyu/wuyu-plugin.git$ cd wuyu-plugin$ git checkout master 已有项目推送仓库12345$ git init$ git add ./*$ git commit -m &quot;init&quot;$ git remote add origin https://git.os">
+<meta name="keywords" content="GIT,Maven">
+<meta property="og:type" content="article">
+<meta property="og:title" content="版本工具-Git">
+<meta property="og:url" content="http://dennisit.github.io/2015/07/17/组件框架/版本工具-Git/index.html">
+<meta property="og:site_name" content="花辭">
+<meta property="og:description" content="克隆代码到本地123$ git clone https://git.oschina.net/wuyu/wuyu-plugin.git$ cd wuyu-plugin$ git checkout master 已有项目推送仓库12345$ git init$ git add ./*$ git commit -m &quot;init&quot;$ git remote add origin https://git.os">
+<meta property="og:locale" content="zh-tw">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15055365011643.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15055366703843.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15055367560637.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15388823819244.jpg">
+<meta property="og:updated_time" content="2019-01-30T15:14:12.454Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="版本工具-Git">
+<meta name="twitter:description" content="克隆代码到本地123$ git clone https://git.oschina.net/wuyu/wuyu-plugin.git$ cd wuyu-plugin$ git checkout master 已有项目推送仓库12345$ git init$ git add ./*$ git commit -m &quot;init&quot;$ git remote add origin https://git.os">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15055365011643.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  document.oncontextmenu= function(){return false;}
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://dennisit.github.io/2015/07/17/组件框架/版本工具-Git/">
+
+
+
+
+
+  <title>版本工具-Git | 花辭</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?57443a2926e41ae04a903a8093e16326";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">花辭</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">風月不瘦,雖以千年後。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            關於
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            標籤
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站點地圖
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dennisit.github.io/2015/07/17/组件框架/版本工具-Git/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蘇若年">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/havatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花辭">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">版本工具-Git</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2015-07-17T19:57:53+08:00">
+                2015-07-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/组件框架/" itemprop="url" rel="index">
+                    <span itemprop="name">组件框架</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/组件框架/版本工具/" itemprop="url" rel="index">
+                    <span itemprop="name">版本工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/07/17/组件框架/版本工具-Git/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2015/07/17/组件框架/版本工具-Git/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2015/07/17/组件框架/版本工具-Git/" class="leancloud_visitors" data-flag-title="版本工具-Git">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">閱讀次數&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="克隆代码到本地"><a href="#克隆代码到本地" class="headerlink" title="克隆代码到本地"></a>克隆代码到本地</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://git.oschina.net/wuyu/wuyu-plugin.git</span><br><span class="line">$ <span class="built_in">cd</span> wuyu-plugin</span><br><span class="line">$ git checkout master</span><br></pre></td></tr></table></figure>
+<h2 id="已有项目推送仓库"><a href="#已有项目推送仓库" class="headerlink" title="已有项目推送仓库"></a>已有项目推送仓库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br><span class="line">$ git add ./*</span><br><span class="line">$ git commit -m <span class="string">"init"</span></span><br><span class="line">$ git remote add origin https://git.oschina.net/wuyu/wuyu-plugin.git</span><br><span class="line">$ git push -u origin master</span><br></pre></td></tr></table></figure>
+<p>说明: <code>https://git.oschina.net/wuyu/wuyu-plugin.git</code>为示例工程目录,个人的工程以自己的路径为准.</p>
+<h2 id="创建分之推送"><a href="#创建分之推送" class="headerlink" title="创建分之推送"></a>创建分之推送</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git branch develop</span><br><span class="line">$ git push origin develop</span><br><span class="line">$ git checkout develop</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="工程提交修改"><a href="#工程提交修改" class="headerlink" title="工程提交修改"></a>工程提交修改</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git add ./*</span><br><span class="line">$ git commit -m <span class="string">"init"</span></span><br><span class="line">$ git push -u origin master</span><br></pre></td></tr></table></figure>
+<h2 id="修改提交Commit"><a href="#修改提交Commit" class="headerlink" title="修改提交Commit"></a>修改提交Commit</h2><blockquote>
+<p>如果这是你最近一次提交并且没有push到远程分支，可用以下命令直接修改:</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost vplus (master)]$ git commit --amend -m <span class="string">"your new message"</span></span><br></pre></td></tr></table></figure>
+<p>其他情况可参考 <a href="https://stackoverflow.com/questions/179123/how-to-modify-existing-unpushed-commits" target="_blank" rel="noopener">https://stackoverflow.com/questions/179123/how-to-modify-existing-unpushed-commits</a></p>
+<h2 id="修改commit的用户名和邮箱"><a href="#修改commit的用户名和邮箱" class="headerlink" title="修改commit的用户名和邮箱"></a>修改commit的用户名和邮箱</h2><h3 id="GIT修改当前工程的提交人信息"><a href="#GIT修改当前工程的提交人信息" class="headerlink" title="GIT修改当前工程的提交人信息"></a>GIT修改当前工程的提交人信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$ git config user.name <span class="string">"hunts"</span></span><br><span class="line">$ git config user.email <span class="string">"develop@hunts.work"</span></span><br></pre></td></tr></table></figure>
+<h3 id="Git修改全局的工程提交人信息"><a href="#Git修改全局的工程提交人信息" class="headerlink" title="Git修改全局的工程提交人信息"></a>Git修改全局的工程提交人信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">"hunts"</span></span><br><span class="line">$ git config --global user.email <span class="string">"develop@hunts.work"</span></span><br></pre></td></tr></table></figure>
+<p>或则    或者直接在全局配置文件中修改</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[hunts@localhost logs ]$ cat ~/.gitconfig </span><br><span class="line">[user]</span><br><span class="line">name = hunts</span><br><span class="line">email = develop@hunts.work</span><br><span class="line">[core]</span><br><span class="line">autocrlf = input</span><br><span class="line">[http]</span><br><span class="line">postBuffer = 524288000</span><br></pre></td></tr></table></figure>
+<h2 id="清空git默认的用户名和密码"><a href="#清空git默认的用户名和密码" class="headerlink" title="清空git默认的用户名和密码"></a>清空git默认的用户名和密码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[hunts@localhost ~]$ git config --<span class="built_in">local</span> --<span class="built_in">unset</span> credential.helper</span><br></pre></td></tr></table></figure>
+<h2 id="Git全局忽略文件"><a href="#Git全局忽略文件" class="headerlink" title="Git全局忽略文件"></a>Git全局忽略文件</h2><p>有些场景下我们需要忽略Git项目中的某些文件，对于自己参与的项目，在项目下新建.gitignore文件即可。但如果本地项目较多，或者临时维护别人的项目，一般不会单独新建.gitignore文件，这时就可以选择全局性的忽略这些文件.</p>
+<p>在当前用户目录下新建.gitignore_global文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]$ vim ~/.gitignore_global</span><br></pre></td></tr></table></figure>
+<p>在.gitignore_global文件中添加要忽略的文件,和<code>.ignore</code>里边格式一致(每行一个,支持正则)</p>
+<h2 id="Git区分文件名大小写"><a href="#Git区分文件名大小写" class="headerlink" title="Git区分文件名大小写"></a>Git区分文件名大小写</h2><p>例如: 创建一个文件readme.md，写入内容，提交到线上仓库，然后修改本地文件名为Readme.md，提交，会发现没有变化，无任何提示信息; 其实Git默认对于文件名大小写是不敏感的. 可以通过如下方式设置</p>
+<ol>
+<li>配置 Git 使其对文件名大小写敏感</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost master]$ git config core.ignorecase <span class="literal">false</span>​</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>修改本地文件名为大写</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost master]$ mv readme.md Readme.md​</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>提交修改后的文件, 如果未生效, 请先删除线上仓库中的文件,重新提交</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost master]$ git add Readme.md</span><br><span class="line">[root@localhost master]$ git commit -m <span class="string">'Readme.md'</span></span><br><span class="line">[root@localhost master]$ git push origin master</span><br><span class="line">[root@localhost master]$ <span class="comment"># 如果提交后没变化，执行该命令，之后再执行上述命令，删除本地Git管理的文件，当成新文件提交</span></span><br><span class="line">[root@localhost master]$ git rm -r --cached readme.md</span><br></pre></td></tr></table></figure>
+<h2 id="Git修改远程分支"><a href="#Git修改远程分支" class="headerlink" title="Git修改远程分支"></a>Git修改远程分支</h2><p>仓库A：<a href="https://github.com/old/json" target="_blank" rel="noopener">https://github.com/old/json</a><br>仓库B：<a href="https://gitee.com/new/json" target="_blank" rel="noopener">https://gitee.com/new/json</a></p>
+<p>从A切换到B,有3种方式</p>
+<h3 id="命令行修改远程地址"><a href="#命令行修改远程地址" class="headerlink" title="命令行修改远程地址"></a>命令行修改远程地址</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]$ <span class="built_in">cd</span> json</span><br><span class="line">[root@localhost json]$ git remote <span class="built_in">set</span>-url origin https://gitee.com/new/json.git</span><br></pre></td></tr></table></figure>
+<h3 id="先删除再添加新地址"><a href="#先删除再添加新地址" class="headerlink" title="先删除再添加新地址"></a>先删除再添加新地址</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]$ <span class="built_in">cd</span> json</span><br><span class="line">[root@localhost json]$ git remote rm origin</span><br><span class="line">[root@localhost json]$ git remote add origin https://gitee.com/new/json.git</span><br></pre></td></tr></table></figure>
+<h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]$ <span class="built_in">cd</span> json/.git</span><br><span class="line">[root@localhost .git]$ vim config</span><br><span class="line">[core]</span><br><span class="line">  repositoryformatversion = 0</span><br><span class="line">  filemode = <span class="literal">true</span></span><br><span class="line">  logallrefupdates = <span class="literal">true</span></span><br><span class="line">  precomposeunicode = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">[remote <span class="string">"origin"</span>]</span><br><span class="line">  <span class="comment"># 修改成新的仓库地址</span></span><br><span class="line">  url = https://gitee.com/new/json.git</span><br><span class="line">  fetch = +refs/heads/*:refs/remotes/origin/*</span><br><span class="line"></span><br><span class="line">[branch <span class="string">"master"</span>]</span><br><span class="line">  remote = origin</span><br><span class="line">  merge = refs/heads/master</span><br></pre></td></tr></table></figure>
+<h2 id="Git项目创建Tag"><a href="#Git项目创建Tag" class="headerlink" title="Git项目创建Tag"></a>Git项目创建Tag</h2><h3 id="查看项目Tag"><a href="#查看项目Tag" class="headerlink" title="查看项目Tag"></a>查看项目Tag</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost vplus (master)]$ git tag </span><br><span class="line">v1.1.1</span><br><span class="line">v1.1.2</span><br></pre></td></tr></table></figure>
+<h3 id="创建新的Tag"><a href="#创建新的Tag" class="headerlink" title="创建新的Tag"></a>创建新的Tag</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost vplus (master)]$ git tag v1.1.3 -m <span class="string">'增加工具类,生成实体类打标lombok注解'</span></span><br><span class="line">[root@localhost vplus (master)]$ git push origin v1.1.3</span><br><span class="line">Counting objects: 1, <span class="keyword">done</span>.</span><br><span class="line">Writing objects: 100% (1/1), 215 bytes | 0 bytes/s, <span class="keyword">done</span>.</span><br><span class="line">Total 1 (delta 0), reused 0 (delta 0)</span><br><span class="line">To https://github.com/dennisit/vplus.git</span><br><span class="line"> * [new tag]         v1.1.3 -&gt; v1.1.3</span><br><span class="line">[root@localhost vplus (master)]$ git tag</span><br><span class="line">v1.1.1</span><br><span class="line">v1.1.2</span><br><span class="line">v1.1.3</span><br></pre></td></tr></table></figure>
+<h3 id="删除指定tag"><a href="#删除指定tag" class="headerlink" title="删除指定tag"></a>删除指定tag</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost vplus (master)]$ git push origin --delete tag V1.1.3                    </span><br><span class="line">remote: warning: Deleting a non-existent ref.</span><br><span class="line">To https://github.com/dennisit/vplus.git</span><br><span class="line"> - [deleted]         V1.1.3</span><br></pre></td></tr></table></figure>
+<p>上面我们通过<code>git push origin v1.1.3</code>推送了我们新创建的tag <code>v1.1.3</code>, 进度git主页查看</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15055365011643.jpg" alt></p>
+<p>如图,可以看到新推送的tag已经展示在列表</p>
+<h3 id="发布Release"><a href="#发布Release" class="headerlink" title="发布Release"></a>发布Release</h3><p>点击上图中的【Draft a new release】进行release tag 创建.</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15055366703843.jpg" alt></p>
+<h3 id="查看发布效果"><a href="#查看发布效果" class="headerlink" title="查看发布效果"></a>查看发布效果</h3><p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15055367560637.jpg" alt></p>
+<p><strong>说明</strong></p>
+<p>上面的操作仅仅只是将我们最新更新的tag发布成了release, 如果想让别人直接引用你最细版本的包, 需要将最新更新版本RELEASE到中央仓库中(后续有时间补充如何推送)。</p>
+<h2 id="Git命令一览"><a href="#Git命令一览" class="headerlink" title="Git命令一览"></a>Git命令一览</h2><p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15388823819244.jpg" alt></p>
+<h2 id="Github作为图床"><a href="#Github作为图床" class="headerlink" title="Github作为图床"></a>Github作为图床</h2><p>Github作为图床比较简单,只需要一个地址映射即可. 如下:</p>
+<p><strong>原始文件</strong> </p>
+<ul>
+<li><a href="https://github.com/hunts-work/CardOCR/blob/master/ScreenRecord_20181116181123.gif" target="_blank" rel="noopener">https://github.com/hunts-work/CardOCR/blob/master/ScreenRecord_20181116181123.gif</a></li>
+</ul>
+<p><strong>图床地址</strong></p>
+<ul>
+<li><a href="https://raw.githubusercontent.com/hunts-work/CardOCR/master/ScreenRecord_20181116181123.gif" target="_blank" rel="noopener">https://raw.githubusercontent.com/hunts-work/CardOCR/master/ScreenRecord_20181116181123.gif</a></li>
+</ul>
+<h2 id="发布中央仓库"><a href="#发布中央仓库" class="headerlink" title="发布中央仓库"></a>发布中央仓库</h2><blockquote>
+<p>我们可以把自己沉淀的通用工具代码RELEASE到Maven中央仓库, 然后后期直接Maven引入使用, 方便统一管理更新. </p>
+</blockquote>
+<h3 id="创建发布工单"><a href="#创建发布工单" class="headerlink" title="创建发布工单"></a>创建发布工单</h3><p>创建审核单, 网址: <code>https://issues.sonatype.org/secure/Dashboard.jspa</code>, 工单按照提示填写即可, 工单只有等审核通过后自己包对应的groupId才能进行包推送到中央仓库.</p>
+<h3 id="版本包防篡改"><a href="#版本包防篡改" class="headerlink" title="版本包防篡改"></a>版本包防篡改</h3><p>我们的工程包,安全方面上讲是不允许被非法篡改的,所以我们需要在打包的时候进行签名处理.</p>
+<h4 id="安装Gnupg"><a href="#安装Gnupg" class="headerlink" title="安装Gnupg"></a>安装Gnupg</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># yum install gnupg</span></span><br><span class="line">[root@localhost ~]<span class="comment"># gpg --version</span></span><br><span class="line">gpg (GnuPG) 2.0.22</span><br><span class="line">libgcrypt 1.5.3</span><br><span class="line">Copyright (C) 2013 Free Software Foundation, Inc.</span><br><span class="line">License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.</span><br><span class="line"></span><br><span class="line">Home: ~/.gnupg</span><br><span class="line">支持的算法：</span><br><span class="line">公钥：RSA, ?, ?, ELG, DSA</span><br><span class="line">对称加密：IDEA, 3DES, CAST5, BLOWFISH, AES, AES192, AES256,</span><br><span class="line">     TWOFISH, CAMELLIA128, CAMELLIA192, CAMELLIA256</span><br><span class="line">散列：MD5, SHA1, RIPEMD160, SHA256, SHA384, SHA512, SHA224</span><br><span class="line">压缩：不压缩, ZIP, ZLIB, BZIP2</span><br></pre></td></tr></table></figure>
+<h4 id="生成密钥"><a href="#生成密钥" class="headerlink" title="生成密钥"></a>生成密钥</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># gpg --list-keys</span></span><br><span class="line">[root@localhost ~]<span class="comment"># gpg --gen-key</span></span><br><span class="line">gpg (GnuPG) 2.0.22; Copyright (C) 2013 Free Software Foundation, Inc.</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.</span><br><span class="line"></span><br><span class="line">请选择您要使用的密钥种类：</span><br><span class="line">   (1) RSA and RSA (default)</span><br><span class="line">   (2) DSA and Elgamal</span><br><span class="line">   (3) DSA (仅用于签名)</span><br><span class="line">   (4) RSA (仅用于签名)</span><br><span class="line">您的选择？</span><br><span class="line">RSA 密钥长度应在 1024 位与 4096 位之间。</span><br><span class="line">您想要用多大的密钥尺寸？(2048)</span><br><span class="line">您所要求的密钥尺寸是 2048 位</span><br><span class="line">请设定这把密钥的有效期限。</span><br><span class="line">         0 = 密钥永不过期</span><br><span class="line">      &lt;n&gt;  = 密钥在 n 天后过期</span><br><span class="line">      &lt;n&gt;w = 密钥在 n 周后过期</span><br><span class="line">      &lt;n&gt;m = 密钥在 n 月后过期</span><br><span class="line">      &lt;n&gt;y = 密钥在 n 年后过期</span><br><span class="line">密钥的有效期限是？(0)</span><br><span class="line">密钥永远不会过期</span><br><span class="line">以上正确吗？(y/n)y</span><br><span class="line"></span><br><span class="line">You need a user ID to identify your key; the software constructs the user ID</span><br><span class="line">from the Real Name, Comment and Email Address <span class="keyword">in</span> this form:</span><br><span class="line">    <span class="string">"Heinrich Heine (Der Dichter) &lt;heinrichh@duesseldorf.de&gt;"</span></span><br><span class="line"></span><br><span class="line">真实姓名：苏若年</span><br><span class="line">电子邮件地址：dennisit@163.com</span><br><span class="line">注释：suruonian</span><br><span class="line">您正在使用‘utf-8’字符集。</span><br><span class="line">您选定了这个用户标识：</span><br><span class="line">    “苏若年 (suruonian) &lt;dennisit@163.com&gt;”</span><br><span class="line"></span><br><span class="line">更改姓名(N)、注释(C)、电子邮件地址(E)或确定(O)/退出(Q)？O</span><br><span class="line">您需要一个密码来保护您的私钥。</span><br><span class="line"></span><br><span class="line">我们需要生成大量的随机字节。这个时候您可以多做些琐事(像是敲打键盘、移动</span><br><span class="line">鼠标、读写硬盘之类的)，这会让随机数字发生器有更好的机会获得足够的熵数</span><br></pre></td></tr></table></figure>
+<p>说明: 上面的步骤如果不需要特别选定直接使用默认的即可,在设定密码过程中会弹出对话框让你设定私钥密码,该密码需要记住后面发布包时候需要用.</p>
+<h4 id="查看密钥"><a href="#查看密钥" class="headerlink" title="查看密钥"></a>查看密钥</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost <span class="built_in">local</span>]<span class="comment"># gpg --list-keys</span></span><br><span class="line">/root/.gnupg/pubring.gpg</span><br><span class="line">------------------------</span><br><span class="line">pub   2048R/30E287D1 2016-02-25</span><br><span class="line">uid                  苏若年 (suruonian) &lt;dennisit@163.com&gt;</span><br><span class="line">sub   2048R/FA4E2A5C 2016-02-25</span><br></pre></td></tr></table></figure>
+<h4 id="密钥推送服务器"><a href="#密钥推送服务器" class="headerlink" title="密钥推送服务器"></a>密钥推送服务器</h4><p>注意: 这里发送的是公钥,和上面密钥列表中对应pub模块对应.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost <span class="built_in">local</span>]<span class="comment"># gpg --keyserver hkp://keys.gnupg.net --send-keys 30E287D1</span></span><br><span class="line">gpg: 将密钥‘30E287D1’上传到 hkp 服务器 keys.gnupg.net</span><br><span class="line">[root@localhost <span class="built_in">local</span>]<span class="comment"># gpg --keyserver hkp://keys.gnupg.net --recv-keys 30E287D1</span></span><br><span class="line">gpg: 下载密钥‘30E287D1’，从 hkp 服务器 keys.gnupg.net</span><br><span class="line">gpg: 密钥 30E287D1：“苏若年 (suruonian) &lt;dennisit@163.com&gt;”未改变</span><br><span class="line">gpg: 合计被处理的数量：1</span><br><span class="line">gpg:           未改变：1</span><br></pre></td></tr></table></figure>
+<h3 id="Maven配置"><a href="#Maven配置" class="headerlink" title="Maven配置"></a>Maven配置</h3><p>该配置主要用于配置deploy包到oss.sonatype.org时的账号授权信息.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost apache-maven-3.5.2]<span class="comment"># tree conf/</span></span><br><span class="line">conf/</span><br><span class="line">├── logging</span><br><span class="line">│   └── simplelogger.properties</span><br><span class="line">├── settings.xml</span><br><span class="line">└── toolchains.xml</span><br><span class="line">[root@localhost apache-maven-3.5.2]<span class="comment"># vim conf/settings.xml</span></span><br><span class="line">[root@localhost apache-maven-3.5.2]<span class="comment"># cat conf/settings.xml -n | grep -C 3 un-zone</span></span><br><span class="line">   124</span><br><span class="line">   125       &lt;server&gt;</span><br><span class="line">   126         &lt;id&gt;sonatype&lt;/id&gt;</span><br><span class="line">   127         &lt;username&gt;un-zone&lt;/username&gt;</span><br><span class="line">   128         &lt;password&gt;登录oss.sonatype.org的密码&lt;/password&gt;</span><br><span class="line">   129       &lt;/server&gt;</span><br><span class="line">   130</span><br></pre></td></tr></table></figure>
+<p>这里的<code>un-zone</code>为我的oss.sonatype.org账号ID</p>
+<h3 id="工程配置"><a href="#工程配置" class="headerlink" title="工程配置"></a>工程配置</h3><h4 id="引入仓库"><a href="#引入仓库" class="headerlink" title="引入仓库"></a>引入仓库</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">distributionManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>sonatype<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>Sonatype Nexus Snapshots<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://oss.sonatype.org/content/repositories/snapshots/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>sonatype<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>Nexus Release Repository<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://oss.sonatype.org/service/local/staging/deploy/maven2/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">distributionManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>注意: 这里的推送地址id和maven的<code>setting.xml</code>中配置的<code>server</code>节点中的id保持一致.</p>
+<h4 id="发布插件"><a href="#发布插件" class="headerlink" title="发布插件"></a>发布插件</h4><p>工程pom.xml文件中增加如下配置:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">developers</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">developer</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>Elon.Su<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>苏若年<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">email</span>&gt;</span>dennisit@163.com<span class="tag">&lt;/<span class="name">email</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">timezone</span>&gt;</span>+8<span class="tag">&lt;/<span class="name">timezone</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">developer</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">developers</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">pluginManagement</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-source-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">id</span>&gt;</span>attach-sources<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">goal</span>&gt;</span>jar-no-fork<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-javadoc-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.10.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">charset</span>&gt;</span>$&#123;project.build.sourceEncoding&#125;<span class="tag">&lt;/<span class="name">charset</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">docencoding</span>&gt;</span>$&#123;project.build.sourceEncoding&#125;<span class="tag">&lt;/<span class="name">docencoding</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">goal</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">verbose</span>&gt;</span>true<span class="tag">&lt;/<span class="name">verbose</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">fork</span>&gt;</span>true<span class="tag">&lt;/<span class="name">fork</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">compilerVersion</span>&gt;</span>$&#123;java.version&#125;<span class="tag">&lt;/<span class="name">compilerVersion</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">source</span>&gt;</span>$&#123;java.version&#125;<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">target</span>&gt;</span>$&#123;java.version&#125;<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">encoding</span>&gt;</span>$&#123;project.build.sourceEncoding&#125;<span class="tag">&lt;/<span class="name">encoding</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-gpg-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">phase</span>&gt;</span>verify<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">goal</span>&gt;</span>sign<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-surefire-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.19.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">skipTests</span>&gt;</span>true<span class="tag">&lt;/<span class="name">skipTests</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">pluginManagement</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">profiles</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>release<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-resources-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-source-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-javadoc-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-gpg-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profiles</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>执行发布并添加签名</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost vplus]<span class="comment"># mvn clean deploy -Prelease -Dmaven.test.skip=true -Dgpg.passphrase=密钥生成时设定的私钥密码</span></span><br></pre></td></tr></table></figure>
+<h3 id="包公有化"><a href="#包公有化" class="headerlink" title="包公有化"></a>包公有化</h3><blockquote>
+<p>上面我们将包大到maven仓库中, 但是此时并不能直接引入使用. 需要在<code>https://oss.sonatype.org/</code>中进行包正式发布.</p>
+</blockquote>
+<ol>
+<li>登录<a href="https://oss.sonatype.org" target="_blank" rel="noopener">https://oss.sonatype.org</a></li>
+<li>选择菜单【Staging Repositories】</li>
+<li>搜索自己相关包关键词</li>
+<li>选中要正式发布的包依次执行【close】、【release】(【close】会进行包发布合规性检测. 只有各个指标都通过了才能真正的release成功).</li>
+</ol>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://rogerdudler.github.io/git-guide/index.zh.html" target="_blank" rel="noopener">http://rogerdudler.github.io/git-guide/index.zh.html</a></li>
+<li><a href="https://www.iteblog.com/archives/1807.html" target="_blank" rel="noopener">https://www.iteblog.com/archives/1807.html</a></li>
+<li><a href="https://www.jianshu.com/p/5f6135e1925f" target="_blank" rel="noopener">https://www.jianshu.com/p/5f6135e1925f</a></li>
+<li><a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">廖雪峰Git教程</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/GIT/" rel="tag"># GIT</a>
+          
+            <a href="/tags/Maven/" rel="tag"># Maven</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/15/常用应用资源集/" rel="next" title="常用应用资源集">
+                <i class="fa fa-chevron-left"></i> 常用应用资源集
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/01/组件框架/RPC组件-Thrift/" rel="prev" title="RPC服务-Thrift">
+                RPC服务-Thrift <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/havatar.png" alt="蘇若年">
+            
+              <p class="site-author-name" itemprop="name">蘇若年</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">文章</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分類</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">標籤</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#克隆代码到本地"><span class="nav-number">1.</span> <span class="nav-text">克隆代码到本地</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#已有项目推送仓库"><span class="nav-number">2.</span> <span class="nav-text">已有项目推送仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建分之推送"><span class="nav-number">3.</span> <span class="nav-text">创建分之推送</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工程提交修改"><span class="nav-number">4.</span> <span class="nav-text">工程提交修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改提交Commit"><span class="nav-number">5.</span> <span class="nav-text">修改提交Commit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改commit的用户名和邮箱"><span class="nav-number">6.</span> <span class="nav-text">修改commit的用户名和邮箱</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GIT修改当前工程的提交人信息"><span class="nav-number">6.1.</span> <span class="nav-text">GIT修改当前工程的提交人信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git修改全局的工程提交人信息"><span class="nav-number">6.2.</span> <span class="nav-text">Git修改全局的工程提交人信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#清空git默认的用户名和密码"><span class="nav-number">7.</span> <span class="nav-text">清空git默认的用户名和密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git全局忽略文件"><span class="nav-number">8.</span> <span class="nav-text">Git全局忽略文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git区分文件名大小写"><span class="nav-number">9.</span> <span class="nav-text">Git区分文件名大小写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git修改远程分支"><span class="nav-number">10.</span> <span class="nav-text">Git修改远程分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行修改远程地址"><span class="nav-number">10.1.</span> <span class="nav-text">命令行修改远程地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#先删除再添加新地址"><span class="nav-number">10.2.</span> <span class="nav-text">先删除再添加新地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改配置文件"><span class="nav-number">10.3.</span> <span class="nav-text">修改配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git项目创建Tag"><span class="nav-number">11.</span> <span class="nav-text">Git项目创建Tag</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看项目Tag"><span class="nav-number">11.1.</span> <span class="nav-text">查看项目Tag</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建新的Tag"><span class="nav-number">11.2.</span> <span class="nav-text">创建新的Tag</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除指定tag"><span class="nav-number">11.3.</span> <span class="nav-text">删除指定tag</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发布Release"><span class="nav-number">11.4.</span> <span class="nav-text">发布Release</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看发布效果"><span class="nav-number">11.5.</span> <span class="nav-text">查看发布效果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git命令一览"><span class="nav-number">12.</span> <span class="nav-text">Git命令一览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Github作为图床"><span class="nav-number">13.</span> <span class="nav-text">Github作为图床</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发布中央仓库"><span class="nav-number">14.</span> <span class="nav-text">发布中央仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建发布工单"><span class="nav-number">14.1.</span> <span class="nav-text">创建发布工单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#版本包防篡改"><span class="nav-number">14.2.</span> <span class="nav-text">版本包防篡改</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装Gnupg"><span class="nav-number">14.2.1.</span> <span class="nav-text">安装Gnupg</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成密钥"><span class="nav-number">14.2.2.</span> <span class="nav-text">生成密钥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看密钥"><span class="nav-number">14.2.3.</span> <span class="nav-text">查看密钥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#密钥推送服务器"><span class="nav-number">14.2.4.</span> <span class="nav-text">密钥推送服务器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven配置"><span class="nav-number">14.3.</span> <span class="nav-text">Maven配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工程配置"><span class="nav-number">14.4.</span> <span class="nav-text">工程配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引入仓库"><span class="nav-number">14.4.1.</span> <span class="nav-text">引入仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发布插件"><span class="nav-number">14.4.2.</span> <span class="nav-text">发布插件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#包公有化"><span class="nav-number">14.5.</span> <span class="nav-text">包公有化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文档"><span class="nav-number">15.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HuntsWork</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 強力驅動</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主題 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66129992";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz',
+        appKey: 'pYydnhaL1ddP6c3fPWRnj9AO',
+        placeholder: '天青色等烟雨 而我 在等你 ...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz", "pYydnhaL1ddP6c3fPWRnj9AO");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 15497,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

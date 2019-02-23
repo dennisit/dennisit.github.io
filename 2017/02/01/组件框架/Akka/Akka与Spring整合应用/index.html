@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-tw">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="kFp8mZ25PsFpJW_ipN268gzlsa4pfBk-LYkLTBR2jQc">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,Akka,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="花辭" type="application/atom+xml">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('该文章被加密, 输入访问口令!') !== ''){
+                alert('密码错误！');
+                //history.go(-1);
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<meta name="description" content="本篇集合Akka应用-分布式计算应用展示在Spring项目中做分布式计算. 工程结构123456789101112131415161718192021222324252627[root@localhost spring-akka ]$ tree akka-taskakka-task├── pom.xml├── src│   └── main│       ├── java│       │   └">
+<meta name="keywords" content="Java,Akka">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Akka与Spring整合应用">
+<meta property="og:url" content="http://dennisit.github.io/2017/02/01/组件框架/Akka/Akka与Spring整合应用/index.html">
+<meta property="og:site_name" content="花辭">
+<meta property="og:description" content="本篇集合Akka应用-分布式计算应用展示在Spring项目中做分布式计算. 工程结构123456789101112131415161718192021222324252627[root@localhost spring-akka ]$ tree akka-taskakka-task├── pom.xml├── src│   └── main│       ├── java│       │   └">
+<meta property="og:locale" content="zh-tw">
+<meta property="og:updated_time" content="2018-12-12T00:08:46.490Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Akka与Spring整合应用">
+<meta name="twitter:description" content="本篇集合Akka应用-分布式计算应用展示在Spring项目中做分布式计算. 工程结构123456789101112131415161718192021222324252627[root@localhost spring-akka ]$ tree akka-taskakka-task├── pom.xml├── src│   └── main│       ├── java│       │   └">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  document.oncontextmenu= function(){return false;}
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://dennisit.github.io/2017/02/01/组件框架/Akka/Akka与Spring整合应用/">
+
+
+
+
+
+  <title>Akka与Spring整合应用 | 花辭</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?57443a2926e41ae04a903a8093e16326";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">花辭</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">風月不瘦,雖以千年後。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            關於
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            標籤
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站點地圖
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dennisit.github.io/2017/02/01/组件框架/Akka/Akka与Spring整合应用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蘇若年">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/havatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花辭">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Akka与Spring整合应用</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-02-01T19:57:53+08:00">
+                2017-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/入门教程/" itemprop="url" rel="index">
+                    <span itemprop="name">入门教程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/02/01/组件框架/Akka/Akka与Spring整合应用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/02/01/组件框架/Akka/Akka与Spring整合应用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/02/01/组件框架/Akka/Akka与Spring整合应用/" class="leancloud_visitors" data-flag-title="Akka与Spring整合应用">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">閱讀次數&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本篇集合Akka应用-分布式计算应用展示在Spring项目中做分布式计算.</p>
+<h3 id="工程结构"><a href="#工程结构" class="headerlink" title="工程结构"></a>工程结构</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost spring-akka ]$ tree akka-task</span><br><span class="line">akka-task</span><br><span class="line">├── pom.xml</span><br><span class="line">├── src</span><br><span class="line">│   └── main</span><br><span class="line">│       ├── java</span><br><span class="line">│       │   └── com</span><br><span class="line">│       │       └── elonsu</span><br><span class="line">│       │           └── cluster</span><br><span class="line">│       │               └── akka</span><br><span class="line">│       │                   ├── Application.java</span><br><span class="line">│       │                   └── spring</span><br><span class="line">│       │                       ├── actor</span><br><span class="line">│       │                       │   ├── Message.java</span><br><span class="line">│       │                       │   ├── RouterActor.java</span><br><span class="line">│       │                       │   └── SimpleActor.java</span><br><span class="line">│       │                       ├── config</span><br><span class="line">│       │                       │   ├── ClientConfig.java</span><br><span class="line">│       │                       │   └── ServerConfig.java</span><br><span class="line">│       │                       ├── controller</span><br><span class="line">│       │                       │   └── AkkaController.java</span><br><span class="line">│       │                       └── support</span><br><span class="line">│       │                           ├── SpringActorProducer.java</span><br><span class="line">│       │                           └── SpringExtension.java</span><br><span class="line">│       └── resources</span><br><span class="line">│           ├── akka-client.conf</span><br><span class="line">│           └── akka-server.conf</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="Maven依赖"><a href="#Maven依赖" class="headerlink" title="Maven依赖"></a>Maven依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">akka.version</span>&gt;</span>2.5.9<span class="tag">&lt;/<span class="name">akka.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">guava.version</span>&gt;</span>18.0<span class="tag">&lt;/<span class="name">guava.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">lombok.version</span>&gt;</span>1.16.18<span class="tag">&lt;/<span class="name">lombok.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">fastjson.version</span>&gt;</span>1.2.41<span class="tag">&lt;/<span class="name">fastjson.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.typesafe.akka<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>akka-cluster_2.11<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;akka.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.typesafe.akka<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>akka-actor_2.11<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;akka.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.typesafe.akka<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>akka-remote_2.11<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;akka.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>fastjson<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;fastjson.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;lombok.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.google.guava<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>guava<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;guava.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="模块说明"><a href="#模块说明" class="headerlink" title="模块说明"></a>模块说明</h3><p>消息相关</p>
+<ul>
+<li>Message: 示例中客户端和服务端通讯的消息定义</li>
+</ul>
+<p>服务端相关</p>
+<ul>
+<li>SimpleActor: 服务端事件处理类</li>
+<li>ServerConfig : 服务端实例化配置</li>
+<li>akka-server.conf : 服务端配置</li>
+</ul>
+<p>客户端相关</p>
+<ul>
+<li>RouterActor: 消息投递转发类, 用于对于服务端节点进行选取和消息投递</li>
+<li>ClientConfig: 客户端端实例化配置</li>
+<li>akka-client.conf : 客户端配置</li>
+</ul>
+<p>应用启动类</p>
+<ul>
+<li>Application: SpringBoot应用主类</li>
+</ul>
+<p>容器衔接</p>
+<ul>
+<li>SpringActorProducer &amp; SpringExtension: IndirectActorProducer是Akka提供的Actor生成接口, SpringActorProducer实现该接口, 以ApplicationContextAware为代理生成我们需要的Actor的Props</li>
+</ul>
+<h3 id="模块代码"><a href="#模块代码" class="headerlink" title="模块代码"></a>模块代码</h3><h4 id="Spring衔接"><a href="#Spring衔接" class="headerlink" title="Spring衔接"></a>Spring衔接</h4><p><code>SpringActorProducer</code>代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringActorProducer</span> <span class="keyword">implements</span> <span class="title">IndirectActorProducer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> ApplicationContext applicationContext;</span><br><span class="line">    <span class="keyword">final</span> String actorBeanName;</span><br><span class="line">    <span class="keyword">final</span> Object[] args;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SpringActorProducer</span><span class="params">(ApplicationContext applicationContext, String actorBeanName, Object... args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.applicationContext = applicationContext;</span><br><span class="line">        <span class="keyword">this</span>.actorBeanName = actorBeanName;</span><br><span class="line">        <span class="keyword">this</span>.args = args;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Actor <span class="title">produce</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (Actor) applicationContext.getBean(actorBeanName, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Class&lt;? extends Actor&gt; actorClass() &#123;</span><br><span class="line">        <span class="keyword">return</span> (Class&lt;? extends Actor&gt;) applicationContext.getType(actorBeanName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>SpringExtension</code>代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringExtension</span> <span class="keyword">extends</span> <span class="title">AbstractExtensionId</span>&lt;<span class="title">SpringExtension</span>.<span class="title">SpringExt</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> SpringExtension INSTANCE = <span class="keyword">new</span> SpringExtension();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SpringExt <span class="title">createExtension</span><span class="params">(ExtendedActorSystem system)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SpringExt();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringExt</span> <span class="keyword">implements</span> <span class="title">Extension</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">volatile</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">(ApplicationContext applicationContext)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.applicationContext = applicationContext;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Props <span class="title">props</span><span class="params">(String actorBeanName, Object... args)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> Props.create(SpringActorProducer.class, applicationContext, actorBeanName, args);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
+<h4 id="消息定义"><a href="#消息定义" class="headerlink" title="消息定义"></a>消息定义</h4><p>说明: 消息定义必须实现序列化接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Message</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Data</span></span><br><span class="line">    <span class="meta">@Builder</span></span><br><span class="line">    <span class="meta">@AllArgsConstructor</span></span><br><span class="line">    <span class="meta">@NoArgsConstructor</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Task</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">long</span>  taskId;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> String content;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> JSON.toJSONString(<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Data</span></span><br><span class="line">    <span class="meta">@Builder</span></span><br><span class="line">    <span class="meta">@NoArgsConstructor</span></span><br><span class="line">    <span class="meta">@AllArgsConstructor</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Result</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">long</span> taskId;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> String result;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> JSON.toJSONString(<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h4><p>服务端配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">akka &#123;</span><br><span class="line">  loglevel = <span class="string">"INFO"</span></span><br><span class="line"></span><br><span class="line">  actor &#123;</span><br><span class="line">    provider = <span class="string">"akka.cluster.ClusterActorRefProvider"</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  remote &#123;</span><br><span class="line">    <span class="built_in">log</span>-remote-lifecycle-events = on</span><br><span class="line">    netty.tcp &#123;</span><br><span class="line">      hostname = <span class="string">"127.0.0.1"</span></span><br><span class="line">      port = 2555</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  cluster &#123;</span><br><span class="line">    roles = [<span class="string">"server"</span>]</span><br><span class="line">    seed-nodes = [</span><br><span class="line">      <span class="string">"akka.tcp://simpleAkkaCluster@127.0.0.1:2555"</span>]</span><br><span class="line"></span><br><span class="line">    auto-down-unreachable-after = 1000s</span><br><span class="line">    auto-down-unreachable-after = 1000s</span><br><span class="line">    metrics.enabled = off</span><br><span class="line">    jmx.multi-mbeans-in-same-jvm = on</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>客户端配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">akka &#123;</span><br><span class="line">  loglevel = <span class="string">"INFO"</span></span><br><span class="line"></span><br><span class="line">  actor &#123;</span><br><span class="line">    provider = <span class="string">"akka.cluster.ClusterActorRefProvider"</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  remote &#123;</span><br><span class="line">    <span class="built_in">log</span>-remote-lifecycle-events = on</span><br><span class="line">    netty.tcp &#123;</span><br><span class="line">      hostname = <span class="string">"127.0.0.1"</span></span><br><span class="line">      port = 2556</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  cluster &#123;</span><br><span class="line">    roles = [<span class="string">"router"</span>, <span class="string">"client"</span>]</span><br><span class="line">    seed-nodes = [</span><br><span class="line">      <span class="string">"akka.tcp://simpleAkkaCluster@127.0.0.1:2555"</span>]</span><br><span class="line"></span><br><span class="line">    auto-down-unreachable-after = 1000s</span><br><span class="line">    auto-down-unreachable-after = 1000s</span><br><span class="line">    metrics.enabled = off</span><br><span class="line">    jmx.multi-mbeans-in-same-jvm = on</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Actor示例"><a href="#Actor示例" class="headerlink" title="Actor示例"></a>Actor示例</h4><p>服务端消息处理Actor</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Scope</span>(<span class="string">"prototype"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleActor</span> <span class="keyword">extends</span> <span class="title">AbstractLoggingActor</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 集群监听</span></span><br><span class="line">    <span class="keyword">private</span> Cluster cluster = Cluster.get(getContext().system());</span><br><span class="line"></span><br><span class="line">    <span class="comment">//subscribe to cluster changes</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preStart</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//#subscribe</span></span><br><span class="line">        cluster.subscribe(getSelf(), ClusterEvent.initialStateAsEvents(),</span><br><span class="line">                ClusterEvent.MemberEvent.class, ClusterEvent.UnreachableMember.class);</span><br><span class="line">        <span class="comment">//#subscribe</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//re-subscribe when restart</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postStop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        cluster.unsubscribe(getSelf());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Receive <span class="title">createReceive</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> receiveBuilder()</span><br><span class="line">                .match(Message.Task.class,</span><br><span class="line">                        x-&gt; &#123;</span><br><span class="line">                            log().info(<span class="string">"[接收消息]:&#123;&#125;, Actor:&#123;&#125;, Thread:&#123;&#125;"</span>, x, getSelf().path(), Thread.currentThread().getName());</span><br><span class="line">                            getSender().tell(<span class="keyword">new</span> Message.Result(x.getTaskId(), x.getContent() + <span class="string">"处理完成"</span>), self());</span><br><span class="line">                        &#125;</span><br><span class="line">                )</span><br><span class="line">                .match(ClusterEvent.MemberUp.class,</span><br><span class="line">                        x -&gt; log().info(<span class="string">"Member is Up: &#123;&#125;"</span>, x.member())</span><br><span class="line">                )</span><br><span class="line">                .match(ClusterEvent.CurrentClusterState.class,</span><br><span class="line">                        x -&gt; log().info(<span class="string">"Cluster State: &#123;&#125;"</span>, x.getMembers())</span><br><span class="line">                )</span><br><span class="line">                .match(ClusterEvent.UnreachableMember.class,</span><br><span class="line">                        x -&gt; log().info(<span class="string">"Member detected as unreachable: &#123;&#125;"</span>, x.member())</span><br><span class="line">                )</span><br><span class="line">                .match(ClusterEvent.MemberRemoved.class,</span><br><span class="line">                        x -&gt; log().info(<span class="string">"Member is Removed: &#123;&#125;"</span>, x.member())</span><br><span class="line">                )</span><br><span class="line">                .match(ClusterEvent.MemberEvent.class,</span><br><span class="line">                        x -&gt; log().info(<span class="string">"ignore"</span>)</span><br><span class="line">                )</span><br><span class="line">                .matchAny(</span><br><span class="line">                        x -&gt; unhandled(x)</span><br><span class="line">                )</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>客户端路由分发Actor</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Scope</span>(<span class="string">"prototype"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RouterActor</span> <span class="keyword">extends</span> <span class="title">AbstractLoggingActor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 服务集合</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;ActorRef&gt; servers = Lists.newArrayList();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 集群监听</span></span><br><span class="line">    <span class="keyword">private</span> Cluster cluster = Cluster.get(context().system());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> AtomicInteger count = <span class="keyword">new</span> AtomicInteger(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String actorPath;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RouterActor</span><span class="params">(String actorPath)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.actorPath = actorPath;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">preStart</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        cluster.subscribe(self(), ClusterEvent.MemberEvent.class, ClusterEvent.ReachabilityEvent.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postStop</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        cluster.unsubscribe(self());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Receive <span class="title">createReceive</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> receiveBuilder()</span><br><span class="line">                .match(Message.Task.class,</span><br><span class="line">                        x -&gt; servers.isEmpty(),</span><br><span class="line">                        x -&gt; sender().tell(<span class="keyword">new</span> Message.Result(-<span class="number">1L</span>, <span class="string">"服务暂不可用"</span>), sender())</span><br><span class="line">                )</span><br><span class="line">                .match(Message.Task.class,</span><br><span class="line">                        x -&gt; &#123;</span><br><span class="line">                            log().info(<span class="string">"[Dispatcher][消息转发] 集群节点数量:&#123;&#125;, 待处理任务:&#123;&#125;"</span>, servers.size(), x.getTaskId());</span><br><span class="line"></span><br><span class="line">                            <span class="keyword">int</span> index = count.incrementAndGet() % servers.size();</span><br><span class="line">                            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;servers.size(); i++)&#123;</span><br><span class="line">                                log().info(<span class="string">"[Dispatcher][服务选取] 选中["</span> + (i == index) + <span class="string">"] 地址: "</span> + servers.get(i).path());</span><br><span class="line">                            &#125;</span><br><span class="line">                            <span class="comment">//System.out.println();</span></span><br><span class="line">                            servers.get(index).forward(x, getContext());</span><br><span class="line">                        &#125;</span><br><span class="line">                )</span><br><span class="line">                .match(Terminated.class,</span><br><span class="line">                        x -&gt; unRegister(x.getActor())</span><br><span class="line">                )</span><br><span class="line">                .match(ClusterEvent.CurrentClusterState.class, state -&gt; &#123;</span><br><span class="line">                    <span class="comment">// 当前节点在刚刚加入集群时，会收到CurrentClusterState消息，从中可以解析出集群中的所有前端节点</span></span><br><span class="line">                    servers.clear();</span><br><span class="line">                    <span class="keyword">for</span> (Member member : state.getMembers()) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (member.status().equals(MemberStatus.up())) &#123;</span><br><span class="line">                            register(member);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">                .match(ClusterEvent.MemberUp.class,</span><br><span class="line">                        x -&gt; register(x.member())</span><br><span class="line">                )</span><br><span class="line">                .match(ClusterEvent.MemberEvent.class,</span><br><span class="line">                        x -&gt; unRegister(x.member())</span><br><span class="line">                )</span><br><span class="line">                .match(ClusterEvent.UnreachableMember.class,</span><br><span class="line">                        x -&gt; unRegister(x.member())</span><br><span class="line">                )</span><br><span class="line">                .match(ClusterEvent.ReachableMember.class,</span><br><span class="line">                        x -&gt; unRegister(x.member())</span><br><span class="line">                ).build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">register</span><span class="params">(Member member)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">null</span> != member &amp;&amp; member.hasRole(<span class="string">"server"</span>))&#123;</span><br><span class="line">            register(getContext().actorFor(member.address() + <span class="string">"/user/"</span> + <span class="keyword">this</span>.actorPath));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unRegister</span><span class="params">(Member member)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">null</span> != member &amp;&amp; member.hasRole(<span class="string">"server"</span>))&#123;</span><br><span class="line">            unRegister(getContext().actorFor(member.address() + <span class="string">"/user/"</span> + <span class="keyword">this</span>.actorPath));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">register</span><span class="params">(ActorRef actorRef)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">null</span> != actorRef)&#123;</span><br><span class="line">            servers.add(actorRef);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unRegister</span><span class="params">(ActorRef actorRef)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">null</span> != actorRef)&#123;</span><br><span class="line">            servers.remove(actorRef);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setActorPath</span><span class="params">(String actorPath)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.actorPath = actorPath;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="集群实例化"><a href="#集群实例化" class="headerlink" title="集群实例化"></a>集群实例化</h4><p>服务端注解实例化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServerConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Config config;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">        load(<span class="string">"akka-server.conf"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">load</span><span class="params">(String resource)</span></span>&#123;</span><br><span class="line">        config = ConfigFactory.load(<span class="keyword">this</span>.getClass().getClassLoader(), resource);</span><br><span class="line">        List&lt;String&gt; roles = config.getStringList(<span class="string">"akka.cluster.roles"</span>);</span><br><span class="line">        log.info(<span class="string">"[Cluster Client][Role] :&#123;&#125;"</span>, roles);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span>(<span class="string">"serverSystem"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ActorSystem <span class="title">actorSystem</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ActorSystem system = ActorSystem.create(<span class="string">"simpleAkkaCluster"</span>, config);</span><br><span class="line">        <span class="comment">// initialize the application context in the Akka Spring Extension</span></span><br><span class="line">        SpringExtension.INSTANCE.get(system).initialize(applicationContext);</span><br><span class="line">        log.info(<span class="string">"[Cluster Client] [System] &#123;&#125;"</span>, system.name());</span><br><span class="line">        <span class="keyword">return</span> system;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span>(<span class="string">"serverActor"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ActorRef <span class="title">actorRef</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ActorSystem system = actorSystem();</span><br><span class="line">        ActorRef ebIndexActor = system.actorOf(</span><br><span class="line">                SpringExtension.INSTANCE.get(system).props(<span class="string">"simpleActor"</span>),</span><br><span class="line">                <span class="string">"SimpleEcho"</span>);</span><br><span class="line">        log.info(<span class="string">"[Cluster Server Node] [Loaded] &#123;&#125; "</span>, ebIndexActor.path());</span><br><span class="line">        <span class="keyword">return</span> ebIndexActor;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>客户端注解实例化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClientConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Config config;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">        load(<span class="string">"akka-client.conf"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">load</span><span class="params">(String resource)</span></span>&#123;</span><br><span class="line">        config = ConfigFactory.load(<span class="keyword">this</span>.getClass().getClassLoader(), resource);</span><br><span class="line">        List&lt;String&gt; roles = config.getStringList(<span class="string">"akka.cluster.roles"</span>);</span><br><span class="line">        log.info(<span class="string">"[Cluster Client][Role] :&#123;&#125;"</span>, roles);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span>(<span class="string">"clientSystem"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ActorSystem <span class="title">actorSystem</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ActorSystem system = ActorSystem.create(<span class="string">"simpleAkkaCluster"</span>, config);</span><br><span class="line">        <span class="comment">// initialize the application context in the Akka Spring Extension</span></span><br><span class="line">        SpringExtension.INSTANCE.get(system).initialize(applicationContext);</span><br><span class="line">        log.info(<span class="string">"[Cluster Client] [System] &#123;&#125;"</span>, system.name());</span><br><span class="line">        <span class="keyword">return</span> system;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span>(<span class="string">"clientActor"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ActorRef <span class="title">actorRef</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ActorSystem system = actorSystem();</span><br><span class="line">        ActorRef clientActor = system.actorOf(SpringExtension.INSTANCE.get(system).props(<span class="string">"routerActor"</span>, <span class="string">"SimpleEcho"</span>), <span class="string">"clientActor"</span>);</span><br><span class="line">        log.info(<span class="string">"[Cluster Client Node] [Loaded] &#123;&#125; "</span>, clientActor.path());</span><br><span class="line">        <span class="keyword">return</span> clientActor;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Rest测试类"><a href="#Rest测试类" class="headerlink" title="Rest测试类"></a>Rest测试类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/api/akka"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AkkaController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span>(name = <span class="string">"clientActor"</span>)</span><br><span class="line">    <span class="keyword">private</span> ActorRef clientActor;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 和远程端进行数据交互并获取处理结果</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GetMapping</span>(value = <span class="string">"/cluster/event"</span>, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ResponseEntity <span class="title">clusterEvent</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        log.info(<span class="string">"[Client] path:&#123;&#125;"</span>, clientActor.path());</span><br><span class="line"></span><br><span class="line">        List&lt;Future&lt;Object&gt;&gt; futures = Lists.newArrayList();</span><br><span class="line">        Timeout timeout = <span class="keyword">new</span> Timeout(Duration.create(<span class="number">50</span>, TimeUnit.SECONDS));</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">5</span>; i++)&#123;</span><br><span class="line">            String text = <span class="string">"集群消息"</span> + i + UUID.randomUUID().toString();</span><br><span class="line">            Future&lt;Object&gt; future = Patterns.ask(clientActor, <span class="keyword">new</span> Message.Task(<span class="number">100L</span> +i, text), timeout);</span><br><span class="line">            futures.add(future);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(Future&lt;Object&gt; future: futures)&#123;</span><br><span class="line">            Message.Result result = (Message.Result) Await.result(future, timeout.duration());</span><br><span class="line">            System.out.println(<span class="string">"服务端返回:"</span> + result);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.ok(<span class="string">"test"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="SpringBoot主类"><a href="#SpringBoot主类" class="headerlink" title="SpringBoot主类"></a>SpringBoot主类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">        log.info(<span class="string">"[启动成功] 应用名称: &#123;&#125;"</span>, <span class="string">"Akka Spring Boot"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="访问测试"><a href="#访问测试" class="headerlink" title="访问测试"></a>访问测试</h3><p>启动SpringBoot应用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">2018-02-05 17:54:13.586  INFO 6523 --- [           main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8080 (http)</span><br><span class="line">2018-02-05 17:54:13.594  INFO 6523 --- [           main] com.elonsu.cluster.akka.Application      : Started Application <span class="keyword">in</span> 4.948 seconds (JVM running <span class="keyword">for</span> 6.118)</span><br><span class="line">2018-02-05 17:54:13.594  INFO 6523 --- [           main] com.elonsu.cluster.akka.Application      : [启动成功] 应用名称: Akka Spring Boot</span><br><span class="line">[INFO] [02/05/2018 17:54:17.602] [simpleAkkaCluster-akka.actor.default-dispatcher-3] [akka://simpleAkkaCluster/deadLetters] Message [akka.cluster.InternalClusterAction<span class="variable">$InitJoin</span>$] from Actor[akka://simpleAkkaCluster/system/cluster/core/daemon/joinSeedNodeProcess-1<span class="comment">#-1342745044] to Actor[akka://simpleAkkaCluster/deadLetters] was not delivered. [2] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.</span></span><br><span class="line">[WARN] [02/05/2018 17:54:22.622] [simpleAkkaCluster-akka.actor.default-dispatcher-15] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/system/cluster/core/daemon/joinSeedNodeProcess-1] Couldn<span class="string">'t join seed nodes after [2] attempts, will try again. seed-nodes=[akka.tcp://simpleAkkaCluster@127.0.0.1:2555]</span></span><br><span class="line"><span class="string">[INFO] [02/05/2018 17:54:22.698] [simpleAkkaCluster-akka.actor.default-dispatcher-3] [akka.cluster.Cluster(akka://simpleAkkaCluster)] Cluster Node [akka.tcp://simpleAkkaCluster@127.0.0.1:2555] - Received InitJoin message from [Actor[akka.tcp://simpleAkkaCluster@127.0.0.1:2556/system/cluster/core/daemon/joinSeedNodeProcess-1#-1342745044]] to [akka.tcp://simpleAkkaCluster@127.0.0.1:2555]</span></span><br><span class="line"><span class="string">[INFO] [02/05/2018 17:54:22.698] [simpleAkkaCluster-akka.actor.default-dispatcher-3] [akka.cluster.Cluster(akka://simpleAkkaCluster)] Cluster Node [akka.tcp://simpleAkkaCluster@127.0.0.1:2555] - Sending InitJoinAck message from node [akka.tcp://simpleAkkaCluster@127.0.0.1:2555] to [Actor[akka.tcp://simpleAkkaCluster@127.0.0.1:2556/system/cluster/core/daemon/joinSeedNodeProcess-1#-1342745044]]</span></span><br><span class="line"><span class="string">[INFO] [02/05/2018 17:54:22.721] [simpleAkkaCluster-akka.actor.default-dispatcher-19] [akka.cluster.Cluster(akka://simpleAkkaCluster)] Cluster Node [akka.tcp://simpleAkkaCluster@127.0.0.1:2555] - Node [akka.tcp://simpleAkkaCluster@127.0.0.1:2556] is JOINING, roles [router, client, dc-default]</span></span><br><span class="line"><span class="string">[INFO] [02/05/2018 17:54:22.723] [simpleAkkaCluster-akka.actor.default-dispatcher-2] [akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho] ignore</span></span><br><span class="line"><span class="string">[INFO] [02/05/2018 17:54:22.726] [simpleAkkaCluster-akka.actor.default-dispatcher-19] [akka.cluster.Cluster(akka://simpleAkkaCluster)] Cluster Node [akka.tcp://simpleAkkaCluster@127.0.0.1:2555] - Leader is moving node [akka.tcp://simpleAkkaCluster@127.0.0.1:2556] to [Up]</span></span><br><span class="line"><span class="string">[INFO] [02/05/2018 17:54:22.726] [simpleAkkaCluster-akka.actor.default-dispatcher-24] [akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho] Member is Up: Member(address = akka.tcp://simpleAkkaCluster@127.0.0.1:2556, status = Up)</span></span><br><span class="line"><span class="string">[INFO] [02/05/2018 17:54:22.828] [simpleAkkaCluster-akka.actor.default-dispatcher-15] [akka.cluster.Cluster(akka://simpleAkkaCluster)] Cluster Node [akka.tcp://simpleAkkaCluster@127.0.0.1:2556] - Welcome from [akka.tcp://simpleAkkaCluster@127.0.0.1:2555</span></span><br></pre></td></tr></table></figure>
+<p>访问接口</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost spring-akka ]$ curl http://localhost:8080/api/akka/cluster/event</span><br><span class="line"><span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+<p>交互日志</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">2018-02-05 17:55:37.462  INFO 6523 --- [nio-8080-exec-9] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet <span class="string">'dispatcherServlet'</span></span><br><span class="line">2018-02-05 17:55:37.462  INFO 6523 --- [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : FrameworkServlet <span class="string">'dispatcherServlet'</span>: initialization started</span><br><span class="line">2018-02-05 17:55:37.490  INFO 6523 --- [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : FrameworkServlet <span class="string">'dispatcherServlet'</span>: initialization completed <span class="keyword">in</span> 28 ms</span><br><span class="line">2018-02-05 17:55:37.523  INFO 6523 --- [nio-8080-exec-9] c.e.c.a.s.controller.AkkaController      : [Client] path:akka://simpleAkkaCluster/user/clientActor</span><br><span class="line">[INFO] [02/05/2018 17:55:37.526] [simpleAkkaCluster-akka.actor.default-dispatcher-4] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][消息转发] 集群节点数量:1, 待处理任务:100</span><br><span class="line">[INFO] [02/05/2018 17:55:37.526] [simpleAkkaCluster-akka.actor.default-dispatcher-4] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][服务选取] 选中[<span class="literal">true</span>] 地址: akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho</span><br><span class="line">[INFO] [02/05/2018 17:55:37.527] [simpleAkkaCluster-akka.actor.default-dispatcher-4] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][消息转发] 集群节点数量:1, 待处理任务:101</span><br><span class="line">[INFO] [02/05/2018 17:55:37.527] [simpleAkkaCluster-akka.actor.default-dispatcher-4] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][服务选取] 选中[<span class="literal">true</span>] 地址: akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho</span><br><span class="line">[INFO] [02/05/2018 17:55:37.527] [simpleAkkaCluster-akka.actor.default-dispatcher-4] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][消息转发] 集群节点数量:1, 待处理任务:102</span><br><span class="line">[INFO] [02/05/2018 17:55:37.527] [simpleAkkaCluster-akka.actor.default-dispatcher-4] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][服务选取] 选中[<span class="literal">true</span>] 地址: akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho</span><br><span class="line">[INFO] [02/05/2018 17:55:37.527] [simpleAkkaCluster-akka.actor.default-dispatcher-4] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][消息转发] 集群节点数量:1, 待处理任务:103</span><br><span class="line">[INFO] [02/05/2018 17:55:37.527] [simpleAkkaCluster-akka.actor.default-dispatcher-4] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][服务选取] 选中[<span class="literal">true</span>] 地址: akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho</span><br><span class="line">[INFO] [02/05/2018 17:55:37.527] [simpleAkkaCluster-akka.actor.default-dispatcher-4] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][消息转发] 集群节点数量:1, 待处理任务:104</span><br><span class="line">[INFO] [02/05/2018 17:55:37.527] [simpleAkkaCluster-akka.actor.default-dispatcher-4] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][服务选取] 选中[<span class="literal">true</span>] 地址: akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho</span><br><span class="line">[WARN] [SECURITY][02/05/2018 17:55:37.528] [simpleAkkaCluster-akka.remote.default-remote-dispatcher-18] [akka.serialization.Serialization(akka://simpleAkkaCluster)] Using the default Java serializer <span class="keyword">for</span> class [com.elonsu.cluster.akka.spring.actor.Message<span class="variable">$Task</span>] <span class="built_in">which</span> is not recommended because of performance implications. Use another serializer or <span class="built_in">disable</span> this warning using the setting <span class="string">'akka.actor.warn-about-java-serializer-usage'</span></span><br><span class="line">[INFO] [02/05/2018 17:55:37.616] [simpleAkkaCluster-akka.actor.default-dispatcher-16] [akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho] [接收消息]:&#123;<span class="string">"content"</span>:<span class="string">"集群消息0526add9d-29ba-409f-ae74-cc7b61606613"</span>,<span class="string">"taskId"</span>:100&#125;, Actor:akka://simpleAkkaCluster/user/SimpleEcho, Thread:simpleAkkaCluster-akka.actor.default-dispatcher-16</span><br><span class="line">[INFO] [02/05/2018 17:55:37.616] [simpleAkkaCluster-akka.actor.default-dispatcher-16] [akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho] [接收消息]:&#123;<span class="string">"content"</span>:<span class="string">"集群消息16d03f841-67d4-4169-b747-dc0a8f2e02dd"</span>,<span class="string">"taskId"</span>:101&#125;, Actor:akka://simpleAkkaCluster/user/SimpleEcho, Thread:simpleAkkaCluster-akka.actor.default-dispatcher-16</span><br><span class="line">[INFO] [02/05/2018 17:55:37.616] [simpleAkkaCluster-akka.actor.default-dispatcher-16] [akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho] [接收消息]:&#123;<span class="string">"content"</span>:<span class="string">"集群消息25c2c2579-71c5-45a8-97e6-434a95a186df"</span>,<span class="string">"taskId"</span>:102&#125;, Actor:akka://simpleAkkaCluster/user/SimpleEcho, Thread:simpleAkkaCluster-akka.actor.default-dispatcher-16</span><br><span class="line">[INFO] [02/05/2018 17:55:37.617] [simpleAkkaCluster-akka.actor.default-dispatcher-16] [akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho] [接收消息]:&#123;<span class="string">"content"</span>:<span class="string">"集群消息3f4ad2fe3-d624-416d-a01a-e346914fcbbb"</span>,<span class="string">"taskId"</span>:103&#125;, Actor:akka://simpleAkkaCluster/user/SimpleEcho, Thread:simpleAkkaCluster-akka.actor.default-dispatcher-16</span><br><span class="line">[INFO] [02/05/2018 17:55:37.617] [simpleAkkaCluster-akka.actor.default-dispatcher-16] [akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho] [接收消息]:&#123;<span class="string">"content"</span>:<span class="string">"集群消息421b5b619-345d-4eb0-8682-df8955ea70df"</span>,<span class="string">"taskId"</span>:104&#125;, Actor:akka://simpleAkkaCluster/user/SimpleEcho, Thread:simpleAkkaCluster-akka.actor.default-dispatcher-16</span><br><span class="line">[WARN] [SECURITY][02/05/2018 17:55:37.617] [simpleAkkaCluster-akka.remote.default-remote-dispatcher-21] [akka.serialization.Serialization(akka://simpleAkkaCluster)] Using the default Java serializer <span class="keyword">for</span> class [com.elonsu.cluster.akka.spring.actor.Message<span class="variable">$Result</span>] <span class="built_in">which</span> is not recommended because of performance implications. Use another serializer or <span class="built_in">disable</span> this warning using the setting <span class="string">'akka.actor.warn-about-java-serializer-usage'</span></span><br><span class="line">服务端返回:&#123;<span class="string">"result"</span>:<span class="string">"集群消息0526add9d-29ba-409f-ae74-cc7b61606613处理完成"</span>,<span class="string">"taskId"</span>:100&#125;</span><br><span class="line">服务端返回:&#123;<span class="string">"result"</span>:<span class="string">"集群消息16d03f841-67d4-4169-b747-dc0a8f2e02dd处理完成"</span>,<span class="string">"taskId"</span>:101&#125;</span><br><span class="line">服务端返回:&#123;<span class="string">"result"</span>:<span class="string">"集群消息25c2c2579-71c5-45a8-97e6-434a95a186df处理完成"</span>,<span class="string">"taskId"</span>:102&#125;</span><br><span class="line">服务端返回:&#123;<span class="string">"result"</span>:<span class="string">"集群消息3f4ad2fe3-d624-416d-a01a-e346914fcbbb处理完成"</span>,<span class="string">"taskId"</span>:103&#125;</span><br><span class="line">服务端返回:&#123;<span class="string">"result"</span>:<span class="string">"集群消息421b5b619-345d-4eb0-8682-df8955ea70df处理完成"</span>,<span class="string">"taskId"</span>:104&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="集群部署"><a href="#集群部署" class="headerlink" title="集群部署"></a>集群部署</h3><p>上面示例演示的在同一台机器上的不同端口进行通讯. 接下来演示在多台机器上的不同配置</p>
+<p>服务端配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">akka &#123;</span><br><span class="line">  loglevel = <span class="string">"INFO"</span></span><br><span class="line"></span><br><span class="line">  actor &#123;</span><br><span class="line">    provider = <span class="string">"akka.cluster.ClusterActorRefProvider"</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  remote &#123;</span><br><span class="line">    <span class="built_in">log</span>-remote-lifecycle-events = on</span><br><span class="line">    netty.tcp &#123;</span><br><span class="line">      port = 2555</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  cluster &#123;</span><br><span class="line">    roles = [<span class="string">"server"</span>]</span><br><span class="line">    seed-nodes = [</span><br><span class="line">      <span class="string">"akka.tcp://simpleAkkaCluster@192.168.0.101:2555"</span>,</span><br><span class="line">      <span class="string">"akka.tcp://simpleAkkaCluster@192.168.0.102:2555"</span>,</span><br><span class="line">      <span class="string">"akka.tcp://simpleAkkaCluster@192.168.0.103:2555"</span>]</span><br><span class="line"></span><br><span class="line">    auto-down-unreachable-after = 1000s</span><br><span class="line">    auto-down-unreachable-after = 1000s</span><br><span class="line">    metrics.enabled = off</span><br><span class="line">    jmx.multi-mbeans-in-same-jvm = on</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>客户端配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">akka &#123;</span><br><span class="line">  loglevel = <span class="string">"INFO"</span></span><br><span class="line"></span><br><span class="line">  actor &#123;</span><br><span class="line">    provider = <span class="string">"akka.cluster.ClusterActorRefProvider"</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  remote &#123;</span><br><span class="line">    <span class="built_in">log</span>-remote-lifecycle-events = on</span><br><span class="line">    netty.tcp &#123;</span><br><span class="line">      port = 2556</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  cluster &#123;</span><br><span class="line">    roles = [<span class="string">"router"</span>, <span class="string">"client"</span>]</span><br><span class="line">    seed-nodes = [</span><br><span class="line">      <span class="string">"akka.tcp://simpleAkkaCluster@192.168.0.101:2555"</span>,</span><br><span class="line">      <span class="string">"akka.tcp://simpleAkkaCluster@192.168.0.102:2555"</span>,</span><br><span class="line">      <span class="string">"akka.tcp://simpleAkkaCluster@192.168.0.103:2555"</span>]</span><br><span class="line"></span><br><span class="line">    auto-down-unreachable-after = 1000s</span><br><span class="line">    auto-down-unreachable-after = 1000s</span><br><span class="line">    metrics.enabled = off</span><br><span class="line">    jmx.multi-mbeans-in-same-jvm = on</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相对于单节点配置,不同的是示例中服务节点都配置为不同IP, 同时摘掉了绑定的<code>akka.remote.netty.tcp.hostname</code>, 让Akka自动获取实例的通讯IP进行绑定.</p>
+<h3 id="配置Dispatcher"><a href="#配置Dispatcher" class="headerlink" title="配置Dispatcher"></a>配置Dispatcher</h3><h4 id="客户端配置重定义默认的default-dispatcher"><a href="#客户端配置重定义默认的default-dispatcher" class="headerlink" title="客户端配置重定义默认的default-dispatcher"></a>客户端配置重定义默认的<code>default-dispatcher</code></h4><p>配置thread-pool默认默认</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">akka &#123;</span><br><span class="line">  loglevel = <span class="string">"INFO"</span></span><br><span class="line"></span><br><span class="line">  actor &#123;</span><br><span class="line">    provider = <span class="string">"akka.cluster.ClusterActorRefProvider"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># default dispatcher</span></span><br><span class="line">    default-dispatcher &#123;</span><br><span class="line">      <span class="built_in">type</span> = <span class="string">"Dispatcher"</span></span><br><span class="line">      <span class="comment"># What kind of ExecutionService to use</span></span><br><span class="line">      executor = <span class="string">"thread-pool-executor"</span></span><br><span class="line">      <span class="comment"># Configuration for the thread pool</span></span><br><span class="line">      thread-pool-executor &#123;</span><br><span class="line">        <span class="comment"># minimum number of threads to cap factor-based core number to</span></span><br><span class="line">        core-pool-size-min = 3</span><br><span class="line">        <span class="comment"># No of core threads ... ceil(available processors * factor)</span></span><br><span class="line">        core-pool-size-factor = 2.0</span><br><span class="line">        <span class="comment"># maximum number of threads to cap factor-based number to</span></span><br><span class="line">        core-pool-size-max = 10</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment"># Throughput defines the maximum number of messages to be</span></span><br><span class="line">      <span class="comment"># processed per actor before the thread jumps to the next actor.</span></span><br><span class="line">      <span class="comment"># Set to 1 for as fair as possible.</span></span><br><span class="line">      throughput = 20</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  remote &#123;</span><br><span class="line">    <span class="built_in">log</span>-remote-lifecycle-events = on</span><br><span class="line">    netty.tcp &#123;</span><br><span class="line">      hostname = <span class="string">"127.0.0.1"</span></span><br><span class="line">      port = 2556</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  cluster &#123;</span><br><span class="line">    roles = [<span class="string">"router"</span>, <span class="string">"client"</span>]</span><br><span class="line">    seed-nodes = [</span><br><span class="line">      <span class="string">"akka.tcp://simpleAkkaCluster@127.0.0.1:2555"</span>]</span><br><span class="line"></span><br><span class="line">    auto-down-unreachable-after = 1000s</span><br><span class="line">    auto-down-unreachable-after = 1000s</span><br><span class="line">    metrics.enabled = off</span><br><span class="line">    jmx.multi-mbeans-in-same-jvm = on</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行日志</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">2018-02-06 11:49:28.222  INFO 2218 --- [nio-8080-exec-7] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet <span class="string">'dispatcherServlet'</span></span><br><span class="line">2018-02-06 11:49:28.223  INFO 2218 --- [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : FrameworkServlet <span class="string">'dispatcherServlet'</span>: initialization started</span><br><span class="line">2018-02-06 11:49:28.238  INFO 2218 --- [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : FrameworkServlet <span class="string">'dispatcherServlet'</span>: initialization completed <span class="keyword">in</span> 15 ms</span><br><span class="line">2018-02-06 11:49:28.260  INFO 2218 --- [nio-8080-exec-7] c.e.c.a.s.controller.AkkaController      : [Client] path:akka://simpleAkkaCluster/user/clientActor</span><br><span class="line">[INFO] [02/06/2018 11:49:28.262] [simpleAkkaCluster-akka.actor.default-dispatcher-9] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][消息转发] 集群节点数量:1, 待处理任务:100</span><br><span class="line">[INFO] [02/06/2018 11:49:28.262] [simpleAkkaCluster-akka.actor.default-dispatcher-9] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][服务选取] 选中[<span class="literal">true</span>] 地址: akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho</span><br><span class="line">[INFO] [02/06/2018 11:49:28.262] [simpleAkkaCluster-akka.actor.default-dispatcher-9] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][消息转发] 集群节点数量:1, 待处理任务:101</span><br><span class="line">[INFO] [02/06/2018 11:49:28.262] [simpleAkkaCluster-akka.actor.default-dispatcher-9] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][服务选取] 选中[<span class="literal">true</span>] 地址: akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho</span><br><span class="line">[INFO] [02/06/2018 11:49:28.262] [simpleAkkaCluster-akka.actor.default-dispatcher-9] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][消息转发] 集群节点数量:1, 待处理任务:102</span><br><span class="line">[INFO] [02/06/2018 11:49:28.262] [simpleAkkaCluster-akka.actor.default-dispatcher-9] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][服务选取] 选中[<span class="literal">true</span>] 地址: akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho</span><br><span class="line">[INFO] [02/06/2018 11:49:28.262] [simpleAkkaCluster-akka.actor.default-dispatcher-9] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][消息转发] 集群节点数量:1, 待处理任务:103</span><br><span class="line">[INFO] [02/06/2018 11:49:28.262] [simpleAkkaCluster-akka.actor.default-dispatcher-9] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][服务选取] 选中[<span class="literal">true</span>] 地址: akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho</span><br><span class="line">[INFO] [02/06/2018 11:49:28.262] [simpleAkkaCluster-akka.actor.default-dispatcher-9] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][消息转发] 集群节点数量:1, 待处理任务:104</span><br><span class="line">[INFO] [02/06/2018 11:49:28.262] [simpleAkkaCluster-akka.actor.default-dispatcher-9] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][服务选取] 选中[<span class="literal">true</span>] 地址: akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho</span><br><span class="line">[WARN] [SECURITY][02/06/2018 11:49:28.263] [simpleAkkaCluster-akka.remote.default-remote-dispatcher-11] [akka.serialization.Serialization(akka://simpleAkkaCluster)] Using the default Java serializer <span class="keyword">for</span> class [com.elonsu.cluster.akka.spring.actor.Message<span class="variable">$Task</span>] <span class="built_in">which</span> is not recommended because of performance implications. Use another serializer or <span class="built_in">disable</span> this warning using the setting <span class="string">'akka.actor.warn-about-java-serializer-usage'</span></span><br><span class="line">[INFO] [02/06/2018 11:49:28.329] [simpleAkkaCluster-akka.actor.default-dispatcher-22] [akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho] [接收消息]:&#123;<span class="string">"content"</span>:<span class="string">"集群消息06ab614d0-f50d-4c6c-b91d-7b5af1e98187"</span>,<span class="string">"taskId"</span>:100&#125;, Actor:akka://simpleAkkaCluster/user/SimpleEcho, Thread:simpleAkkaCluster-akka.actor.default-dispatcher-22</span><br><span class="line">[INFO] [02/06/2018 11:49:28.330] [simpleAkkaCluster-akka.actor.default-dispatcher-22] [akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho] [接收消息]:&#123;<span class="string">"content"</span>:<span class="string">"集群消息1057874e5-1219-4bea-81f5-5612707bf83d"</span>,<span class="string">"taskId"</span>:101&#125;, Actor:akka://simpleAkkaCluster/user/SimpleEcho, Thread:simpleAkkaCluster-akka.actor.default-dispatcher-22</span><br><span class="line">[INFO] [02/06/2018 11:49:28.330] [simpleAkkaCluster-akka.actor.default-dispatcher-22] [akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho] [接收消息]:&#123;<span class="string">"content"</span>:<span class="string">"集群消息2467e56fa-e2dd-493a-a583-cf0496bbb96f"</span>,<span class="string">"taskId"</span>:102&#125;, Actor:akka://simpleAkkaCluster/user/SimpleEcho, Thread:simpleAkkaCluster-akka.actor.default-dispatcher-22</span><br><span class="line">[INFO] [02/06/2018 11:49:28.330] [simpleAkkaCluster-akka.actor.default-dispatcher-22] [akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho] [接收消息]:&#123;<span class="string">"content"</span>:<span class="string">"集群消息3ccad0171-99b4-4384-b836-72115304f77a"</span>,<span class="string">"taskId"</span>:103&#125;, Actor:akka://simpleAkkaCluster/user/SimpleEcho, Thread:simpleAkkaCluster-akka.actor.default-dispatcher-22</span><br><span class="line">[INFO] [02/06/2018 11:49:28.330] [simpleAkkaCluster-akka.actor.default-dispatcher-22] [akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho] [接收消息]:&#123;<span class="string">"content"</span>:<span class="string">"集群消息427786c84-4971-4f4d-9c52-a4975b9548bf"</span>,<span class="string">"taskId"</span>:104&#125;, Actor:akka://simpleAkkaCluster/user/SimpleEcho, Thread:simpleAkkaCluster-akka.actor.default-dispatcher-22</span><br><span class="line">[WARN] [SECURITY][02/06/2018 11:49:28.330] [simpleAkkaCluster-akka.remote.default-remote-dispatcher-5] [akka.serialization.Serialization(akka://simpleAkkaCluster)] Using the default Java serializer <span class="keyword">for</span> class [com.elonsu.cluster.akka.spring.actor.Message<span class="variable">$Result</span>] <span class="built_in">which</span> is not recommended because of performance implications. Use another serializer or <span class="built_in">disable</span> this warning using the setting <span class="string">'akka.actor.warn-about-java-serializer-usage'</span></span><br><span class="line">服务端返回:&#123;<span class="string">"result"</span>:<span class="string">"集群消息06ab614d0-f50d-4c6c-b91d-7b5af1e98187处理完成"</span>,<span class="string">"taskId"</span>:100&#125;</span><br><span class="line">服务端返回:&#123;<span class="string">"result"</span>:<span class="string">"集群消息1057874e5-1219-4bea-81f5-5612707bf83d处理完成"</span>,<span class="string">"taskId"</span>:101&#125;</span><br><span class="line">服务端返回:&#123;<span class="string">"result"</span>:<span class="string">"集群消息2467e56fa-e2dd-493a-a583-cf0496bbb96f处理完成"</span>,<span class="string">"taskId"</span>:102&#125;</span><br><span class="line">服务端返回:&#123;<span class="string">"result"</span>:<span class="string">"集群消息3ccad0171-99b4-4384-b836-72115304f77a处理完成"</span>,<span class="string">"taskId"</span>:103&#125;</span><br><span class="line">服务端返回:&#123;<span class="string">"result"</span>:<span class="string">"集群消息427786c84-4971-4f4d-9c52-a4975b9548bf处理完成"</span>,<span class="string">"taskId"</span>:104&#125;</span><br></pre></td></tr></table></figure>
+<p>配置fork-join默认默认</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">akka &#123;</span><br><span class="line">  loglevel = <span class="string">"INFO"</span></span><br><span class="line"></span><br><span class="line">  actor &#123;</span><br><span class="line">    provider = <span class="string">"akka.cluster.ClusterActorRefProvider"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># self defined dispatcher</span></span><br><span class="line">    default-dispatcher &#123;</span><br><span class="line">      <span class="built_in">type</span> = <span class="string">"Dispatcher"</span></span><br><span class="line">      <span class="comment"># What kind of ExecutionService to use</span></span><br><span class="line">      executor = <span class="string">"fork-join-executor"</span></span><br><span class="line">      <span class="comment"># Configuration for the fork join pool</span></span><br><span class="line">      fork-join-executor &#123;</span><br><span class="line">        <span class="comment"># Min number of threads to cap factor-based parallelism number to</span></span><br><span class="line">        parallelism-min = 2</span><br><span class="line">        <span class="comment"># Parallelism (threads) ... ceil(available processors * factor)</span></span><br><span class="line">        parallelism-factor = 2.0</span><br><span class="line">        <span class="comment"># Max number of threads to cap factor-based parallelism number to</span></span><br><span class="line">        parallelism-max = 10</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment"># Throughput defines the maximum number of messages to be</span></span><br><span class="line">      <span class="comment"># processed per actor before the thread jumps to the next actor.</span></span><br><span class="line">      <span class="comment"># Set to 1 for as fair as possible.</span></span><br><span class="line">      throughput = 20</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  remote &#123;</span><br><span class="line">    <span class="built_in">log</span>-remote-lifecycle-events = on</span><br><span class="line">    netty.tcp &#123;</span><br><span class="line">      hostname = <span class="string">"127.0.0.1"</span></span><br><span class="line">      port = 2556</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  cluster &#123;</span><br><span class="line">    roles = [<span class="string">"router"</span>, <span class="string">"client"</span>]</span><br><span class="line">    seed-nodes = [</span><br><span class="line">      <span class="string">"akka.tcp://simpleAkkaCluster@127.0.0.1:2555"</span>]</span><br><span class="line"></span><br><span class="line">    auto-down-unreachable-after = 1000s</span><br><span class="line">    auto-down-unreachable-after = 1000s</span><br><span class="line">    metrics.enabled = off</span><br><span class="line">    jmx.multi-mbeans-in-same-jvm = on</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="客户端配置自定义Dispatcher"><a href="#客户端配置自定义Dispatcher" class="headerlink" title="客户端配置自定义Dispatcher"></a>客户端配置自定义Dispatcher</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">akka &#123;</span><br><span class="line">  loglevel = <span class="string">"INFO"</span></span><br><span class="line"></span><br><span class="line">  actor &#123;</span><br><span class="line">    provider = <span class="string">"akka.cluster.ClusterActorRefProvider"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># self defined dispatcher</span></span><br><span class="line">    thread-pool-dispatcher &#123;</span><br><span class="line">      <span class="built_in">type</span> = <span class="string">"Dispatcher"</span></span><br><span class="line">      <span class="comment"># What kind of ExecutionService to use</span></span><br><span class="line">      executor = <span class="string">"thread-pool-executor"</span></span><br><span class="line">      <span class="comment"># Configuration for the thread pool</span></span><br><span class="line">      thread-pool-executor &#123;</span><br><span class="line">        <span class="comment"># minimum number of threads to cap factor-based core number to</span></span><br><span class="line">        core-pool-size-min = 3</span><br><span class="line">        <span class="comment"># No of core threads ... ceil(available processors * factor)</span></span><br><span class="line">        core-pool-size-factor = 2.0</span><br><span class="line">        <span class="comment"># maximum number of threads to cap factor-based number to</span></span><br><span class="line">        core-pool-size-max = 10</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment"># Throughput defines the maximum number of messages to be</span></span><br><span class="line">      <span class="comment"># processed per actor before the thread jumps to the next actor.</span></span><br><span class="line">      <span class="comment"># Set to 1 for as fair as possible.</span></span><br><span class="line">      throughput = 20</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    deployment &#123;</span><br><span class="line">      /clientActor &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 使用自定义的Dispatcher</span></span><br><span class="line">        dispatcher = <span class="string">"akka.actor.thread-pool-dispatcher"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  remote &#123;</span><br><span class="line">    <span class="built_in">log</span>-remote-lifecycle-events = on</span><br><span class="line">    netty.tcp &#123;</span><br><span class="line">      hostname = <span class="string">"127.0.0.1"</span></span><br><span class="line">      port = 2556</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  cluster &#123;</span><br><span class="line">    roles = [<span class="string">"router"</span>, <span class="string">"client"</span>]</span><br><span class="line">    seed-nodes = [</span><br><span class="line">      <span class="string">"akka.tcp://simpleAkkaCluster@127.0.0.1:2555"</span>]</span><br><span class="line"></span><br><span class="line">    auto-down-unreachable-after = 1000s</span><br><span class="line">    auto-down-unreachable-after = 1000s</span><br><span class="line">    metrics.enabled = off</span><br><span class="line">    jmx.multi-mbeans-in-same-jvm = on</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行输出</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">2018-02-06 11:55:59.839  INFO 2301 --- [nio-8080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet <span class="string">'dispatcherServlet'</span></span><br><span class="line">2018-02-06 11:55:59.839  INFO 2301 --- [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : FrameworkServlet <span class="string">'dispatcherServlet'</span>: initialization started</span><br><span class="line">2018-02-06 11:55:59.852  INFO 2301 --- [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : FrameworkServlet <span class="string">'dispatcherServlet'</span>: initialization completed <span class="keyword">in</span> 13 ms</span><br><span class="line">2018-02-06 11:55:59.872  INFO 2301 --- [nio-8080-exec-3] c.e.c.a.s.controller.AkkaController      : [Client] path:akka://simpleAkkaCluster/user/clientActor</span><br><span class="line">[INFO] [02/06/2018 11:55:59.873] [simpleAkkaCluster-akka.actor.thread-pool-dispatcher-26] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][消息转发] 集群节点数量:1, 待处理任务:100</span><br><span class="line">[INFO] [02/06/2018 11:55:59.873] [simpleAkkaCluster-akka.actor.thread-pool-dispatcher-26] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][服务选取] 选中[<span class="literal">true</span>] 地址: akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho</span><br><span class="line">[INFO] [02/06/2018 11:55:59.874] [simpleAkkaCluster-akka.actor.thread-pool-dispatcher-26] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][消息转发] 集群节点数量:1, 待处理任务:101</span><br><span class="line">[INFO] [02/06/2018 11:55:59.874] [simpleAkkaCluster-akka.actor.thread-pool-dispatcher-26] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][服务选取] 选中[<span class="literal">true</span>] 地址: akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho</span><br><span class="line">[INFO] [02/06/2018 11:55:59.874] [simpleAkkaCluster-akka.actor.thread-pool-dispatcher-26] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][消息转发] 集群节点数量:1, 待处理任务:102</span><br><span class="line">[INFO] [02/06/2018 11:55:59.874] [simpleAkkaCluster-akka.actor.thread-pool-dispatcher-26] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][服务选取] 选中[<span class="literal">true</span>] 地址: akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho</span><br><span class="line">[INFO] [02/06/2018 11:55:59.874] [simpleAkkaCluster-akka.actor.thread-pool-dispatcher-26] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][消息转发] 集群节点数量:1, 待处理任务:103</span><br><span class="line">[INFO] [02/06/2018 11:55:59.874] [simpleAkkaCluster-akka.actor.thread-pool-dispatcher-26] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][服务选取] 选中[<span class="literal">true</span>] 地址: akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho</span><br><span class="line">[INFO] [02/06/2018 11:55:59.874] [simpleAkkaCluster-akka.actor.thread-pool-dispatcher-26] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][消息转发] 集群节点数量:1, 待处理任务:104</span><br><span class="line">[INFO] [02/06/2018 11:55:59.874] [simpleAkkaCluster-akka.actor.thread-pool-dispatcher-26] [akka.tcp://simpleAkkaCluster@127.0.0.1:2556/user/clientActor] [Dispatcher][服务选取] 选中[<span class="literal">true</span>] 地址: akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho</span><br><span class="line">[WARN] [SECURITY][02/06/2018 11:55:59.874] [simpleAkkaCluster-akka.remote.default-remote-dispatcher-5] [akka.serialization.Serialization(akka://simpleAkkaCluster)] Using the default Java serializer <span class="keyword">for</span> class [com.elonsu.cluster.akka.spring.actor.Message<span class="variable">$Task</span>] <span class="built_in">which</span> is not recommended because of performance implications. Use another serializer or <span class="built_in">disable</span> this warning using the setting <span class="string">'akka.actor.warn-about-java-serializer-usage'</span></span><br><span class="line">[INFO] [02/06/2018 11:55:59.926] [simpleAkkaCluster-akka.actor.default-dispatcher-2] [akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho] [接收消息]:&#123;<span class="string">"content"</span>:<span class="string">"集群消息0a860813a-d7c3-4a2a-b93a-35b034016731"</span>,<span class="string">"taskId"</span>:100&#125;, Actor:akka://simpleAkkaCluster/user/SimpleEcho, Thread:simpleAkkaCluster-akka.actor.default-dispatcher-2</span><br><span class="line">[INFO] [02/06/2018 11:55:59.926] [simpleAkkaCluster-akka.actor.default-dispatcher-2] [akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho] [接收消息]:&#123;<span class="string">"content"</span>:<span class="string">"集群消息1c3148d4d-de3f-4483-b668-19b608b8d83d"</span>,<span class="string">"taskId"</span>:101&#125;, Actor:akka://simpleAkkaCluster/user/SimpleEcho, Thread:simpleAkkaCluster-akka.actor.default-dispatcher-2</span><br><span class="line">[INFO] [02/06/2018 11:55:59.926] [simpleAkkaCluster-akka.actor.default-dispatcher-2] [akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho] [接收消息]:&#123;<span class="string">"content"</span>:<span class="string">"集群消息26707b125-a867-484a-9c5c-21a085d31b89"</span>,<span class="string">"taskId"</span>:102&#125;, Actor:akka://simpleAkkaCluster/user/SimpleEcho, Thread:simpleAkkaCluster-akka.actor.default-dispatcher-2</span><br><span class="line">[INFO] [02/06/2018 11:55:59.926] [simpleAkkaCluster-akka.actor.default-dispatcher-2] [akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho] [接收消息]:&#123;<span class="string">"content"</span>:<span class="string">"集群消息334e7fdd0-c3cc-4192-8ee5-89f28c1dbe28"</span>,<span class="string">"taskId"</span>:103&#125;, Actor:akka://simpleAkkaCluster/user/SimpleEcho, Thread:simpleAkkaCluster-akka.actor.default-dispatcher-2</span><br><span class="line">[INFO] [02/06/2018 11:55:59.927] [simpleAkkaCluster-akka.actor.default-dispatcher-2] [akka.tcp://simpleAkkaCluster@127.0.0.1:2555/user/SimpleEcho] [接收消息]:&#123;<span class="string">"content"</span>:<span class="string">"集群消息450ee1130-33fb-4f23-9372-34cff2d52488"</span>,<span class="string">"taskId"</span>:104&#125;, Actor:akka://simpleAkkaCluster/user/SimpleEcho, Thread:simpleAkkaCluster-akka.actor.default-dispatcher-2</span><br><span class="line">[WARN] [SECURITY][02/06/2018 11:55:59.926] [simpleAkkaCluster-akka.remote.default-remote-dispatcher-16] [akka.serialization.Serialization(akka://simpleAkkaCluster)] Using the default Java serializer <span class="keyword">for</span> class [com.elonsu.cluster.akka.spring.actor.Message<span class="variable">$Result</span>] <span class="built_in">which</span> is not recommended because of performance implications. Use another serializer or <span class="built_in">disable</span> this warning using the setting <span class="string">'akka.actor.warn-about-java-serializer-usage'</span></span><br><span class="line">服务端返回:&#123;<span class="string">"result"</span>:<span class="string">"集群消息0a860813a-d7c3-4a2a-b93a-35b034016731处理完成"</span>,<span class="string">"taskId"</span>:100&#125;</span><br><span class="line">服务端返回:&#123;<span class="string">"result"</span>:<span class="string">"集群消息1c3148d4d-de3f-4483-b668-19b608b8d83d处理完成"</span>,<span class="string">"taskId"</span>:101&#125;</span><br><span class="line">服务端返回:&#123;<span class="string">"result"</span>:<span class="string">"集群消息26707b125-a867-484a-9c5c-21a085d31b89处理完成"</span>,<span class="string">"taskId"</span>:102&#125;</span><br><span class="line">服务端返回:&#123;<span class="string">"result"</span>:<span class="string">"集群消息334e7fdd0-c3cc-4192-8ee5-89f28c1dbe28处理完成"</span>,<span class="string">"taskId"</span>:103&#125;</span><br><span class="line">服务端返回:&#123;<span class="string">"result"</span>:<span class="string">"集群消息450ee1130-33fb-4f23-9372-34cff2d52488处理完成"</span>,<span class="string">"taskId"</span>:104&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="相关文档"><a href="#相关文档" class="headerlink" title="相关文档"></a>相关文档</h3><ul>
+<li><a href="https://doc.akka.io/docs/akka/current/general/configuration.html" target="_blank" rel="noopener">https://doc.akka.io/docs/akka/current/general/configuration.html</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/Akka/" rel="tag"># Akka</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/21/应用实践/skill-tookit-web-session-manage/" rel="next" title="Web應用會話管理">
+                <i class="fa fa-chevron-left"></i> Web應用會話管理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/01/组件框架/Akka/Akka分布式计算应用/" rel="prev" title="Akka分布式计算应用">
+                Akka分布式计算应用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/havatar.png" alt="蘇若年">
+            
+              <p class="site-author-name" itemprop="name">蘇若年</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">文章</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分類</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">標籤</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#工程结构"><span class="nav-number">1.</span> <span class="nav-text">工程结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven依赖"><span class="nav-number">2.</span> <span class="nav-text">Maven依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块说明"><span class="nav-number">3.</span> <span class="nav-text">模块说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块代码"><span class="nav-number">4.</span> <span class="nav-text">模块代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Spring衔接"><span class="nav-number">4.1.</span> <span class="nav-text">Spring衔接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息定义"><span class="nav-number">4.2.</span> <span class="nav-text">消息定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置文件"><span class="nav-number">4.3.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Actor示例"><span class="nav-number">4.4.</span> <span class="nav-text">Actor示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#集群实例化"><span class="nav-number">4.5.</span> <span class="nav-text">集群实例化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Rest测试类"><span class="nav-number">4.6.</span> <span class="nav-text">Rest测试类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SpringBoot主类"><span class="nav-number">4.7.</span> <span class="nav-text">SpringBoot主类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问测试"><span class="nav-number">5.</span> <span class="nav-text">访问测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集群部署"><span class="nav-number">6.</span> <span class="nav-text">集群部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Dispatcher"><span class="nav-number">7.</span> <span class="nav-text">配置Dispatcher</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端配置重定义默认的default-dispatcher"><span class="nav-number">7.1.</span> <span class="nav-text">客户端配置重定义默认的default-dispatcher</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端配置自定义Dispatcher"><span class="nav-number">7.2.</span> <span class="nav-text">客户端配置自定义Dispatcher</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关文档"><span class="nav-number">8.</span> <span class="nav-text">相关文档</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HuntsWork</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 強力驅動</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主題 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66129992";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz',
+        appKey: 'pYydnhaL1ddP6c3fPWRnj9AO',
+        placeholder: '天青色等烟雨 而我 在等你 ...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz", "pYydnhaL1ddP6c3fPWRnj9AO");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 15497,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

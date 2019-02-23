@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-tw">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="kFp8mZ25PsFpJW_ipN268gzlsa4pfBk-LYkLTBR2jQc">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="MyBatis,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="花辭" type="application/atom+xml">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('该文章被加密, 输入访问口令!') !== ''){
+                alert('密码错误！');
+                //history.go(-1);
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<meta name="description" content="该篇主要是Mybatis在日常开发中的使用积累, 对于Intellij IDEA 推荐一款Mybatis插件 Free Mybatis  Mybatis生成插件 mybatis-generator是一个可以生成mybatis通用代码的maven插件  插件引入123456789101112131415161718192021&amp;lt;build&amp;gt;    &amp;lt;plugins&amp;gt;">
+<meta name="keywords" content="MyBatis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MyBatis常用操作示例">
+<meta property="og:url" content="http://dennisit.github.io/2015/06/19/组件框架/ORM框架-Mybatis/index.html">
+<meta property="og:site_name" content="花辭">
+<meta property="og:description" content="该篇主要是Mybatis在日常开发中的使用积累, 对于Intellij IDEA 推荐一款Mybatis插件 Free Mybatis  Mybatis生成插件 mybatis-generator是一个可以生成mybatis通用代码的maven插件  插件引入123456789101112131415161718192021&amp;lt;build&amp;gt;    &amp;lt;plugins&amp;gt;">
+<meta property="og:locale" content="zh-tw">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15054440192956.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15054441092880.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15054445200891.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15054456958797.jpg">
+<meta property="og:updated_time" content="2019-01-30T15:03:09.226Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MyBatis常用操作示例">
+<meta name="twitter:description" content="该篇主要是Mybatis在日常开发中的使用积累, 对于Intellij IDEA 推荐一款Mybatis插件 Free Mybatis  Mybatis生成插件 mybatis-generator是一个可以生成mybatis通用代码的maven插件  插件引入123456789101112131415161718192021&amp;lt;build&amp;gt;    &amp;lt;plugins&amp;gt;">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15054440192956.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  document.oncontextmenu= function(){return false;}
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://dennisit.github.io/2015/06/19/组件框架/ORM框架-Mybatis/">
+
+
+
+
+
+  <title>MyBatis常用操作示例 | 花辭</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?57443a2926e41ae04a903a8093e16326";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">花辭</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">風月不瘦,雖以千年後。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            關於
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            標籤
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站點地圖
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dennisit.github.io/2015/06/19/组件框架/ORM框架-Mybatis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蘇若年">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/havatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花辭">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">MyBatis常用操作示例</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2015-06-19T19:57:53+08:00">
+                2015-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/应用实践/" itemprop="url" rel="index">
+                    <span itemprop="name">应用实践</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/06/19/组件框架/ORM框架-Mybatis/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2015/06/19/组件框架/ORM框架-Mybatis/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2015/06/19/组件框架/ORM框架-Mybatis/" class="leancloud_visitors" data-flag-title="MyBatis常用操作示例">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">閱讀次數&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>该篇主要是Mybatis在日常开发中的使用积累, 对于Intellij IDEA 推荐一款Mybatis插件 <code>Free Mybatis</code></p>
+</blockquote>
+<h3 id="Mybatis生成插件"><a href="#Mybatis生成插件" class="headerlink" title="Mybatis生成插件"></a>Mybatis生成插件</h3><blockquote>
+<p>mybatis-generator是一个可以生成mybatis通用代码的maven插件</p>
+</blockquote>
+<h4 id="插件引入"><a href="#插件引入" class="headerlink" title="插件引入"></a>插件引入</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- mybatis 代码生成器插件 mybatis-generator:generate--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.generator<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-generator-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">verbose</span>&gt;</span>true<span class="tag">&lt;/<span class="name">verbose</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">overwrite</span>&gt;</span>true<span class="tag">&lt;/<span class="name">overwrite</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.37<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="生成命令"><a href="#生成命令" class="headerlink" title="生成命令"></a>生成命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn mybatis-generator:generate</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h4 id="配置说明"><a href="#配置说明" class="headerlink" title="配置说明"></a>配置说明</h4><p>工程目录下:<code>src/main/resources/generatorConfig.xml</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE generatorConfiguration</span></span><br><span class="line"><span class="meta">        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"</span></span><br><span class="line"><span class="meta">        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 使用 mvn mybatis-generator:generate --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">generatorConfiguration</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 配置文件</span></span><br><span class="line"><span class="comment">    &lt;properties resource="classpath*:property/jdbc.properties" /&gt;</span></span><br><span class="line"><span class="comment">     --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context</span> <span class="attr">id</span>=<span class="string">"dbTestTables"</span> <span class="attr">targetRuntime</span>=<span class="string">"MyBatis3"</span> <span class="attr">defaultModelType</span>=<span class="string">"flat"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- plugin --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span> <span class="attr">type</span>=<span class="string">"org.mybatis.generator.plugins.SerializablePlugin"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 是否取消生成的代码注释 true : 取消 false: 保留 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">commentGenerator</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"suppressAllComments"</span> <span class="attr">value</span>=<span class="string">"false"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">commentGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 连接配置 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">jdbcConnection</span> <span class="attr">driverClass</span>=<span class="string">"com.mysql.jdbc.Driver"</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">connectionURL</span>=<span class="string">"jdbc:mysql://devel.mysql.com:3306/db_test?autoReconnect=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=UTF-8"</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">userId</span>=<span class="string">"root"</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">password</span>=<span class="string">"rootpwd"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">jdbcConnection</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- javaModelGenerator是模型的生成信息，这里将指定这些Java model类的生成路径 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">javaModelGenerator</span> <span class="attr">targetPackage</span>=<span class="string">"com.tutorial.mybatis.gen.domain"</span></span></span><br><span class="line"><span class="tag">                            <span class="attr">targetProject</span>=<span class="string">"/Users/elonsu/IdeaProjects/examples/elonsu-batisgen-example/src/main/java"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"enableSubPackages"</span> <span class="attr">value</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"trimStrings"</span> <span class="attr">value</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">javaModelGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 生成Mapper 配置文件 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">sqlMapGenerator</span> <span class="attr">targetPackage</span>=<span class="string">"mapper/xml"</span></span></span><br><span class="line"><span class="tag">                         <span class="attr">targetProject</span>=<span class="string">"/Users/elonsu/IdeaProjects/examples/elonsu-batisgen-example/src/main/resources"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"enableSubPackages"</span> <span class="attr">value</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">sqlMapGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- javaClientGenerator是应用接口的生成信息 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">javaClientGenerator</span> <span class="attr">targetPackage</span>=<span class="string">"com.tutorial.mybatis.gen.mapper"</span></span></span><br><span class="line"><span class="tag">                             <span class="attr">type</span>=<span class="string">"XMLMAPPER"</span></span></span><br><span class="line"><span class="tag">                             <span class="attr">targetProject</span>=<span class="string">"/Users/elonsu/IdeaProjects/examples/elonsu-batisgen-example/src/main/java"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"enableSubPackages"</span> <span class="attr">value</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">javaClientGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- oracle 使用 schema 对应 用户名称空间 mysql 使用 catalog 对应 数据库, xByExample取掉生成的Example接口相关 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">table</span> <span class="attr">tableName</span>=<span class="string">"tb_person"</span> <span class="attr">domainObjectName</span>=<span class="string">"Person"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">enableCountByExample</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">enableDeleteByExample</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">enableUpdateByExample</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">selectByExampleQueryId</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">enableSelectByExample</span>=<span class="string">"false"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">generatedKey</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">sqlStatement</span>=<span class="string">"MySql"</span> <span class="attr">identity</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">table</span> <span class="attr">tableName</span>=<span class="string">"tb_order"</span> <span class="attr">domainObjectName</span>=<span class="string">"Order"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">enableCountByExample</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">enableDeleteByExample</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">enableUpdateByExample</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">selectByExampleQueryId</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">enableSelectByExample</span>=<span class="string">"false"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">generatedKey</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">sqlStatement</span>=<span class="string">"MySql"</span> <span class="attr">identity</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">context</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">generatorConfiguration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Mybatis常用业务SQL"><a href="#Mybatis常用业务SQL" class="headerlink" title="Mybatis常用业务SQL"></a>Mybatis常用业务SQL</h3><h4 id="示例库表"><a href="#示例库表" class="headerlink" title="示例库表"></a>示例库表</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`tb_test`</span> (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">bigint</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT <span class="keyword">COMMENT</span> <span class="string">'自增主键'</span>,</span><br><span class="line">  <span class="string">`name`</span> <span class="built_in">varchar</span>(<span class="number">64</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'名称'</span>,</span><br><span class="line">  <span class="string">`age`</span> <span class="built_in">bigint</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="string">'20'</span>,</span><br><span class="line">  <span class="string">`create_time`</span> <span class="built_in">timestamp</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">CURRENT_TIMESTAMP</span> <span class="keyword">COMMENT</span> <span class="string">'记录建立时间'</span>,</span><br><span class="line">  <span class="string">`update_time`</span> <span class="built_in">timestamp</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">CURRENT_TIMESTAMP</span> <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="keyword">CURRENT_TIMESTAMP</span> <span class="keyword">COMMENT</span> <span class="string">'记录修改时间'</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>),</span><br><span class="line">  <span class="keyword">UNIQUE</span> <span class="keyword">KEY</span> <span class="string">`name`</span> (<span class="string">`name`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8 <span class="keyword">COMMENT</span>=<span class="string">'测试表'</span></span><br></pre></td></tr></table></figure>
+<h4 id="示例模型"><a href="#示例模型" class="headerlink" title="示例模型"></a>示例模型</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Builder</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TbTest</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Long age;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Date createTime;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Date updateTime;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<!-- more -->
+<h4 id="示例操作"><a href="#示例操作" class="headerlink" title="示例操作"></a>示例操作</h4><h5 id="插入并返回主键"><a href="#插入并返回主键" class="headerlink" title="插入并返回主键"></a>插入并返回主键</h5><h6 id="接口定义"><a href="#接口定义" class="headerlink" title="接口定义"></a>接口定义</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insertFullId</span><span class="params">(TbTest tbTest)</span></span>;</span><br></pre></td></tr></table></figure>
+<h6 id="Xml编写"><a href="#Xml编写" class="headerlink" title="Xml编写"></a>Xml编写</h6><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insertFullId"</span> <span class="attr">useGeneratedKeys</span>=<span class="string">"true"</span> <span class="attr">keyProperty</span>=<span class="string">"id"</span> <span class="attr">parameterType</span>=<span class="string">"com.boot.stream.domain.mint.TbTest"</span>&gt;</span></span><br><span class="line">insert into tb_test</span><br><span class="line"> (id, name, age, create_time, update_time)</span><br><span class="line">values</span><br><span class="line"> (#&#123;id&#125;, #&#123;name&#125;, #&#123;age&#125;,#&#123;createTime&#125;, #&#123;updateTime&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h6 id="用例测试"><a href="#用例测试" class="headerlink" title="用例测试"></a>用例测试</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertFullId</span><span class="params">()</span></span>&#123;</span><br><span class="line">   Date now = <span class="keyword">new</span> Date();</span><br><span class="line">   TbTest tbTest = TbTest.builder()</span><br><span class="line">           .age(<span class="number">20L</span>).name(<span class="string">"Elonsu"</span>).createTime(now).updateTime(now).build();</span><br><span class="line">   tbTestMapper.insertFullId(tbTest);</span><br><span class="line">   <span class="comment">// &#123;"age":20,"createTime":1505443787809,"id":3,"name":"Elonsu","updateTime":1505443787809&#125;</span></span><br><span class="line">   System.out.println(JSON.toJSONString(tbTest));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="SQL执行"><a href="#SQL执行" class="headerlink" title="SQL执行"></a>SQL执行</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DEBUG:2017-09-15 10:49:48.041[debug] ==&gt;  Preparing: insert into tb_test (id, name, age, create_time, update_time) values (?, ?, ?,?, ?)</span><br><span class="line">DEBUG:2017-09-15 10:49:48.070[debug] ==&gt; Parameters: null, Elonsu(String), 20(Long), 2017-09-15 10:49:47.809(Timestamp), 2017-09-15 10:49:47.809(Timestamp)</span><br><span class="line">DEBUG:2017-09-15 10:49:48.086[debug] &lt;==    Updates: 1</span><br></pre></td></tr></table></figure>
+<h6 id="执行结果"><a href="#执行结果" class="headerlink" title="执行结果"></a>执行结果</h6><p>  <img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15054440192956.jpg" alt></p>
+<h5 id="插入或者更新-记录存在则更新"><a href="#插入或者更新-记录存在则更新" class="headerlink" title="插入或者更新(记录存在则更新)"></a>插入或者更新(记录存在则更新)</h5><h6 id="接口定义-1"><a href="#接口定义-1" class="headerlink" title="接口定义"></a>接口定义</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchUpset</span><span class="params">(@Param(<span class="string">"list"</span>)</span> List&lt;TbTest&gt; list)</span>;</span><br></pre></td></tr></table></figure>
+<h6 id="Xml编写-1"><a href="#Xml编写-1" class="headerlink" title="Xml编写"></a>Xml编写</h6><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"batchUpset"</span> <span class="attr">parameterType</span>=<span class="string">"java.util.Collection"</span>&gt;</span></span><br><span class="line">    insert into tb_test</span><br><span class="line">      (name, age, create_time, update_time)</span><br><span class="line">    values</span><br><span class="line">    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"list"</span> <span class="attr">item</span>=<span class="string">"li"</span> <span class="attr">separator</span>=<span class="string">","</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">trim</span> <span class="attr">prefix</span>=<span class="string">"("</span> <span class="attr">suffix</span>=<span class="string">")"</span> <span class="attr">suffixOverrides</span>=<span class="string">","</span>&gt;</span></span><br><span class="line">        #&#123;li.name&#125;, #&#123;li.age&#125;, #&#123;li.createTime&#125;, #&#123;li.updateTime&#125;</span><br><span class="line">      <span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">    on duplicate key update</span><br><span class="line">      age = values(age),</span><br><span class="line">      update_time = values(update_time)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h6 id="用例测试-1"><a href="#用例测试-1" class="headerlink" title="用例测试"></a>用例测试</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchUpset</span><span class="params">()</span></span>&#123;</span><br><span class="line">   Date now = <span class="keyword">new</span> Date();</span><br><span class="line">   TbTest tbTest1 = TbTest.builder()</span><br><span class="line">           .age(<span class="number">22L</span>).name(<span class="string">"Elonsu"</span>).createTime(now).updateTime(now).build();</span><br><span class="line">   TbTest tbTest2 = TbTest.builder()</span><br><span class="line">           .age(<span class="number">23L</span>).name(<span class="string">"Dennisit"</span>).createTime(now).updateTime(now).build();</span><br><span class="line">   tbTestMapper.batchUpset(Lists.newArrayList(tbTest1, tbTest2));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="SQL执行-1"><a href="#SQL执行-1" class="headerlink" title="SQL执行"></a>SQL执行</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DEBUG:2017-09-15 10:54:03.623[debug] ==&gt;  Preparing: insert into tb_test (name, age, create_time, update_time) values ( ?, ?, ?, ? ) , ( ?, ?, ?, ? ) on duplicate key update age = values(age), update_time = values(update_time)</span><br><span class="line">DEBUG:2017-09-15 10:54:03.680[debug] ==&gt; Parameters: Elonsu(String), 22(Long), 2017-09-15 10:54:03.212(Timestamp), 2017-09-15 10:54:03.212(Timestamp), Dennisit(String), 23(Long), 2017-09-15 10:54:03.212(Timestamp), 2017-09-15 10:54:03.212(Timestamp)</span><br><span class="line">DEBUG:2017-09-15 10:54:03.721[debug] &lt;==    Updates: 3</span><br></pre></td></tr></table></figure>
+<h6 id="执行结果-1"><a href="#执行结果-1" class="headerlink" title="执行结果"></a>执行结果</h6><p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15054441092880.jpg" alt></p>
+<h5 id="批量更新-根据主键更新"><a href="#批量更新-根据主键更新" class="headerlink" title="批量更新(根据主键更新)"></a>批量更新(根据主键更新)</h5><h6 id="接口定义-2"><a href="#接口定义-2" class="headerlink" title="接口定义"></a>接口定义</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchUpdate</span><span class="params">(@Param(<span class="string">"list"</span>)</span> List&lt;TbTest&gt; list)</span>;</span><br></pre></td></tr></table></figure>
+<h6 id="Xml编写-2"><a href="#Xml编写-2" class="headerlink" title="Xml编写"></a>Xml编写</h6><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"batchUpdate"</span>  <span class="attr">parameterType</span>=<span class="string">"java.util.Collection"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"list"</span> <span class="attr">item</span>=<span class="string">"li"</span> <span class="attr">index</span>=<span class="string">"index"</span> <span class="attr">open</span>=<span class="string">""</span> <span class="attr">close</span>=<span class="string">""</span> <span class="attr">separator</span>=<span class="string">";"</span>&gt;</span></span><br><span class="line">      update tb_test</span><br><span class="line">      <span class="tag">&lt;<span class="name">set</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"li.name != null"</span> &gt;</span></span><br><span class="line">          name = #&#123;li.name&#125;,</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"li.age != null"</span> &gt;</span></span><br><span class="line">          age = #&#123;li.age&#125;,</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"li.createTime != null"</span> &gt;</span></span><br><span class="line">          create_time = #&#123;li.createTime&#125;,</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"li.updateTime != null"</span> &gt;</span></span><br><span class="line">          update_time = #&#123;li.updateTime&#125;,</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line">      where id = #&#123;li.id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h6 id="用例测试-2"><a href="#用例测试-2" class="headerlink" title="用例测试"></a>用例测试</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchUpdate</span><span class="params">()</span></span>&#123;</span><br><span class="line">   Date now = <span class="keyword">new</span> Date();</span><br><span class="line">   TbTest tbTest1 = <span class="keyword">new</span> TbTest(<span class="number">3L</span>, <span class="string">"苏若年"</span>, <span class="number">88L</span>, <span class="keyword">null</span>, now);</span><br><span class="line">   TbTest tbTest2 = <span class="keyword">new</span> TbTest(<span class="number">4L</span>, <span class="string">"墨少白"</span>, <span class="number">99L</span>, <span class="keyword">null</span>, now);</span><br><span class="line">   tbTestMapper.batchUpdate(Lists.newArrayList(tbTest1, tbTest2));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="SQL执行-2"><a href="#SQL执行-2" class="headerlink" title="SQL执行"></a>SQL执行</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DEBUG:2017-09-15 11:00:46.741[debug] ==&gt;  Preparing: update tb_test SET name = ?, age = ?, update_time = ? <span class="built_in">where</span> id = ? ; update tb_test SET name = ?, age = ?, update_time = ? <span class="built_in">where</span> id = ?</span><br><span class="line">DEBUG:2017-09-15 11:00:46.776[debug] ==&gt; Parameters: 苏若年(String), 88(Long), 2017-09-15 11:00:46.675(Timestamp), 3(Long), 墨少白(String), 99(Long), 2017-09-15 11:00:46.675(Timestamp), 4(Long)</span><br><span class="line">DEBUG:2017-09-15 11:00:46.797[debug] &lt;==    Updates: 1</span><br></pre></td></tr></table></figure>
+<h6 id="执行结果-2"><a href="#执行结果-2" class="headerlink" title="执行结果"></a>执行结果</h6><p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15054445200891.jpg" alt></p>
+<h5 id="批量插入"><a href="#批量插入" class="headerlink" title="批量插入"></a>批量插入</h5><h6 id="接口定义-3"><a href="#接口定义-3" class="headerlink" title="接口定义"></a>接口定义</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchInsert</span><span class="params">(@Param(<span class="string">"list"</span>)</span> List&lt;TbTest&gt; list)</span>;</span><br></pre></td></tr></table></figure>
+<h6 id="Xml编写-3"><a href="#Xml编写-3" class="headerlink" title="Xml编写"></a>Xml编写</h6><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"batchInsert"</span> <span class="attr">useGeneratedKeys</span>=<span class="string">"true"</span> <span class="attr">keyProperty</span>=<span class="string">"id"</span> <span class="attr">parameterType</span>=<span class="string">"java.util.Collection"</span>&gt;</span></span><br><span class="line">    insert into tb_test</span><br><span class="line">      (name, age, create_time, update_time)</span><br><span class="line">    values</span><br><span class="line">    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"list"</span> <span class="attr">item</span>=<span class="string">"li"</span> <span class="attr">index</span>=<span class="string">"index"</span> <span class="attr">separator</span>=<span class="string">","</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">trim</span> <span class="attr">prefix</span>=<span class="string">"("</span> <span class="attr">suffix</span>=<span class="string">")"</span> <span class="attr">suffixOverrides</span>=<span class="string">","</span>&gt;</span></span><br><span class="line">        #&#123;li.name&#125;, #&#123;li.age&#125;, #&#123;li.createTime&#125;, #&#123;li.updateTime&#125;</span><br><span class="line">      <span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h6 id="用例测试-3"><a href="#用例测试-3" class="headerlink" title="用例测试"></a>用例测试</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchInsert</span><span class="params">()</span></span>&#123;</span><br><span class="line">   Date now = <span class="keyword">new</span> Date();</span><br><span class="line">   TbTest tbTest1 = TbTest.builder()</span><br><span class="line">           .age(<span class="number">66L</span>).name(<span class="string">"mock1"</span>).createTime(now).updateTime(now).build();</span><br><span class="line">   TbTest tbTest2 = TbTest.builder()</span><br><span class="line">           .age(<span class="number">77L</span>).name(<span class="string">"mock2"</span>).createTime(now).updateTime(now).build();</span><br><span class="line">   tbTestMapper.batchInsert(Lists.newArrayList(tbTest1, tbTest2));</span><br><span class="line"></span><br><span class="line">   <span class="comment">// tbTest1: &#123;"age":66,"createTime":1505445581768,"id":8,"name":"mock1","updateTime":1505445581768&#125;</span></span><br><span class="line">   System.out.println(<span class="string">"tbTest1: "</span> + JSON.toJSONString(tbTest1));</span><br><span class="line"></span><br><span class="line">   <span class="comment">// tbTest2: &#123;"age":77,"createTime":1505445581768,"id":9,"name":"mock2","updateTime":1505445581768&#125;</span></span><br><span class="line">   System.out.println(<span class="string">"tbTest2: "</span> + JSON.toJSONString(tbTest2));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="SQL执行-3"><a href="#SQL执行-3" class="headerlink" title="SQL执行"></a>SQL执行</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DEBUG:2017-09-15 11:19:41.823[debug] ==&gt;  Preparing: insert into tb_test (name, age, create_time, update_time) values ( ?, ?, ?, ? ) , ( ?, ?, ?, ? )  </span><br><span class="line">DEBUG:2017-09-15 11:19:41.862[debug] ==&gt; Parameters: mock1(String), 66(Long), 2017-09-15 11:19:41.768(Timestamp), 2017-09-15 11:19:41.768(Timestamp), mock2(String), 77(Long), 2017-09-15 11:19:41.768(Timestamp), 2017-09-15 11:19:41.768(Timestamp) </span><br><span class="line">DEBUG:2017-09-15 11:19:41.882[debug] &lt;==    Updates: 2</span><br></pre></td></tr></table></figure>
+<h6 id="执行结果-3"><a href="#执行结果-3" class="headerlink" title="执行结果"></a>执行结果</h6><p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15054456958797.jpg" alt></p>
+<h5 id="动态表-字段传递"><a href="#动态表-字段传递" class="headerlink" title="动态表/字段传递"></a>动态表/字段传递</h5><h6 id="接口定义-4"><a href="#接口定义-4" class="headerlink" title="接口定义"></a>接口定义</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> TbTest <span class="title">columnDynamic</span><span class="params">(@Param(<span class="string">"column"</span>)</span> String column, @<span class="title">Param</span><span class="params">(<span class="string">"val"</span>)</span> String s)</span>;</span><br></pre></td></tr></table></figure>
+<h6 id="Xml编写-4"><a href="#Xml编写-4" class="headerlink" title="Xml编写"></a>Xml编写</h6><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"columnDynamic"</span> <span class="attr">resultType</span>=<span class="string">"com.boot.stream.domain.mint.TbTest"</span>&gt;</span></span><br><span class="line">    select $&#123;column&#125; from tb_test where $&#123;column&#125; = #&#123;val&#125;</span><br><span class="line"> <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h6 id="用例测试-4"><a href="#用例测试-4" class="headerlink" title="用例测试"></a>用例测试</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dynamicColumn</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="comment">// &#123;"name":"苏若年"&#125;</span></span><br><span class="line">   System.out.println(JSON.toJSONString(tbTestMapper.columnDynamic(<span class="string">"name"</span>, <span class="string">"苏若年"</span>)));</span><br><span class="line"></span><br><span class="line">   <span class="comment">// &#123;"age":99&#125;</span></span><br><span class="line">   System.out.println(JSON.toJSONString(tbTestMapper.columnDynamic(<span class="string">"age"</span>, <span class="string">"99"</span>)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="SQL执行-4"><a href="#SQL执行-4" class="headerlink" title="SQL执行"></a>SQL执行</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">DEBUG:2017-09-15 11:39:10.585[debug] ==&gt;  Preparing: select name from tb_test <span class="built_in">where</span> name = ?  </span><br><span class="line">DEBUG:2017-09-15 11:39:10.619[debug] ==&gt; Parameters: 苏若年(String) </span><br><span class="line">DEBUG:2017-09-15 11:39:10.656[debug] &lt;==      Total: 1 </span><br><span class="line"></span><br><span class="line">DEBUG:2017-09-15 11:39:10.675[debug] ==&gt;  Preparing: select age from tb_test <span class="built_in">where</span> age = ?  </span><br><span class="line">DEBUG:2017-09-15 11:39:10.675[debug] ==&gt; Parameters: 99(String) </span><br><span class="line">DEBUG:2017-09-15 11:39:10.686[debug] &lt;==      Total: 1</span><br></pre></td></tr></table></figure>
+<h5 id="MyBatis中使用-和-书写占位符有什么区别"><a href="#MyBatis中使用-和-书写占位符有什么区别" class="headerlink" title="MyBatis中使用#和$书写占位符有什么区别"></a>MyBatis中使用#和$书写占位符有什么区别</h5><p>说明: 在动态sql解析过程，<code>#{}</code>与 <code>${}</code>的效果是不一样的, #将传入的数据都当成一个字符串，会对传入的数据自动加上引号；$将传入的数据直接显示生成在SQL中.</p>
+<ul>
+<li><code>#{}</code>将传入的参数当成一个字符串，会给传入的参数加一个双引号</li>
+<li><code>${}</code>将传入的参数直接显示生成在sql中，不会添加引号</li>
+<li><code>#{}</code>能够很大程度上防止sql注入，<code>${}</code>无法防止sql注入</li>
+<li><code>${}</code>在预编译之前已经被变量替换了，这会存在sql注入的风险</li>
+<li>写order by子句的时候应该用<code>${}</code>而不是<code>#{}</code></li>
+</ul>
+<p><strong>接下来展示一个sql注入的示例</strong></p>
+<h6 id="接口定义-5"><a href="#接口定义-5" class="headerlink" title="接口定义"></a>接口定义</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;TbTest&gt; <span class="title">tableDynamic</span><span class="params">(@Param(<span class="string">"tableName"</span>)</span> String tableName)</span>;</span><br></pre></td></tr></table></figure>
+<h6 id="Xml编写-5"><a href="#Xml编写-5" class="headerlink" title="Xml编写"></a>Xml编写</h6><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"tableDynamic"</span> <span class="attr">resultType</span>=<span class="string">"com.boot.stream.domain.mint.TbTest"</span> <span class="attr">statementType</span>=<span class="string">"STATEMENT"</span>&gt;</span></span><br><span class="line">    select * from $&#123;tableName&#125; where 1=1</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h6 id="用例测试-5"><a href="#用例测试-5" class="headerlink" title="用例测试"></a>用例测试</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sqlInject</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="comment">// [&#123;"age":88,"id":3,"name":"苏若年"&#125;,&#123;"age":99,"id":4,"name":"墨少白"&#125;,&#123;"age":66,"id":8,"name":"mock1"&#125;,&#123;"age":77,"id":9,"name":"mock2"&#125;]</span></span><br><span class="line">   System.out.println(JSON.toJSONString(tbTestMapper.tableDynamic(<span class="string">"tb_test; delete from tb_test; --"</span>)));</span><br><span class="line">   <span class="comment">// []</span></span><br><span class="line">   System.out.println(JSON.toJSONString(tbTestMapper.tableDynamic(<span class="string">"tb_test"</span>)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="SQL执行-5"><a href="#SQL执行-5" class="headerlink" title="SQL执行"></a>SQL执行</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">DEBUG:2017-09-15 12:06:49.867[debug] ==&gt;  Preparing: select * from tb_test; delete from tb_test; -- <span class="built_in">where</span> 1=1</span><br><span class="line">DEBUG:2017-09-15 12:06:49.868[debug] ==&gt; Parameters:</span><br><span class="line">DEBUG:2017-09-15 12:06:49.876[debug] &lt;==      Total: 4</span><br><span class="line">DEBUG:2017-09-15 12:06:49.876[debug] &lt;==    Updates: 4</span><br><span class="line"></span><br><span class="line">DEBUG:2017-09-15 12:06:49.878[debug] ==&gt;  Preparing: select * from tb_test <span class="built_in">where</span> 1=1</span><br><span class="line">DEBUG:2017-09-15 12:06:49.879[debug] ==&gt; Parameters:</span><br><span class="line">DEBUG:2017-09-15 12:06:49.882[debug] &lt;==      Total: 0</span><br></pre></td></tr></table></figure>
+<p>可以看到,因为SQL注入,导致表中所有数据被清除.</p>
+<h5 id="解释一下MyBatis中命名空间（namespace）的作用"><a href="#解释一下MyBatis中命名空间（namespace）的作用" class="headerlink" title="解释一下MyBatis中命名空间（namespace）的作用"></a>解释一下MyBatis中命名空间（namespace）的作用</h5><blockquote>
+<p>在大型项目中, 可能存在大量的SQL语句，这时候为每个SQL语句起一个唯一的标识（ID）就变得并不容易了。为了解决这个问题，在MyBatis中，可以为每个映射文件起一个唯一的命名空间，这样定义在这个映射文件中的每个SQL语句就成了定义在这个命名空间中的一个ID。只要我们能够保证每个命名空间中这个ID是唯一的，即使在不同映射文件中的语句ID相同，也不会再产生冲突了。</p>
+</blockquote>
+<h5 id="批量主键查询"><a href="#批量主键查询" class="headerlink" title="批量主键查询"></a>批量主键查询</h5><h6 id="接口定义-6"><a href="#接口定义-6" class="headerlink" title="接口定义"></a>接口定义</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;TbTest&gt; <span class="title">selectByIds</span><span class="params">(@Param(<span class="string">"list"</span>)</span> List&lt;Long&gt; ids)</span>;</span><br></pre></td></tr></table></figure>
+<h6 id="Xml编写-6"><a href="#Xml编写-6" class="headerlink" title="Xml编写"></a>Xml编写</h6><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectByIds"</span> <span class="attr">resultType</span>=<span class="string">"com.boot.stream.domain.mint.TbTest"</span>&gt;</span></span><br><span class="line">	SELECT</span><br><span class="line">	 <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"sqlColumnList"</span>/&gt;</span></span><br><span class="line">	FROM</span><br><span class="line">	 tb_test</span><br><span class="line">	where id IN</span><br><span class="line">	<span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"list"</span> <span class="attr">item</span>=<span class="string">"li"</span> <span class="attr">open</span>=<span class="string">"("</span> <span class="attr">separator</span>=<span class="string">","</span> <span class="attr">close</span>=<span class="string">")"</span>&gt;</span></span><br><span class="line">	 #&#123;li&#125;</span><br><span class="line">	<span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h6 id="用例测试-6"><a href="#用例测试-6" class="headerlink" title="用例测试"></a>用例测试</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">selectByIds</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="comment">// [&#123;"age":88,"createTime":1505455272000,"id":10,"name":"苏若年","updateTime":1505455274000&#125;,&#123;"age":99,"createTime":1505455272000,"id":11,"name":"墨少白","updateTime":1505455274000&#125;,&#123;"age":99,"createTime":1505455272000,"id":12,"name":"林允儿","updateTime":1505455274000&#125;]</span></span><br><span class="line">   System.out.println(JSON.toJSONString(tbTestMapper.selectByIds(Lists.newArrayList(<span class="number">10L</span>, <span class="number">11L</span>, <span class="number">12L</span>))));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="SQL执行-6"><a href="#SQL执行-6" class="headerlink" title="SQL执行"></a>SQL执行</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">EBUG:2017-09-15 14:15:32.061[debug] ==&gt;  Preparing: SELECT id AS id, name AS name, age AS age, create_time AS createTime, update_time AS updateTime FROM tb_test <span class="built_in">where</span> id IN ( ? , ? , ? )  </span><br><span class="line">DEBUG:2017-09-15 14:15:32.089[debug] ==&gt; Parameters: 10(Long), 11(Long), 12(Long) </span><br><span class="line">DEBUG:2017-09-15 14:15:32.123[debug] &lt;==      Total: 3</span><br></pre></td></tr></table></figure>
+<h5 id="动态条件查询"><a href="#动态条件查询" class="headerlink" title="动态条件查询"></a>动态条件查询</h5><h6 id="接口定义-7"><a href="#接口定义-7" class="headerlink" title="接口定义"></a>接口定义</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> List&lt;TbTest&gt; <span class="title">selectByCondition</span><span class="params">(@Param(<span class="string">"object"</span>)</span> TbTest tbTest)</span>;</span><br></pre></td></tr></table></figure>
+<h6 id="Xml编写-7"><a href="#Xml编写-7" class="headerlink" title="Xml编写"></a>Xml编写</h6><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 根据条件查询 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectByCondition"</span> <span class="attr">resultType</span>=<span class="string">"com.boot.stream.domain.mint.TbTest"</span>&gt;</span></span><br><span class="line">SELECT</span><br><span class="line"> <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"sqlColumnList"</span>/&gt;</span></span><br><span class="line">FROM</span><br><span class="line"> tb_test</span><br><span class="line"><span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"sqlQueryCondition"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"sqlSortByList"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 表字段集 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"sqlColumnList"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">trim</span> <span class="attr">suffixOverrides</span>=<span class="string">","</span>&gt;</span></span><br><span class="line"> id AS id, name AS name, age AS age, create_time AS createTime, update_time AS updateTime,</span><br><span class="line"><span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 查询条件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"sqlQueryCondition"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">trim</span> <span class="attr">suffixOverrides</span>=<span class="string">","</span> <span class="attr">prefixOverrides</span>=<span class="string">"AND|OR"</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">choose</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"object.id &gt; 0"</span>&gt;</span></span><br><span class="line">       id = #&#123;object.id&#125;</span><br><span class="line">     <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">otherwise</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"object.name != null"</span>&gt;</span></span><br><span class="line">         AND name = #&#123;object.name&#125;</span><br><span class="line">       <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"object.age != null"</span>&gt;</span></span><br><span class="line">         AND age = #&#123;object.age&#125;</span><br><span class="line">       <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"object.createTime"</span>&gt;</span></span><br><span class="line">         AND create_time = #&#123;object.createTime&#125;</span><br><span class="line">       <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"object.updateTime"</span>&gt;</span></span><br><span class="line">         AND update_time = #&#123;object.updateTime&#125;</span><br><span class="line">       <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">otherwise</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">choose</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 结果集排序集合 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"sqlSortByList"</span>&gt;</span></span><br><span class="line">ORDER BY</span><br><span class="line"><span class="tag">&lt;<span class="name">trim</span> <span class="attr">suffixOverrides</span>=<span class="string">","</span>&gt;</span></span><br><span class="line"> id DESC, update_time DESC, create_time DESC, age DESC,</span><br><span class="line"><span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h6 id="用例测试-7"><a href="#用例测试-7" class="headerlink" title="用例测试"></a>用例测试</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">selectByCondition</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="comment">// 条件含主键查询:[&#123;"age":88,"createTime":1505455272000,"id":10,"name":"苏若年","updateTime":1505455274000&#125;]</span></span><br><span class="line">   System.out.println(<span class="string">"条件含主键查询:"</span> + JSON.toJSONString(tbTestMapper.selectByCondition(TbTest.builder().id(<span class="number">10L</span>).build())));</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 条件非主键查询:[&#123;"age":99,"createTime":1505455272000,"id":12,"name":"林允儿","updateTime":1505455274000&#125;,&#123;"age":99,"createTime":1505455272000,"id":11,"name":"墨少白","updateTime":1505455274000&#125;]</span></span><br><span class="line">   System.out.println(<span class="string">"条件非主键查询:"</span> + JSON.toJSONString(tbTestMapper.selectByCondition(TbTest.builder().age(<span class="number">99L</span>).build())));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="SQL执行-7"><a href="#SQL执行-7" class="headerlink" title="SQL执行"></a>SQL执行</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">DEBUG:2017-09-15 14:18:26.630[debug] ==&gt;  Preparing: SELECT id AS id, name AS name, age AS age, create_time AS createTime, update_time AS updateTime FROM tb_test WHERE id = ? ORDER BY id DESC, update_time DESC, create_time DESC, age DESC  </span><br><span class="line">DEBUG:2017-09-15 14:18:26.659[debug] ==&gt; Parameters: 10(Long) </span><br><span class="line">DEBUG:2017-09-15 14:18:26.700[debug] &lt;==      Total: 1 </span><br><span class="line"></span><br><span class="line">DEBUG:2017-09-15 14:18:26.723[debug] ==&gt;  Preparing: SELECT id AS id, name AS name, age AS age, create_time AS createTime, update_time AS updateTime FROM tb_test WHERE age = ? ORDER BY id DESC, update_time DESC, create_time DESC, age DESC  </span><br><span class="line">DEBUG:2017-09-15 14:18:26.723[debug] ==&gt; Parameters: 99(Long) </span><br><span class="line">DEBUG:2017-09-15 14:18:26.727[debug] &lt;==      Total: 2</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MyBatis/" rel="tag"># MyBatis</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/06/19/组件框架/数据组件-Databus/" rel="next" title="数据组件-Databus">
+                <i class="fa fa-chevron-left"></i> 数据组件-Databus
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/15/常用应用资源集/" rel="prev" title="常用应用资源集">
+                常用应用资源集 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/havatar.png" alt="蘇若年">
+            
+              <p class="site-author-name" itemprop="name">蘇若年</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">文章</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分類</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">標籤</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mybatis生成插件"><span class="nav-number">1.</span> <span class="nav-text">Mybatis生成插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#插件引入"><span class="nav-number">1.1.</span> <span class="nav-text">插件引入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成命令"><span class="nav-number">1.2.</span> <span class="nav-text">生成命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置说明"><span class="nav-number">1.3.</span> <span class="nav-text">配置说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mybatis常用业务SQL"><span class="nav-number">2.</span> <span class="nav-text">Mybatis常用业务SQL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#示例库表"><span class="nav-number">2.1.</span> <span class="nav-text">示例库表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例模型"><span class="nav-number">2.2.</span> <span class="nav-text">示例模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例操作"><span class="nav-number">2.3.</span> <span class="nav-text">示例操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#插入并返回主键"><span class="nav-number">2.3.1.</span> <span class="nav-text">插入并返回主键</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#接口定义"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">接口定义</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Xml编写"><span class="nav-number">2.3.1.2.</span> <span class="nav-text">Xml编写</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#用例测试"><span class="nav-number">2.3.1.3.</span> <span class="nav-text">用例测试</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SQL执行"><span class="nav-number">2.3.1.4.</span> <span class="nav-text">SQL执行</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#执行结果"><span class="nav-number">2.3.1.5.</span> <span class="nav-text">执行结果</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#插入或者更新-记录存在则更新"><span class="nav-number">2.3.2.</span> <span class="nav-text">插入或者更新(记录存在则更新)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#接口定义-1"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">接口定义</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Xml编写-1"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">Xml编写</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#用例测试-1"><span class="nav-number">2.3.2.3.</span> <span class="nav-text">用例测试</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SQL执行-1"><span class="nav-number">2.3.2.4.</span> <span class="nav-text">SQL执行</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#执行结果-1"><span class="nav-number">2.3.2.5.</span> <span class="nav-text">执行结果</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#批量更新-根据主键更新"><span class="nav-number">2.3.3.</span> <span class="nav-text">批量更新(根据主键更新)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#接口定义-2"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">接口定义</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Xml编写-2"><span class="nav-number">2.3.3.2.</span> <span class="nav-text">Xml编写</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#用例测试-2"><span class="nav-number">2.3.3.3.</span> <span class="nav-text">用例测试</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SQL执行-2"><span class="nav-number">2.3.3.4.</span> <span class="nav-text">SQL执行</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#执行结果-2"><span class="nav-number">2.3.3.5.</span> <span class="nav-text">执行结果</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#批量插入"><span class="nav-number">2.3.4.</span> <span class="nav-text">批量插入</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#接口定义-3"><span class="nav-number">2.3.4.1.</span> <span class="nav-text">接口定义</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Xml编写-3"><span class="nav-number">2.3.4.2.</span> <span class="nav-text">Xml编写</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#用例测试-3"><span class="nav-number">2.3.4.3.</span> <span class="nav-text">用例测试</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SQL执行-3"><span class="nav-number">2.3.4.4.</span> <span class="nav-text">SQL执行</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#执行结果-3"><span class="nav-number">2.3.4.5.</span> <span class="nav-text">执行结果</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#动态表-字段传递"><span class="nav-number">2.3.5.</span> <span class="nav-text">动态表/字段传递</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#接口定义-4"><span class="nav-number">2.3.5.1.</span> <span class="nav-text">接口定义</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Xml编写-4"><span class="nav-number">2.3.5.2.</span> <span class="nav-text">Xml编写</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#用例测试-4"><span class="nav-number">2.3.5.3.</span> <span class="nav-text">用例测试</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL执行-4"><span class="nav-number">2.3.6.</span> <span class="nav-text">SQL执行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MyBatis中使用-和-书写占位符有什么区别"><span class="nav-number">2.3.7.</span> <span class="nav-text">MyBatis中使用#和$书写占位符有什么区别</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#接口定义-5"><span class="nav-number">2.3.7.1.</span> <span class="nav-text">接口定义</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Xml编写-5"><span class="nav-number">2.3.7.2.</span> <span class="nav-text">Xml编写</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#用例测试-5"><span class="nav-number">2.3.7.3.</span> <span class="nav-text">用例测试</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SQL执行-5"><span class="nav-number">2.3.7.4.</span> <span class="nav-text">SQL执行</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解释一下MyBatis中命名空间（namespace）的作用"><span class="nav-number">2.3.8.</span> <span class="nav-text">解释一下MyBatis中命名空间（namespace）的作用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#批量主键查询"><span class="nav-number">2.3.9.</span> <span class="nav-text">批量主键查询</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#接口定义-6"><span class="nav-number">2.3.9.1.</span> <span class="nav-text">接口定义</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Xml编写-6"><span class="nav-number">2.3.9.2.</span> <span class="nav-text">Xml编写</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#用例测试-6"><span class="nav-number">2.3.9.3.</span> <span class="nav-text">用例测试</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SQL执行-6"><span class="nav-number">2.3.9.4.</span> <span class="nav-text">SQL执行</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#动态条件查询"><span class="nav-number">2.3.10.</span> <span class="nav-text">动态条件查询</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#接口定义-7"><span class="nav-number">2.3.10.1.</span> <span class="nav-text">接口定义</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Xml编写-7"><span class="nav-number">2.3.10.2.</span> <span class="nav-text">Xml编写</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#用例测试-7"><span class="nav-number">2.3.10.3.</span> <span class="nav-text">用例测试</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SQL执行-7"><span class="nav-number">2.3.10.4.</span> <span class="nav-text">SQL执行</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HuntsWork</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 強力驅動</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主題 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66129992";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz',
+        appKey: 'pYydnhaL1ddP6c3fPWRnj9AO',
+        placeholder: '天青色等烟雨 而我 在等你 ...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz", "pYydnhaL1ddP6c3fPWRnj9AO");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 15497,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

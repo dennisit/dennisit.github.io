@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-tw">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="kFp8mZ25PsFpJW_ipN268gzlsa4pfBk-LYkLTBR2jQc">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Cache,Memcached,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="花辭" type="application/atom+xml">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('该文章被加密, 输入访问口令!') !== ''){
+                alert('密码错误！');
+                //history.go(-1);
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<meta name="description" content="Memcached介绍Memcached是一个自由开源的,高性能,分布式内存对象缓存系统. Memcached特性基于C/S架构,协议简单 服务端启用memcached进程, 客户端可以通过telnet操作, 也可以通过各种编程语言实现的客户端存储数据及查询状态. 客户端和服务端采用的协议简单, 支持文本协议或二进制协议">
+<meta name="keywords" content="Cache,Memcached">
+<meta property="og:type" content="article">
+<meta property="og:title" content="缓存组件-Memcached">
+<meta property="og:url" content="http://dennisit.github.io/2015/09/01/组件框架/缓存组件-Memcached/index.html">
+<meta property="og:site_name" content="花辭">
+<meta property="og:description" content="Memcached介绍Memcached是一个自由开源的,高性能,分布式内存对象缓存系统. Memcached特性基于C/S架构,协议简单 服务端启用memcached进程, 客户端可以通过telnet操作, 也可以通过各种编程语言实现的客户端存储数据及查询状态. 客户端和服务端采用的协议简单, 支持文本协议或二进制协议">
+<meta property="og:locale" content="zh-tw">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15395264614736.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15395264757768.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15395270115907.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15395270430611.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15392213744399.jpg">
+<meta property="og:updated_time" content="2018-12-11T14:47:58.167Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="缓存组件-Memcached">
+<meta name="twitter:description" content="Memcached介绍Memcached是一个自由开源的,高性能,分布式内存对象缓存系统. Memcached特性基于C/S架构,协议简单 服务端启用memcached进程, 客户端可以通过telnet操作, 也可以通过各种编程语言实现的客户端存储数据及查询状态. 客户端和服务端采用的协议简单, 支持文本协议或二进制协议">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15395264614736.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  document.oncontextmenu= function(){return false;}
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://dennisit.github.io/2015/09/01/组件框架/缓存组件-Memcached/">
+
+
+
+
+
+  <title>缓存组件-Memcached | 花辭</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?57443a2926e41ae04a903a8093e16326";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">花辭</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">風月不瘦,雖以千年後。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            關於
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            標籤
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站點地圖
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dennisit.github.io/2015/09/01/组件框架/缓存组件-Memcached/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蘇若年">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/havatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花辭">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">缓存组件-Memcached</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2015-09-01T19:57:53+08:00">
+                2015-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/组件框架/" itemprop="url" rel="index">
+                    <span itemprop="name">组件框架</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/组件框架/缓存组件/" itemprop="url" rel="index">
+                    <span itemprop="name">缓存组件</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/09/01/组件框架/缓存组件-Memcached/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2015/09/01/组件框架/缓存组件-Memcached/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2015/09/01/组件框架/缓存组件-Memcached/" class="leancloud_visitors" data-flag-title="缓存组件-Memcached">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">閱讀次數&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Memcached介绍"><a href="#Memcached介绍" class="headerlink" title="Memcached介绍"></a>Memcached介绍</h2><p>Memcached是一个自由开源的,高性能,分布式内存对象缓存系统.</p>
+<h2 id="Memcached特性"><a href="#Memcached特性" class="headerlink" title="Memcached特性"></a>Memcached特性</h2><p><strong>基于C/S架构,协议简单</strong></p>
+<p>服务端启用memcached进程, 客户端可以通过telnet操作, 也可以通过各种编程语言实现的客户端存储数据及查询状态. 客户端和服务端采用的协议简单, 支持文本协议或二进制协议</p>
+<a id="more"></a>
+<p><strong>基于libevent事件处理</strong></p>
+<p>libevent是一套跨平台事件处理接口的封装,兼容Windows/Linux/BSD/Solaris等操作系统, 封装了的接口包括poll、select(Windows)、epoll(Linux)、 kqueue(BSD), /dev/poll(Solaris)</p>
+<p>Memcached使用libevent来进行网络并发连接的处理, 能够保证在很大并发情况下, 仍旧能够保持快速的响应能力.</p>
+<p>libevent: <a href="http://www.monkey.org/~provos/libevent/" target="_blank" rel="noopener">http://www.monkey.org/~provos/libevent/</a></p>
+<p><strong>基于内存存储方式</strong></p>
+<p>为了提高性能,memcached中保存的数据都存储在memcached内置的内存存储空间中。由于数据仅存在于内存中,因此重启memcached、重启操作系统会导致全部数据消失。另外,内容容量达到指定值之后,就基于LRU(Least Recently Used)算法自动删除不使用的缓存。memcached本身是为缓存而设计的服务器,因此并没有过多考虑数据的永久性问题。</p>
+<p><strong>基于客户端的分布式</strong></p>
+<p>Memcached尽管是“分布式”缓存服务器, 但其服务端并没有分布式功能, 各个Memcached实例不会互相通信以共享信息, 它的分布式主要是通过客户端实现的.</p>
+<h2 id="Memcached安装部署"><a href="#Memcached安装部署" class="headerlink" title="Memcached安装部署"></a>Memcached安装部署</h2><h3 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install libevent libevent-devel</span><br><span class="line">$ wget http://www.danga.com/memcached/dist/memcached-1.2.5.tar.gz</span><br><span class="line">$ tar zxf memcached-1.2.5.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> memcached-1.2.5</span><br><span class="line">$ ./configure</span><br><span class="line">$ make</span><br><span class="line">$ sudo make install</span><br></pre></td></tr></table></figure>
+<h3 id="启动进程"><a href="#启动进程" class="headerlink" title="启动进程"></a>启动进程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这里显示了调试信息, 监听TCP端口11211 最大内存使用量为64M.</span></span><br><span class="line">$ /usr/<span class="built_in">local</span>/bin/memcached -p 11211 -m 64m -vv</span><br><span class="line">slab class   1: chunk size     88 perslab 11915</span><br><span class="line">slab class   2: chunk size    112 perslab  9362</span><br><span class="line">slab class   3: chunk size    144 perslab  7281</span><br><span class="line"><span class="comment"># 中间省略</span></span><br><span class="line">slab class  38: chunk size 391224 perslab     2</span><br><span class="line">slab class  39: chunk size 489032 perslab     2</span><br><span class="line">&lt;23 server listening</span><br><span class="line">&lt;24 send buffer was 110592, now 268435456</span><br><span class="line">&lt;24 server listening (udp)</span><br><span class="line">&lt;24 server listening (udp)</span><br><span class="line">&lt;24 server listening (udp)</span><br><span class="line">&lt;24 server listening (udp)</span><br></pre></td></tr></table></figure>
+<h3 id="后台启动"><a href="#后台启动" class="headerlink" title="后台启动"></a>后台启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /usr/<span class="built_in">local</span>/bin/memcached -p 11211 -m 64m -d</span><br></pre></td></tr></table></figure>
+<h3 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h3><ul>
+<li><code>-p</code>: 使用的TCP端口。默认为11211</li>
+<li><code>-m</code>:    最大内存大小。默认为64M</li>
+<li><code>-vv</code>: 用very vrebose模式启动,调试信息和错误输出到控制台</li>
+<li><code>-d</code>:    作为daemon在后台启动</li>
+</ul>
+<p>更多命令可以通过<code>-h</code>查看</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /usr/<span class="built_in">local</span>/bin/memcached -h</span><br></pre></td></tr></table></figure>
+<h2 id="Memcached内存分配"><a href="#Memcached内存分配" class="headerlink" title="Memcached内存分配"></a>Memcached内存分配</h2><p>Memcached默认情况下采用了名为Slab Allocator的机制分配、管理内存。在该机制出现以前,内存的分配是通过对所有记录简单地进行malloc和free来进行的。但是,这种方式会导致内存碎片,加重操作系统内存管理器的负担,最坏的情况下,会导致操作系统比memcached进程本身还慢。Slab Allocator就是为解决该问题而诞生的。</p>
+<h3 id="Slab-Allocator基本原理"><a href="#Slab-Allocator基本原理" class="headerlink" title="Slab Allocator基本原理"></a>Slab Allocator基本原理</h3><p>Slab Allocator的基本原理是按照预先规定的大小,将分配的内存以page为单位,默认情况下一个page是1M,可以通过-I参数在启动时指定,分割成各种尺寸的块(chunk), 并把尺寸相同的块分成组(chunk的集合),如果需要申请内存时,memcached会划分出一个新的page并分配给需要的slab区域。page一旦被分配在重启前不会被回收或者重新分配,以解决内存碎片问题。</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15395264614736.jpg" alt></p>
+<p>说明:</p>
+<ul>
+<li><p><strong>Page</strong>: 分配给Slab的内存空间,默认是1MB。分配给Slab之后根据slab的大小切分成chunk。</p>
+</li>
+<li><p><strong>Chunk</strong>: 用于缓存记录的内存空间(chunk中不仅仅存放缓存对象的value,而且保存了缓存对象的key,expire time, flag等详细信息)。</p>
+</li>
+<li><p><strong>Slab Class</strong>: 特定大小的chunk的组</p>
+</li>
+</ul>
+<p>Memcached并不是将所有大小的数据都放在一起的,而是预先将数据空间划分为一系列slabs,每个slab只负责一定范围内的数据存储。memcached根据收到的数据的大小,选择最适合数据大小的slab。memcached中保存着slab内空闲chunk的列表,根据该列表选择chunk,然后将数据缓存于其中。</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15395264757768.jpg" alt></p>
+<h3 id="Slab-Allocator的缺点"><a href="#Slab-Allocator的缺点" class="headerlink" title="Slab Allocator的缺点"></a>Slab Allocator的缺点</h3><p>Slab Allocator解决了当初的内存碎片问题,但新的机制也给memcached带来了新的问题,由于分配的是特定长度的内存,因此无法有效利用分配的内存。 例如,将100字节的数据缓存到128字节的chunk中,剩余的28字节就浪费了。</p>
+<h3 id="Growth-Factor调优控制"><a href="#Growth-Factor调优控制" class="headerlink" title="Growth Factor调优控制"></a>Growth Factor调优控制</h3><p>memcached在启动时指定Growth Factor因子(通过-f选项),就可以在某种程度上控制slab之间的差异。默认值为1.25。 但是,在该选项出现之前,这个因子曾经固定为2,称为“powers of 2”策略.</p>
+<p>让我们用以前的设置,以verbose模式启动memcached试试看：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ memcached -f 2 -vv</span><br><span class="line">slab class   1: chunk size    128 perslab  8192</span><br><span class="line">slab class   2: chunk size    256 perslab  4096</span><br><span class="line">slab class   3: chunk size    512 perslab  2048</span><br><span class="line">slab class   4: chunk size   1024 perslab  1024</span><br><span class="line">slab class   5: chunk size   2048 perslab   512</span><br><span class="line">slab class   6: chunk size   4096 perslab   256</span><br><span class="line">slab class   7: chunk size   8192 perslab   128</span><br><span class="line">slab class   8: chunk size  16384 perslab    64</span><br><span class="line">slab class   9: chunk size  32768 perslab    32</span><br><span class="line">slab class  10: chunk size  65536 perslab    16</span><br><span class="line">slab class  11: chunk size 131072 perslab     8</span><br><span class="line">slab class  12: chunk size 262144 perslab     4</span><br><span class="line">slab class  13: chunk size 524288 perslab     2</span><br></pre></td></tr></table></figure>
+<p>可见从128字节的组开始,组的大小依次增大为原来的2倍。这样设置的问题是,slab之间的差别比较大,有些情况下就相当浪费内存.</p>
+<p>来看看现在的默认设置(f=1.25)时的输出(篇幅所限,这里只写到第10组)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">slab class   1: chunk size     88 perslab 11915</span><br><span class="line">slab class   2: chunk size    112 perslab  9362</span><br><span class="line">slab class   3: chunk size    144 perslab  7281</span><br><span class="line">slab class   4: chunk size    184 perslab  5698</span><br><span class="line">slab class   5: chunk size    232 perslab  4519</span><br><span class="line">slab class   6: chunk size    296 perslab  3542</span><br><span class="line">slab class   7: chunk size    376 perslab  2788</span><br><span class="line">slab class   8: chunk size    472 perslab  2221</span><br><span class="line">slab class   9: chunk size    592 perslab  1771</span><br><span class="line">slab class  10: chunk size    744 perslab  1409</span><br></pre></td></tr></table></figure>
+<h2 id="Memcached过期机制"><a href="#Memcached过期机制" class="headerlink" title="Memcached过期机制"></a>Memcached过期机制</h2><p>Memcached有两种过期机制: <code>Lazy Expiration</code> 和 <code>LRU</code></p>
+<ul>
+<li><p><strong>惰性过期(Lazy Expiration)</strong>: memcached内部不会监视记录是否过期,而是在get时查看记录的时间戳,检查记录是否过</p>
+</li>
+<li><p><strong>最近最少使用(LRU)</strong>: 当memcached的内存空间不足时(无法从slab class 获取到新的空间时),就从最近未被使用的记录中搜索,并将其空间分配给新的记录。</p>
+</li>
+</ul>
+<p>不过,有些情况下LRU机制反倒会造成麻烦。memcached启动时通过“-M”参数可以禁止LRU.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 小写的“-m”选项是用来指定最大内存大小的。不指定具体数值则使用默认值64MB</span></span><br><span class="line">$ memcached -M -m 1024</span><br></pre></td></tr></table></figure>
+<h2 id="客户端一致性Hash"><a href="#客户端一致性Hash" class="headerlink" title="客户端一致性Hash"></a>客户端一致性Hash</h2><p>Memcached的分布式是通过客户端Consistent Hashing(一致性Hash)算法实现的, 如下所示:</p>
+<p>首先求出memcached服务器（节点）的哈希值, 并将其配置到0～2SUP(32)的圆（continuum）上。 然后用同样的方法求出存储数据的键的哈希值,并映射到圆上。 然后从数据映射到的位置开始顺时针查找,将数据保存到找到的第一个服务器上。 如果超过2SUP(32)仍然找不到服务器,就会保存到第一台memcached服务器上。</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15395270115907.jpg" alt></p>
+<p>从上图的状态中添加一台memcached服务器。余数分布式算法由于保存键的服务器会发生巨大变化 而影响缓存的命中率,但Consistent Hashing中,只有在continuum上增加服务器的地点逆时针方向的 第一台服务器上的键会受到影响.</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15395270430611.jpg" alt></p>
+<p>因此,Consistent Hashing最大限度地抑制了键的重新分布。 而且,有的Consistent Hashing的实现方法还采用了虚拟节点的思想。 使用一般的hash函数的话,服务器的映射地点的分布非常不均匀。 因此,使用虚拟节点的思想,为每个物理节点（服务器） 在continuum上分配100～200个点。这样就能抑制分布不均匀, 最大限度地减小服务器增减时的缓存重新分布。</p>
+<p>通过下文中介绍的使用Consistent Hashing算法的memcached客户端函数库进行测试的结果是, 由服务器台数（n）和增加的服务器台数（m）计算增加服务器后的命中率计算公式如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(1 - n/(n+m)) * 100</span><br></pre></td></tr></table></figure>
+<h2 id="Memcached客户端"><a href="#Memcached客户端" class="headerlink" title="Memcached客户端"></a>Memcached客户端</h2><p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15392213744399.jpg" alt></p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="https://www.w3cschool.cn/memcached/" target="_blank" rel="noopener">https://www.w3cschool.cn/memcached/</a></li>
+<li><a href="http://www.runoob.com/memcached/memcached-tutorial.html" target="_blank" rel="noopener">http://www.runoob.com/memcached/memcached-tutorial.html</a></li>
+<li><a href="http://gihyo.jp/tagList/memcached" target="_blank" rel="noopener">http://gihyo.jp/tagList/memcached</a></li>
+<li><a href="https://charlee.li/memcached-004.html" target="_blank" rel="noopener">https://charlee.li/memcached-004.html</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Cache/" rel="tag"># Cache</a>
+          
+            <a href="/tags/Memcached/" rel="tag"># Memcached</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/08/01/组件框架/RPC组件-Dubbo/" rel="next" title="RPC服务-Dubbo">
+                <i class="fa fa-chevron-left"></i> RPC服务-Dubbo
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/09/01/组件框架/缓存组件-Ehcache/" rel="prev" title="缓存组件-Ehcache">
+                缓存组件-Ehcache <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/havatar.png" alt="蘇若年">
+            
+              <p class="site-author-name" itemprop="name">蘇若年</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">文章</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分類</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">標籤</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Memcached介绍"><span class="nav-number">1.</span> <span class="nav-text">Memcached介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memcached特性"><span class="nav-number">2.</span> <span class="nav-text">Memcached特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memcached安装部署"><span class="nav-number">3.</span> <span class="nav-text">Memcached安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载安装"><span class="nav-number">3.1.</span> <span class="nav-text">下载安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动进程"><span class="nav-number">3.2.</span> <span class="nav-text">启动进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后台启动"><span class="nav-number">3.3.</span> <span class="nav-text">后台启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数说明"><span class="nav-number">3.4.</span> <span class="nav-text">参数说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memcached内存分配"><span class="nav-number">4.</span> <span class="nav-text">Memcached内存分配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Slab-Allocator基本原理"><span class="nav-number">4.1.</span> <span class="nav-text">Slab Allocator基本原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Slab-Allocator的缺点"><span class="nav-number">4.2.</span> <span class="nav-text">Slab Allocator的缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Growth-Factor调优控制"><span class="nav-number">4.3.</span> <span class="nav-text">Growth Factor调优控制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memcached过期机制"><span class="nav-number">5.</span> <span class="nav-text">Memcached过期机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端一致性Hash"><span class="nav-number">6.</span> <span class="nav-text">客户端一致性Hash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memcached客户端"><span class="nav-number">7.</span> <span class="nav-text">Memcached客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文档"><span class="nav-number">8.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HuntsWork</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 強力驅動</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主題 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66129992";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz',
+        appKey: 'pYydnhaL1ddP6c3fPWRnj9AO',
+        placeholder: '天青色等烟雨 而我 在等你 ...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz", "pYydnhaL1ddP6c3fPWRnj9AO");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 15497,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

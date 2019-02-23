@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-tw">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="kFp8mZ25PsFpJW_ipN268gzlsa4pfBk-LYkLTBR2jQc">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Nginx,Install,NodeJs,JDK,MySQL,Redis,Mongo,DaemonTools,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="花辭" type="application/atom+xml">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('该文章被加密, 输入访问口令!') !== ''){
+                alert('密码错误！');
+                //history.go(-1);
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<meta name="description" content="本篇主要讲述开发过程中常见的组件的部署与配置  Node安装 Node.js是一个基于Chrome V8引擎的JavaScript运行环境; 是运行在服务端的 JavaScript.  1234567[root@icloud-store export]# curl -sL https://rpm.nodesource.com/setup_9.x | bash -[root@icloud-stor">
+<meta name="keywords" content="Nginx,Install,NodeJs,JDK,MySQL,Redis,Mongo,DaemonTools">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通用中间件运维部署">
+<meta property="og:url" content="http://dennisit.github.io/2015/04/10/应用实践/通用中间件运维部署/index.html">
+<meta property="og:site_name" content="花辭">
+<meta property="og:description" content="本篇主要讲述开发过程中常见的组件的部署与配置  Node安装 Node.js是一个基于Chrome V8引擎的JavaScript运行环境; 是运行在服务端的 JavaScript.  1234567[root@icloud-store export]# curl -sL https://rpm.nodesource.com/setup_9.x | bash -[root@icloud-stor">
+<meta property="og:locale" content="zh-tw">
+<meta property="og:updated_time" content="2019-02-23T09:34:46.196Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="通用中间件运维部署">
+<meta name="twitter:description" content="本篇主要讲述开发过程中常见的组件的部署与配置  Node安装 Node.js是一个基于Chrome V8引擎的JavaScript运行环境; 是运行在服务端的 JavaScript.  1234567[root@icloud-store export]# curl -sL https://rpm.nodesource.com/setup_9.x | bash -[root@icloud-stor">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  document.oncontextmenu= function(){return false;}
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://dennisit.github.io/2015/04/10/应用实践/通用中间件运维部署/">
+
+
+
+
+
+  <title>通用中间件运维部署 | 花辭</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?57443a2926e41ae04a903a8093e16326";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">花辭</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">風月不瘦,雖以千年後。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            關於
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            標籤
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站點地圖
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dennisit.github.io/2015/04/10/应用实践/通用中间件运维部署/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蘇若年">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/havatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花辭">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">通用中间件运维部署</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2015-04-10T10:23:15+08:00">
+                2015-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/运维部署/" itemprop="url" rel="index">
+                    <span itemprop="name">运维部署</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/04/10/应用实践/通用中间件运维部署/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2015/04/10/应用实践/通用中间件运维部署/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2015/04/10/应用实践/通用中间件运维部署/" class="leancloud_visitors" data-flag-title="通用中间件运维部署">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">閱讀次數&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>本篇主要讲述开发过程中常见的组件的部署与配置</p>
+</blockquote>
+<h2 id="Node安装"><a href="#Node安装" class="headerlink" title="Node安装"></a>Node安装</h2><blockquote>
+<p>Node.js是一个基于Chrome V8引擎的JavaScript运行环境; 是运行在服务端的 JavaScript.</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@icloud-store <span class="built_in">export</span>]<span class="comment"># curl -sL https://rpm.nodesource.com/setup_9.x | bash -</span></span><br><span class="line">[root@icloud-store <span class="built_in">export</span>]<span class="comment"># yum install -y gcc-c++ make</span></span><br><span class="line">[root@icloud-store <span class="built_in">export</span>]<span class="comment"># yum install -y nodejs</span></span><br><span class="line">[root@icloud-store <span class="built_in">export</span>]<span class="comment"># node -v</span></span><br><span class="line">v9.3.0</span><br><span class="line">[root@icloud-store <span class="built_in">export</span>]<span class="comment"># npm -v</span></span><br><span class="line">5.5.1</span><br></pre></td></tr></table></figure>
+<h2 id="Hexo安装"><a href="#Hexo安装" class="headerlink" title="Hexo安装"></a>Hexo安装</h2><blockquote>
+<p>Hexo是一个简单地、轻量地、基于Node的一个静态博客框架,可以方便的生成静态网页托管(Hexo依赖NodeJs)</p>
+</blockquote>
+<h3 id="Hexo安装实例"><a href="#Hexo安装实例" class="headerlink" title="Hexo安装实例"></a>Hexo安装实例</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">localhost:~ elson$ sudo npm install -g npm</span><br><span class="line">localhost:~ elson$ sudo npm install -g hexo --no-optional</span><br><span class="line">localhost:~ elson$ hexo -V</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="Hexo插件安装"><a href="#Hexo插件安装" class="headerlink" title="Hexo插件安装"></a>Hexo插件安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">localhost:~ elson$ npm install hexo-generator-index --save</span><br><span class="line">localhost:~ elson$ npm install hexo-generator-archive --save</span><br><span class="line">localhost:~ elson$ npm install hexo-generator-category --save</span><br><span class="line">localhost:~ elson$ npm install hexo-generator-tag --save</span><br><span class="line">localhost:~ elson$ npm install hexo-server --save</span><br><span class="line">localhost:~ elson$ npm install hexo-deployer-git --save</span><br><span class="line">localhost:~ elson$ npm install hexo-renderer-marked@0.2 --save</span><br><span class="line">localhost:~ elson$ npm install hexo-renderer-stylus@0.2 --save</span><br><span class="line">localhost:~ elson$ npm install hexo-generator-feed@1 --save</span><br><span class="line">localhost:~ elson$ npm install hexo-generator-sitemap@1 --save</span><br><span class="line">localhost:~ elson$ npm install hexo-renderer-jade --save</span><br><span class="line">localhost:~ elson$ npm install hexo-renderer-sass --save</span><br></pre></td></tr></table></figure>
+<h3 id="Hexo创建项目"><a href="#Hexo创建项目" class="headerlink" title="Hexo创建项目"></a>Hexo创建项目</h3><p>在工程目录下(手动创建)执行<code>hexo init</code> 即可完成工程初始化</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">localhost:wuyu-platform elson$ mkdir -p /Users/elson/wuyu-platform/wuyu-platform-hexo</span><br><span class="line">localhost:wuyu-platform elson$ <span class="built_in">cd</span> /Users/elson/wuyu-platform/wuyu-platform-hexo</span><br><span class="line">localhost:wuyu-platform elson$ hexo init</span><br><span class="line">localhost:wuyu-platform-hexo elson$ ls</span><br><span class="line">_config.yml	db.json		node_modules	package.json	public		scaffolds	<span class="built_in">source</span>		themes</span><br></pre></td></tr></table></figure>
+<h3 id="Hexo启动项目"><a href="#Hexo启动项目" class="headerlink" title="Hexo启动项目"></a>Hexo启动项目</h3><p>Hexo启动使用命令<code>hexo s</code>, 也可以使用<code>hexo s -o</code>启动并直接打开应用页面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">localhost:wuyu-platform-hexo elson$ hexo s -o</span><br><span class="line">INFO  Start processing</span><br><span class="line">INFO  Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.</span><br></pre></td></tr></table></figure></p>
+<h3 id="Hexo静态化项目"><a href="#Hexo静态化项目" class="headerlink" title="Hexo静态化项目"></a>Hexo静态化项目</h3><p>Hexo静态化使用命令<code>hexo g</code>, 静态化后的文件在工程的public目录下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">localhost:wuyu-platform-hexo elson$ hexo g</span><br><span class="line">INFO  Start processing</span><br><span class="line">INFO  Files loaded in 178 ms</span><br><span class="line">INFO  Generated: sitemap.xml</span><br><span class="line">INFO  Generated: atom.xml</span><br><span class="line">INFO  Generated: 2016/11/27/hello-world/index.html</span><br><span class="line">INFO  Generated: archives/index.html</span><br><span class="line">INFO  Generated: archives/2016/index.html</span><br><span class="line">INFO  Generated: index.html</span><br><span class="line">INFO  Generated: archives/2016/11/index.html</span><br><span class="line">INFO  7 files generated in 166 ms</span><br></pre></td></tr></table></figure>
+<h3 id="Hexo主题扩展"><a href="#Hexo主题扩展" class="headerlink" title="Hexo主题扩展"></a>Hexo主题扩展</h3><p>推荐主题</p>
+<ul>
+<li><a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">https://github.com/iissnan/hexo-theme-next</a></li>
+<li><a href="https://github.com/tufu9441/maupassant-hexo" target="_blank" rel="noopener">https://github.com/tufu9441/maupassant-hexo</a></li>
+<li><a href="https://github.com/Haojen/hexo-theme-Anisina" target="_blank" rel="noopener">https://github.com/Haojen/hexo-theme-Anisina</a></li>
+</ul>
+<p>主题扩展</p>
+<ol>
+<li>在<code>工程目录</code>下执行<code>git clone 主题地址</code> 或者下载到工程目录下的themes下</li>
+<li>修改工程目录下的_config.yml文件, 配置节点<code>theme: landscape</code> 为要扩展的主题</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">localhost:wuyu-platform-hexo elson$ git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
+<h3 id="Hexo推送Git"><a href="#Hexo推送Git" class="headerlink" title="Hexo推送Git"></a>Hexo推送Git</h3><p>Git推送配置(修改工程目录下的_config.yml文件,配置节点<code>deploy:</code> )</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https://git.oschina.net/elson/HexoDoc.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<p>GIT推送命令部署</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">localhost:wuyu-platform-hexo elson$ hexo deploy</span><br></pre></td></tr></table></figure>
+<h3 id="Hexo安装问题"><a href="#Hexo安装问题" class="headerlink" title="Hexo安装问题"></a>Hexo安装问题</h3><p>安装过程遇到的问题解决,<a href="http://wp.huangshiyang.com/hexo%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88" target="_blank" rel="noopener">问题列表</a>.</p>
+<h2 id="JDK-安装"><a href="#JDK-安装" class="headerlink" title="JDK 安装"></a>JDK 安装</h2><blockquote>
+<p>JDK(Java Development Kit)是Java语言的软件开发工具包.它包含了JAVA的运行环境(JVM + Java系统类库)和JAVA工具.</p>
+</blockquote>
+<h3 id="移除自带的OpenJDK"><a href="#移除自带的OpenJDK" class="headerlink" title="移除自带的OpenJDK"></a>移除自带的OpenJDK</h3><p>CentOs默认可能安装了openjdk,这里我们采用oracle官网的jdk,所以需要移除openjdk.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># rpm -qa | grep jdk</span></span><br><span class="line">java-1.7.0-openjdk-headless-1.7.0.121-2.6.8.0.el7_3.x86_64</span><br><span class="line">java-1.8.0-openjdk-headless-1.8.0.121-0.b13.el7_3.x86_64</span><br><span class="line">java-1.8.0-openjdk-1.8.0.121-0.b13.el7_3.x86_64</span><br><span class="line">java-1.7.0-openjdk-1.7.0.121-2.6.8.0.el7_3.x86_64</span><br><span class="line">copy-jdk-configs-1.2-1.el7.noarch</span><br><span class="line">[root@localhost ~]<span class="comment"># rpm -e --nodeps java-1.7.0-openjdk-headless-1.7.0.121-2.6.8.0.el7_3.x86_64</span></span><br><span class="line">[root@localhost ~]<span class="comment"># rpm -e --nodeps java-1.8.0-openjdk-headless-1.8.0.121-0.b13.el7_3.x86_64</span></span><br><span class="line">[root@localhost ~]<span class="comment"># rpm -e --nodeps java-1.8.0-openjdk-1.8.0.121-0.b13.el7_3.x86_64</span></span><br><span class="line">[root@localhost ~]<span class="comment"># rpm -e --nodeps java-1.7.0-openjdk-1.7.0.121-2.6.8.0.el7_3.x86_64</span></span><br><span class="line">[root@localhost ~]<span class="comment"># rpm -e --nodeps copy-jdk-configs-1.2-1.el7.noarch</span></span><br></pre></td></tr></table></figure>
+<h3 id="安装Oracle官方JDK"><a href="#安装Oracle官方JDK" class="headerlink" title="安装Oracle官方JDK"></a>安装Oracle官方JDK</h3><p>下载最新版本的JDK,解压到特定目录,笔者解压到<code>/usr/local/jdk1.8.0_121</code>, 然后配置环境变量(修改/etc/profile文件,在文件末尾追加java环境变量设置信息)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost jdk1.8.0_121]<span class="comment"># java -version</span></span><br><span class="line">java version <span class="string">"1.8.0_121"</span></span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_121-b13)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.121-b13, mixed mode)</span><br></pre></td></tr></table></figure>
+<p><code>/etc/profile</code>配置文件末尾追加内容如下(追加完<code>source /etc/profile</code>使配置生效)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># set java environment</span></span><br><span class="line">JAVA_HOME=/usr/<span class="built_in">local</span>/jdk1.8.0_121</span><br><span class="line">JRE_HOME=/usr/<span class="built_in">local</span>/jdk1.8.0_121/jre</span><br><span class="line">CLASS_PATH=.:<span class="variable">$JAVA_HOME</span>/lib/dt.jar:<span class="variable">$JAVA_HOME</span>/lib/tools.jar:<span class="variable">$JRE_HOME</span>/lib</span><br><span class="line">PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$JRE_HOME</span>/bin</span><br><span class="line"><span class="built_in">export</span> JAVA_HOME JRE_HOME CLASS_PATH PATH</span><br></pre></td></tr></table></figure>
+<h2 id="Nginx安装"><a href="#Nginx安装" class="headerlink" title="Nginx安装"></a>Nginx安装</h2><blockquote>
+<p>Nginx是一个高性能的HTTP和反向代理服务器,也是一个IMAP/POP3/SMTP服务器; 官网地址:<a href="http://nginx.org/" target="_blank" rel="noopener">http://nginx.org/</a></p>
+</blockquote>
+<h3 id="Nginx安装示例"><a href="#Nginx安装示例" class="headerlink" title="Nginx安装示例"></a>Nginx安装示例</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost data]<span class="comment"># yum install zlib zlib-devel openssl openssl-devel pcre-devel gcc gcc-c++ autoconf automake pcre-devel gd-devel GeoI GeoIP-data GeoIP-devel</span></span><br><span class="line">[root@localhost data]<span class="comment"># wget wget https://nginx.org/download/nginx-1.12.2.tar.gz</span></span><br><span class="line">[root@localhost data]<span class="comment"># tar -zxvf nginx-1.12.2.tar.gz</span></span><br><span class="line">[root@localhost data]<span class="comment"># cd nginx-1.12.2</span></span><br><span class="line">[root@localhost nginx-1.12.2]<span class="comment"># ./configure --prefix=/usr/local/nginx --sbin-path=/usr/local/nginx/sbin/nginx --conf-path=/usr/local/nginx/conf/nginx.conf --http-log-path=/usr/local/nginx/logs/access.log --error-log-path=/usr/local/nginx/logs/error.log --pid-path=/usr/local/nginx/logs/nginx.pid --lock-path=/usr/local/nginx/lock/nginx.lock \</span></span><br><span class="line">--http-client-body-temp-path=/usr/<span class="built_in">local</span>/nginx/client_body_temp \</span><br><span class="line">--http-proxy-temp-path=/usr/<span class="built_in">local</span>/nginx/proxy_temp \</span><br><span class="line">--http-fastcgi-temp-path=/usr/<span class="built_in">local</span>/nginx/fastcgi-temp \</span><br><span class="line">--http-uwsgi-temp-path=/usr/<span class="built_in">local</span>/nginx/uwsgi-temp \</span><br><span class="line">--http-scgi-temp-path=/usr/<span class="built_in">local</span>/nginx/scgi-temp \</span><br><span class="line">--user=root --group=root \</span><br><span class="line">--with-http_v2_module \</span><br><span class="line">--with-http_gzip_static_module \</span><br><span class="line">--with-http_stub_status_module \</span><br><span class="line">--with-http_auth_request_module \</span><br><span class="line">--with-http_realip_module \</span><br><span class="line">--with-http_geoip_module \</span><br><span class="line">--with-http_ssl_module \</span><br><span class="line">--with-http_flv_module  \</span><br><span class="line">--with-http_mp4_module \</span><br><span class="line">--with-http_image_filter_module</span><br><span class="line">[root@localhost nginx-1.9.12]<span class="comment"># make &amp; make install</span></span><br></pre></td></tr></table></figure>
+<h3 id="Nginx安装验证"><a href="#Nginx安装验证" class="headerlink" title="Nginx安装验证"></a>Nginx安装验证</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost data]<span class="comment"># /usr/local/nginx/sbin/nginx -V</span></span><br><span class="line">nginx version: nginx/1.12.2</span><br><span class="line">built by gcc 4.4.7 20120313 (Red Hat 4.4.7-16) (GCC)</span><br><span class="line">built with OpenSSL 1.0.1e-fips 11 Feb 2013</span><br><span class="line">TLS SNI support enabled</span><br><span class="line">configure arguments: --prefix=/usr/<span class="built_in">local</span>/nginx --sbin-path=/usr/<span class="built_in">local</span>/nginx/sbin/nginx --conf-path=/usr/<span class="built_in">local</span>/nginx/conf/nginx.conf --http-log-path=/usr/<span class="built_in">local</span>/nginx/logs/access.log --error-log-path=/usr/<span class="built_in">local</span>/nginx/logs/error.log --pid-path=/usr/<span class="built_in">local</span>/nginx/logs/nginx.pid --lock-path=/usr/<span class="built_in">local</span>/nginx/lock/nginx.lock --http-client-body-temp-path=/usr/<span class="built_in">local</span>/nginx/client_body_temp --http-proxy-temp-path=/usr/<span class="built_in">local</span>/nginx/proxy_temp --http-fastcgi-temp-path=/usr/<span class="built_in">local</span>/nginx/fastcgi-temp --http-uwsgi-temp-path=/usr/<span class="built_in">local</span>/nginx/uwsgi-temp --http-scgi-temp-path=/usr/<span class="built_in">local</span>/nginx/scgi-temp --user=root --group=root --with-http_v2_module --with-http_gzip_static_module --with-http_stub_status_module --with-http_auth_request_module --with-http_realip_module --with-http_geoip_module --with-http_ssl_module --with-http_flv_module --with-http_mp4_module --with-http_image_filter_module</span><br></pre></td></tr></table></figure>
+<h3 id="Nginx启停脚本"><a href="#Nginx启停脚本" class="headerlink" title="Nginx启停脚本"></a>Nginx启停脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost init.d]<span class="comment"># service nginx</span></span><br><span class="line">Usage: /etc/init.d/nginx &#123;start|stop|reload|restart|configtest&#125;</span><br><span class="line">[root@localhost init.d]<span class="comment"># cat nginx</span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># chkconfig: - 85 15</span></span><br><span class="line"><span class="comment"># description: nginx is a World Wide Web server. It is used to serve</span></span><br><span class="line"><span class="comment"># Source Function Library</span></span><br><span class="line">. /etc/init.d/<span class="built_in">functions</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Nginx Settings</span></span><br><span class="line">NGINX_SBIN=<span class="string">"/usr/local/nginx/sbin/nginx"</span></span><br><span class="line">NGINX_CONF=<span class="string">"/usr/local/nginx/conf/nginx.conf"</span></span><br><span class="line">NGINX_PID=<span class="string">"/usr/local/nginx/logs/nginx.pid"</span></span><br><span class="line"></span><br><span class="line">RETVAL=0</span><br><span class="line">prog=<span class="string">"Nginx"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">start</span></span>() &#123;</span><br><span class="line">        <span class="built_in">echo</span> -n $<span class="string">"Starting <span class="variable">$prog</span>: "</span></span><br><span class="line">        mkdir -p /dev/shm/nginx_temp</span><br><span class="line">        daemon <span class="variable">$NGINX_SBIN</span> -c <span class="variable">$NGINX_CONF</span></span><br><span class="line">        RETVAL=$?</span><br><span class="line">        <span class="built_in">echo</span></span><br><span class="line">        <span class="built_in">return</span> <span class="variable">$RETVAL</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">stop</span></span>() &#123;</span><br><span class="line">        <span class="built_in">echo</span> -n $<span class="string">"Stopping <span class="variable">$prog</span>: "</span></span><br><span class="line">        killproc -p <span class="variable">$NGINX_PID</span> <span class="variable">$NGINX_SBIN</span> -TERM</span><br><span class="line">        rm -rf /dev/shm/nginx_temp</span><br><span class="line">        RETVAL=$?</span><br><span class="line">        <span class="built_in">echo</span></span><br><span class="line">        <span class="built_in">return</span> <span class="variable">$RETVAL</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">reload</span></span>()&#123;</span><br><span class="line">        <span class="built_in">echo</span> -n $<span class="string">"Reloading <span class="variable">$prog</span>: "</span></span><br><span class="line">        killproc -p <span class="variable">$NGINX_PID</span> <span class="variable">$NGINX_SBIN</span> -HUP</span><br><span class="line">        RETVAL=$?</span><br><span class="line">        <span class="built_in">echo</span></span><br><span class="line">        <span class="built_in">return</span> <span class="variable">$RETVAL</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">restart</span></span>()&#123;</span><br><span class="line">        stop</span><br><span class="line">        start</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">configtest</span></span>()&#123;</span><br><span class="line">    <span class="variable">$NGINX_SBIN</span> -c <span class="variable">$NGINX_CONF</span> -t</span><br><span class="line">    <span class="built_in">return</span> 0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">case</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="keyword">in</span></span><br><span class="line">  start)</span><br><span class="line">        start</span><br><span class="line">        ;;</span><br><span class="line">  stop)</span><br><span class="line">        stop</span><br><span class="line">        ;;</span><br><span class="line">  reload)</span><br><span class="line">        reload</span><br><span class="line">        ;;</span><br><span class="line">  restart)</span><br><span class="line">        restart</span><br><span class="line">        ;;</span><br><span class="line">  configtest)</span><br><span class="line">        configtest</span><br><span class="line">        ;;</span><br><span class="line">  *)</span><br><span class="line">        <span class="built_in">echo</span> $<span class="string">"Usage: <span class="variable">$0</span> &#123;start|stop|reload|restart|configtest&#125;"</span></span><br><span class="line">        RETVAL=1</span><br><span class="line"><span class="keyword">esac</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">exit</span> <span class="variable">$RETVAL</span></span><br><span class="line"></span><br><span class="line">[root@localhost sbin]<span class="comment"># service nginx restart</span></span><br><span class="line">[root@localhost sbin]<span class="comment"># ps -ef | grep nginx</span></span><br></pre></td></tr></table></figure>
+<h3 id="Nginx配置说明"><a href="#Nginx配置说明" class="headerlink" title="Nginx配置说明"></a>Nginx配置说明</h3><p>相关文档: <a href="https://blog.52itstyle.com/archives/557/" target="_blank" rel="noopener">https://blog.52itstyle.com/archives/557/</a></p>
+<h3 id="Nginx平滑升级"><a href="#Nginx平滑升级" class="headerlink" title="Nginx平滑升级"></a>Nginx平滑升级</h3><p>相关文档: <a href="https://www.centos.bz/2017/07/nginx-upgrade-latest-version/" target="_blank" rel="noopener">https://www.centos.bz/2017/07/nginx-upgrade-latest-version/</a></p>
+<h2 id="Mysql安装"><a href="#Mysql安装" class="headerlink" title="Mysql安装"></a>Mysql安装</h2><blockquote>
+<p>MySQL是最流行的关系型数据库管理系统.</p>
+</blockquote>
+<h3 id="Yum安装MysSQL"><a href="#Yum安装MysSQL" class="headerlink" title="Yum安装MysSQL"></a>Yum安装MysSQL</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost <span class="built_in">local</span>]<span class="comment"># yum list | grep mysql</span></span><br><span class="line">[root@localhost <span class="built_in">local</span>]<span class="comment"># yum install mysql-server mysql-devel mysql</span></span><br><span class="line">[root@localhost <span class="built_in">local</span>]<span class="comment"># service mysqld start</span></span><br><span class="line">[root@localhost <span class="built_in">local</span>]<span class="comment"># vim /etc/my.cnf</span></span><br><span class="line">＃创建root用户</span><br><span class="line">[root@localhost <span class="built_in">local</span>]<span class="comment"># mysqladmin -u root password 123456</span></span><br><span class="line">[root@localhost <span class="built_in">local</span>]<span class="comment"># service mysqld restart</span></span><br><span class="line">停止 mysqld：                                              [确定]</span><br><span class="line">正在启动 mysqld：                                          [确定]</span><br><span class="line">[root@localhost <span class="built_in">local</span>]<span class="comment"># mysql -uroot -p123root</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用官方仓库安装"><a href="#使用官方仓库安装" class="headerlink" title="使用官方仓库安装"></a>使用官方仓库安装</h3><p>Yum安装的版本可能比较低,要安装最新版的话,可以采用MySQL官方仓库,仓库地址: <a href="http://repo.mysql.com/" target="_blank" rel="noopener">http://repo.mysql.com/</a><br>安装启动后,会随机生成一个默认密码,该密码在首次登录后,会强制提示用户更新;默认密码可以在mysql的日志文件中查看.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[[root@localhost ~]<span class="comment"># wget http://repo.mysql.com/mysql80-community-release-el7.rpm</span></span><br><span class="line"> [root@localhost ~]<span class="comment"># rpm -ivh mysql80-community-release-el7.rpm</span></span><br><span class="line"> [root@localhost ~]<span class="comment"># yum install mysql-server</span></span><br><span class="line"> [root@localhost ~]<span class="comment"># service mysqld start</span></span><br><span class="line"> Redirecting to /bin/systemctl start mysqld.service</span><br><span class="line"> [root@localhost ~]<span class="comment"># grep "password" /var/log/mysqld.log</span></span><br><span class="line"> 2018-04-21T03:26:58.008783Z 5 [Note] [MY-010454] [Server] A temporary password is generated <span class="keyword">for</span> root@localhost: Ee3EqGyLOf+s</span><br><span class="line"> [root@localhost ~]<span class="comment"># mysql -uroot -pEe3EqGyLOf+s</span></span><br><span class="line"> mysql&gt; select version();</span><br><span class="line"> ERROR 1820 (HY000): You must reset your password using ALTER USER statement before executing this statement.</span><br><span class="line"> mysql&gt; ALTER USER <span class="string">'root'</span>@<span class="string">'localhost'</span> IDENTIFIED BY <span class="string">'123root'</span>;</span><br><span class="line"> Query OK, 0 rows affected (0.06 sec)</span><br><span class="line"></span><br><span class="line"> mysql&gt; flush privileges;</span><br><span class="line"> Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line"> mysql&gt; select version();</span><br><span class="line"> +-----------+</span><br><span class="line"> | version() |</span><br><span class="line"> +-----------+</span><br><span class="line"> | 8.0.11    |</span><br><span class="line"> +-----------+</span><br><span class="line"> 1 row <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</span><br><span class="line"> mysql&gt; <span class="built_in">exit</span></span><br><span class="line"> Bye</span><br><span class="line"> [root@localhost ~]<span class="comment"># mysql -uroot -p123root</span></span><br></pre></td></tr></table></figure>
+<h3 id="MySQL开机启动"><a href="#MySQL开机启动" class="headerlink" title="MySQL开机启动"></a>MySQL开机启动</h3><p>通过<code>chkconfig</code>配置MySQL开机启动.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost <span class="built_in">local</span>]<span class="comment"># chkconfig --add mysqld</span></span><br><span class="line">[root@localhost <span class="built_in">local</span>]<span class="comment"># chkconfig --list | grep mysqld</span></span><br><span class="line">mysqld          0:关闭    1:关闭    2:关闭    3:关闭    4:关闭    5:关闭    6:关闭</span><br><span class="line">[root@localhost <span class="built_in">local</span>]<span class="comment"># chkconfig mysqld on</span></span><br><span class="line">[root@localhost <span class="built_in">local</span>]<span class="comment"># chkconfig --list | grep mysqld</span></span><br><span class="line">mysqld          0:关闭    1:关闭    2:启用    3:启用    4:启用    5:启用    6:关闭</span><br></pre></td></tr></table></figure>
+<h3 id="MySQL授权访问"><a href="#MySQL授权访问" class="headerlink" title="MySQL授权访问"></a>MySQL授权访问</h3><p>示例: 授权<code>dennisit</code>以<code>rmsqlpwd</code>从任意远程端连接到mysql,特定ip限制讲％设置为限制的ip地址即可.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CREATE USER <span class="string">'user1'</span>@<span class="string">'%'</span> IDENTIFIED BY <span class="string">'user1pwd'</span>;</span><br><span class="line">Query OK, 0 rows affected (0.04 sec)</span><br><span class="line"></span><br><span class="line">-- 授权所有表</span><br><span class="line">mysql&gt; GRANT ALL PRIVILEGES ON *.* TO <span class="string">'user1'</span>@<span class="string">'%'</span>  WITH GRANT OPTION;</span><br><span class="line">Query OK, 0 rows affected (0.06 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; CREATE USER <span class="string">'user2'</span>@<span class="string">'192.168.0.100'</span> IDENTIFIED BY <span class="string">'user2pwd'</span>;</span><br><span class="line">Query OK, 0 rows affected (0.04 sec)</span><br><span class="line"></span><br><span class="line">-- 授权指定表</span><br><span class="line">mysql&gt; GRANT ALL PRIVILEGES ON tb_test.* TO <span class="string">'user2'</span>@<span class="string">'192.168.0.100'</span>  WITH GRANT OPTION;</span><br><span class="line">Query OK, 0 rows affected (0.06 sec)</span><br></pre></td></tr></table></figure>
+<p>授权后,远程端访问</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># mysql -h172.28.224.34 -uuser1 -puser1pwd</span></span><br></pre></td></tr></table></figure>
+<h2 id="Elastic安装"><a href="#Elastic安装" class="headerlink" title="Elastic安装"></a>Elastic安装</h2><blockquote>
+<p>Elastic是一个开源的分布式全文索引组件</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost <span class="built_in">local</span>]$ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.3.0.tar.gz</span><br><span class="line">[root@localhost <span class="built_in">local</span>]<span class="comment"># tar -zxvf elasticsearch-6.3.0.tar.gz </span></span><br><span class="line">[root@localhost <span class="built_in">local</span>]<span class="comment"># elasticsearch-6.3.0/bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.3.0/elasticsearch-analysis-ik-6.3.0.zip</span></span><br><span class="line">[root@localhost <span class="built_in">local</span>]<span class="comment"># elasticsearch-6.3.0/bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-pinyin/releases/download/v6.3.0/elasticsearch-analysis-pinyin-6.3.0.zip</span></span><br><span class="line">[root@localhost <span class="built_in">local</span>]<span class="comment"># elasticsearch-6.3.0/bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-stconvert/releases/download/v6.3.0/elasticsearch-analysis-stconvert-6.3.0.zip</span></span><br><span class="line">[root@localhost <span class="built_in">local</span>]<span class="comment"># chown wuyu:wuyu elasticsearch-6.3.0 -R</span></span><br><span class="line">[root@localhost <span class="built_in">local</span>]<span class="comment"># su wuyu</span></span><br><span class="line">[wuyu@localhost <span class="built_in">local</span>]$ elasticsearch-6.3.0/bin/elasticsearch &amp;</span><br></pre></td></tr></table></figure>
+<p><strong>X-Pack生成授权账号</strong></p>
+<p>交互创建</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost <span class="built_in">local</span>]$ elasticsearch-6.3.0/bin/elasticsearch-setup-passwords auto</span><br></pre></td></tr></table></figure>
+<p>自动生成</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost <span class="built_in">local</span>]$ elasticsearch-6.3.0/bin/elasticsearch-setup-passwords auto</span><br></pre></td></tr></table></figure>
+<h2 id="Redis安装"><a href="#Redis安装" class="headerlink" title="Redis安装"></a>Redis安装</h2><blockquote>
+<p>Redis是一个高性能的key-value数据库.</p>
+</blockquote>
+<h3 id="Redis安装-1"><a href="#Redis安装-1" class="headerlink" title="Redis安装"></a>Redis安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost download]<span class="comment"># wget http://download.redis.io/releases/redis-stable.tar.gz</span></span><br><span class="line">[root@localhost download]<span class="comment"># tar -zxvf redis-stable.tar.gz</span></span><br><span class="line">[root@localhost download]<span class="comment"># cd redis-stable</span></span><br><span class="line">[root@localhost redis-stable]<span class="comment"># make MALLOC=libc PREFIX=/usr/local/redis install</span></span><br><span class="line">[root@localhost redis-stable]<span class="comment"># cp ./redis.conf /usr/local/redis/</span></span><br></pre></td></tr></table></figure>
+<h3 id="Redis配置"><a href="#Redis配置" class="headerlink" title="Redis配置"></a>Redis配置</h3><p>修改<code>/usr/local/redis/redis.conf</code>配置文件:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># IP绑定模式</span><br><span class="line">bind 0.0.0.0</span><br><span class="line"></span><br><span class="line"># 服务端口设置</span><br><span class="line">port 6379</span><br><span class="line"></span><br><span class="line"># 以守护进程的方式运行</span><br><span class="line">daemonize yes</span><br><span class="line"></span><br><span class="line"># 当客户端闲置多长时间后关闭连接，如果指定为0，表示关闭该功能</span><br><span class="line">timeout 3000</span><br><span class="line"></span><br><span class="line"># 进程文件编号</span><br><span class="line">pidfile /var/run/redis.pid</span><br><span class="line"></span><br><span class="line"># 访问授权密码</span><br><span class="line">requirepass #2pwd4</span><br></pre></td></tr></table></figure>
+<h3 id="Redis启停脚本"><a href="#Redis启停脚本" class="headerlink" title="Redis启停脚本"></a>Redis启停脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost document]<span class="comment"># vim /etc/init.d/redis</span></span><br><span class="line">[root@localhost document]<span class="comment"># cat /etc/init.d/redis</span></span><br><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># redis        Startup script for Redis Server</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># chkconfig: - 80 12</span></span><br><span class="line"><span class="comment"># description: Redis is an open source, advanced key-value store.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># processname: redis-server</span></span><br><span class="line"><span class="comment"># config: /etc/redis.conf</span></span><br><span class="line"><span class="comment"># pidfile: /var/run/redis.pid</span></span><br><span class="line"><span class="built_in">source</span> /etc/init.d/<span class="built_in">functions</span></span><br><span class="line">BIN=<span class="string">"/usr/local/redis/bin"</span></span><br><span class="line">CONFIG=<span class="string">"/usr/local/redis/redis.conf"</span></span><br><span class="line">PIDFILE=<span class="string">"/var/run/redis.pid"</span></span><br><span class="line"><span class="comment">### Read configuration</span></span><br><span class="line">[ -r <span class="string">"<span class="variable">$SYSCONFIG</span>"</span> ] &amp;&amp; <span class="built_in">source</span> <span class="string">"<span class="variable">$SYSCONFIG</span>"</span></span><br><span class="line">RETVAL=0</span><br><span class="line">prog=<span class="string">"redis-server"</span></span><br><span class="line">desc=<span class="string">"Redis Server"</span></span><br><span class="line"><span class="function"><span class="title">start</span></span>() &#123;</span><br><span class="line">    <span class="keyword">if</span> [ -e <span class="variable">$PIDFILE</span> ];<span class="keyword">then</span></span><br><span class="line">	 <span class="built_in">echo</span> <span class="string">"<span class="variable">$desc</span> already running...."</span></span><br><span class="line">	 <span class="built_in">exit</span> 1</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    <span class="built_in">echo</span> -n $<span class="string">"Starting <span class="variable">$desc</span>: "</span></span><br><span class="line">    daemon <span class="variable">$BIN</span>/<span class="variable">$prog</span> <span class="variable">$CONFIG</span></span><br><span class="line">    RETVAL=$?</span><br><span class="line">    <span class="built_in">echo</span></span><br><span class="line">    [ <span class="variable">$RETVAL</span> -eq 0 ] &amp;&amp; touch /var/lock/subsys/<span class="variable">$prog</span></span><br><span class="line">    <span class="built_in">return</span> <span class="variable">$RETVAL</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="title">stop</span></span>() &#123;</span><br><span class="line">    <span class="built_in">echo</span> -n $<span class="string">"Stop <span class="variable">$desc</span>: "</span></span><br><span class="line">    killproc <span class="variable">$prog</span></span><br><span class="line">    RETVAL=$?</span><br><span class="line">    <span class="built_in">echo</span></span><br><span class="line">    [ <span class="variable">$RETVAL</span> -eq 0 ] &amp;&amp; rm -f /var/lock/subsys/<span class="variable">$prog</span> <span class="variable">$PIDFILE</span></span><br><span class="line">    <span class="built_in">return</span> <span class="variable">$RETVAL</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="title">restart</span></span>() &#123;</span><br><span class="line">    stop</span><br><span class="line">    start</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">case</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="keyword">in</span></span><br><span class="line">start)</span><br><span class="line">    start</span><br><span class="line">    ;;</span><br><span class="line">stop)</span><br><span class="line">    stop</span><br><span class="line">    ;;</span><br><span class="line">restart)</span><br><span class="line">    restart</span><br><span class="line">    ;;</span><br><span class="line">condrestart)</span><br><span class="line">    [ -e /var/lock/subsys/<span class="variable">$prog</span> ] &amp;&amp; restart</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    ;;</span><br><span class="line">status)</span><br><span class="line">    status <span class="variable">$prog</span></span><br><span class="line">    RETVAL=$?</span><br><span class="line">    ;;</span><br><span class="line">*)</span><br><span class="line">    <span class="built_in">echo</span> $<span class="string">"Usage: <span class="variable">$0</span> &#123;start|stop|restart|condrestart|status&#125;"</span></span><br><span class="line">    RETVAL=1</span><br><span class="line"><span class="keyword">esac</span></span><br><span class="line"><span class="built_in">exit</span> <span class="variable">$RETVAL</span></span><br><span class="line">[root@localhost init.d]<span class="comment"># chmod +x redis</span></span><br><span class="line">[root@localhost redis-stable]<span class="comment"># service redis start</span></span><br></pre></td></tr></table></figure>
+<h3 id="Redis开机启动"><a href="#Redis开机启动" class="headerlink" title="Redis开机启动"></a>Redis开机启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost redis-stable]<span class="comment"># chkconfig --list | grep redis</span></span><br><span class="line">[root@localhost redis-stable]<span class="comment"># chkconfig --add redis</span></span><br><span class="line">[root@localhost redis-stable]<span class="comment"># chkconfig --list | grep redis</span></span><br><span class="line">redis          	0:关	1:关	2:关	3:关	4:关	5:关	6:关</span><br><span class="line">[root@localhost redis-stable]<span class="comment"># chkconfig redis on</span></span><br><span class="line">[root@localhost redis-stable]<span class="comment"># chkconfig --list | grep redis</span></span><br><span class="line">redis          	0:关	1:关	2:开	3:开	4:开	5:开	6:关</span><br></pre></td></tr></table></figure>
+<h3 id="Redis授权访问"><a href="#Redis授权访问" class="headerlink" title="Redis授权访问"></a>Redis授权访问</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost redis-stable]<span class="comment"># /usr/local/redis/bin/redis-cli -a '111'</span></span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> a 1</span><br><span class="line">(error) NOAUTH Authentication required.</span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">exit</span></span><br><span class="line">[root@localhost redis-stable]<span class="comment"># /usr/local/redis/bin/redis-cli -a '#2pwd4'</span></span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> a 1</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get a</span><br><span class="line"><span class="string">"1"</span></span><br></pre></td></tr></table></figure>
+<h2 id="Mongo安装"><a href="#Mongo安装" class="headerlink" title="Mongo安装"></a>Mongo安装</h2><blockquote>
+<p>Mongo是一个基于分布式文件存储的数据库.</p>
+</blockquote>
+<h3 id="Mongo安装-1"><a href="#Mongo安装-1" class="headerlink" title="Mongo安装"></a>Mongo安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost cloud]<span class="comment"># wget 'https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel62-3.4.2.tgz'</span></span><br><span class="line">[root@localhost cloud]<span class="comment"># tar -zxvf mongodb-linux-x86_64-rhel62-3.4.2.tgz</span></span><br><span class="line">[root@localhost cloud]<span class="comment"># mv mongodb-linux-x86_64-rhel62-3.4.2 mongo</span></span><br><span class="line">[root@localhost cloud]<span class="comment"># mongo/bin/mongod --help</span></span><br><span class="line">[root@localhost cloud]<span class="comment"># cd mongo</span></span><br><span class="line">[root@localhost mongo]<span class="comment"># pwd</span></span><br><span class="line">/<span class="built_in">export</span>/cloud/mongodb</span><br><span class="line">[root@localhost mongo]<span class="comment"># vim mongo.conf</span></span><br><span class="line">[root@localhost mongo]<span class="comment"># ls</span></span><br><span class="line">bin  GNU-AGPL-3.0  mongo.conf  MPL-2  README  THIRD-PARTY-NOTICES</span><br><span class="line">[root@localhost mongo]<span class="comment"># bin/mongod --config /export/cloud/mongo/mongo.conf</span></span><br><span class="line">about to fork child process, waiting until server is ready <span class="keyword">for</span> connections.</span><br><span class="line">forked process: 22187</span><br><span class="line">child process started successfully, parent exiting</span><br></pre></td></tr></table></figure>
+<h3 id="Mongo配置"><a href="#Mongo配置" class="headerlink" title="Mongo配置"></a>Mongo配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost mongo]<span class="comment"># cat mongo.conf</span></span><br><span class="line"><span class="comment"># specify port number - 27017 by default</span></span><br><span class="line">port=27017</span><br><span class="line"><span class="comment"># directory for datafiles - defaults to /data/db</span></span><br><span class="line">dbpath=/<span class="built_in">export</span>/data/mongo</span><br><span class="line"><span class="comment"># log file to send write to instead of stdout - has to be a file, not directory</span></span><br><span class="line">logpath=/<span class="built_in">export</span>/logs/mongo/mongo.log</span><br><span class="line"><span class="comment"># append to logpath instead of over-writing</span></span><br><span class="line">logappend=<span class="literal">true</span></span><br><span class="line"><span class="comment"># fork server process</span></span><br><span class="line">fork=<span class="literal">true</span></span><br><span class="line"><span class="comment"># each database will be stored in a separate directory</span></span><br><span class="line">directoryperdb=<span class="literal">true</span></span><br><span class="line"><span class="comment"># run with security</span></span><br><span class="line">auth=<span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p><strong>说明</strong>: dbpath和logpath自己创建</p>
+<h3 id="Mongo验证"><a href="#Mongo验证" class="headerlink" title="Mongo验证"></a>Mongo验证</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost mongo]<span class="comment"># pwd</span></span><br><span class="line">/<span class="built_in">export</span>/cloud/mongo</span><br><span class="line">[root@localhost mongo]<span class="comment"># bin/mongo</span></span><br><span class="line">&gt; use admin</span><br><span class="line">switched to db admin</span><br><span class="line">&gt; show dbs</span><br><span class="line">admin  0.000GB</span><br><span class="line"><span class="built_in">local</span>  0.000GB</span><br><span class="line">&gt; db.mock.insert(&#123;name:<span class="string">"jack"</span>,age:22&#125;);</span><br><span class="line">&gt; db.collection.insertMany([&#123;name:”elon<span class="string">",age:20&#125;,&#123;name:”dennisit"</span>,age:25&#125;])</span><br><span class="line">2017-08-26T13:24:23.078+0800 E QUERY    [thread1] SyntaxError: illegal character @(shell):1:32</span><br><span class="line">&gt; db.mock.insertMany([&#123;name:<span class="string">"elon"</span>,age:20&#125;,&#123;name:<span class="string">"dennisit"</span>,age:25&#125;]);</span><br><span class="line">&#123;</span><br><span class="line">	<span class="string">"acknowledged"</span> : <span class="literal">true</span>,</span><br><span class="line">	<span class="string">"insertedIds"</span> : [</span><br><span class="line">		ObjectId(<span class="string">"59a10628dcec5be9803d12fe"</span>),</span><br><span class="line">		ObjectId(<span class="string">"59a10628dcec5be9803d12ff"</span>)</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br><span class="line">&gt; db.mock.find();</span><br><span class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"59a10399dcec5be9803d12fd"</span>), <span class="string">"name"</span> : <span class="string">"jack"</span>, <span class="string">"age"</span> : 22 &#125;</span><br><span class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"59a10628dcec5be9803d12fe"</span>), <span class="string">"name"</span> : <span class="string">"elon"</span>, <span class="string">"age"</span> : 20 &#125;</span><br><span class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"59a10628dcec5be9803d12ff"</span>), <span class="string">"name"</span> : <span class="string">"dennisit"</span>, <span class="string">"age"</span> : 25 &#125;</span><br><span class="line">&gt; db.mock.findOne();</span><br><span class="line">&#123;</span><br><span class="line">	<span class="string">"_id"</span> : ObjectId(<span class="string">"59a10399dcec5be9803d12fd"</span>),</span><br><span class="line">	<span class="string">"name"</span> : <span class="string">"jack"</span>,</span><br><span class="line">	<span class="string">"age"</span> : 22</span><br><span class="line">&#125;</span><br><span class="line">&gt; db.mock.find(&#123;age:&#123;<span class="variable">$gt</span>:20&#125;&#125;);</span><br><span class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"59a10399dcec5be9803d12fd"</span>), <span class="string">"name"</span> : <span class="string">"jack"</span>, <span class="string">"age"</span> : 22 &#125;</span><br><span class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"59a10628dcec5be9803d12ff"</span>), <span class="string">"name"</span> : <span class="string">"dennisit"</span>, <span class="string">"age"</span> : 25 &#125;</span><br><span class="line">&gt;</span><br><span class="line">&gt; db.mock.find(&#123;name: <span class="string">"elon"</span>&#125;);</span><br><span class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"59a10628dcec5be9803d12fe"</span>), <span class="string">"name"</span> : <span class="string">"elon"</span>, <span class="string">"age"</span> : 20 &#125;</span><br><span class="line">&gt; db.mock.find().skip(1).<span class="built_in">limit</span>(5).sort(&#123;age: 1&#125;);</span><br><span class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"59a10399dcec5be9803d12fd"</span>), <span class="string">"name"</span> : <span class="string">"jack"</span>, <span class="string">"age"</span> : 22 &#125;</span><br><span class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"59a10628dcec5be9803d12ff"</span>), <span class="string">"name"</span> : <span class="string">"dennisit"</span>, <span class="string">"age"</span> : 25 &#125;</span><br><span class="line">&gt; db.mock.find().skip(1).<span class="built_in">limit</span>(5).sort(&#123;age: -1&#125;);</span><br><span class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"59a10399dcec5be9803d12fd"</span>), <span class="string">"name"</span> : <span class="string">"jack"</span>, <span class="string">"age"</span> : 22 &#125;</span><br><span class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"59a10628dcec5be9803d12fe"</span>), <span class="string">"name"</span> : <span class="string">"elon"</span>, <span class="string">"age"</span> : 20 &#125;</span><br><span class="line">&gt; db.mock.remove(&#123;age:&#123;<span class="variable">$gt</span>:20&#125;&#125;);</span><br><span class="line">WriteResult(&#123; <span class="string">"nRemoved"</span> : 2 &#125;)</span><br><span class="line">&gt; db.mock.find();</span><br><span class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"59a10628dcec5be9803d12fe"</span>), <span class="string">"name"</span> : <span class="string">"elon"</span>, <span class="string">"age"</span> : 20 &#125;</span><br><span class="line">&gt; db.mock.insert(&#123;_id:111, name:<span class="string">"suruonian"</span>,age:18&#125;);</span><br><span class="line">WriteResult(&#123; <span class="string">"nInserted"</span> : 1 &#125;)</span><br><span class="line">&gt; db.mock.find();</span><br><span class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"59a10628dcec5be9803d12fe"</span>), <span class="string">"name"</span> : <span class="string">"elon"</span>, <span class="string">"age"</span> : 20 &#125;</span><br><span class="line">&#123; <span class="string">"_id"</span> : 111, <span class="string">"name"</span> : <span class="string">"suruonian"</span>, <span class="string">"age"</span> : 18 &#125;</span><br><span class="line">&gt; db.mock.update(&#123;_id: 111&#125; , &#123;<span class="variable">$set</span> : &#123;<span class="string">"name"</span>:<span class="string">"苏若年"</span>&#125;&#125;, <span class="literal">false</span>, <span class="literal">true</span>);</span><br><span class="line">WriteResult(&#123; <span class="string">"nMatched"</span> : 1, <span class="string">"nUpserted"</span> : 0, <span class="string">"nModified"</span> : 1 &#125;)</span><br><span class="line">&gt; db.mock.find();</span><br><span class="line">&#123; <span class="string">"_id"</span> : ObjectId(<span class="string">"59a10628dcec5be9803d12fe"</span>), <span class="string">"name"</span> : <span class="string">"elon"</span>, <span class="string">"age"</span> : 20 &#125;</span><br><span class="line">&#123; <span class="string">"_id"</span> : 111, <span class="string">"name"</span> : <span class="string">"苏若年"</span>, <span class="string">"age"</span> : 18 &#125;</span><br><span class="line">&gt; db.mock.remove(&#123;&#125;);</span><br><span class="line">WriteResult(&#123; <span class="string">"nRemoved"</span> : 2 &#125;)</span><br><span class="line">&gt; db.mock.find();</span><br></pre></td></tr></table></figure>
+<p><strong>命令行教程</strong> : <a href="http://www.runoob.com/mongodb/mongodb-tutorial.html" target="_blank" rel="noopener">http://www.runoob.com/mongodb/mongodb-tutorial.html</a></p>
+<h3 id="Mongo权限"><a href="#Mongo权限" class="headerlink" title="Mongo权限"></a>Mongo权限</h3><h4 id="开启权限认证"><a href="#开启权限认证" class="headerlink" title="开启权限认证"></a>开启权限认证</h4><p>mongo启动配置中设置auth=true</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost mongo]<span class="comment"># cat mongo.conf</span></span><br><span class="line"><span class="comment"># specify port number - 27017 by default</span></span><br><span class="line">port=27017</span><br><span class="line"><span class="comment"># directory for datafiles - defaults to /data/db</span></span><br><span class="line">dbpath=/<span class="built_in">export</span>/data/mongo</span><br><span class="line"><span class="comment"># log file to send write to instead of stdout - has to be a file, not directory</span></span><br><span class="line">logpath=/<span class="built_in">export</span>/logs/mongo/mongo.log</span><br><span class="line"><span class="comment"># append to logpath instead of over-writing</span></span><br><span class="line">logappend=<span class="literal">true</span></span><br><span class="line"><span class="comment"># fork server process</span></span><br><span class="line">fork=<span class="literal">true</span></span><br><span class="line"><span class="comment"># each database will be stored in a separate directory</span></span><br><span class="line">directoryperdb=<span class="literal">true</span></span><br><span class="line"><span class="comment"># run with security</span></span><br><span class="line">auth=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h4 id="添加管理员账号"><a href="#添加管理员账号" class="headerlink" title="添加管理员账号"></a>添加管理员账号</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost mongo]<span class="comment"># pwd</span></span><br><span class="line">/<span class="built_in">export</span>/cloud/mongo</span><br><span class="line">[root@localhost mongo]<span class="comment"># bin/mongod --config /export/cloud/mongo/mongo.conf</span></span><br><span class="line">about to fork child process, waiting until server is ready <span class="keyword">for</span> connections.</span><br><span class="line">forked process: 10930</span><br><span class="line">child process started successfully, parent exiting</span><br><span class="line">[root@localhost mongo]<span class="comment"># bin/mongo</span></span><br><span class="line">&gt; use admin;</span><br><span class="line">switched to db admin</span><br><span class="line">&gt; db.createUser(&#123;</span><br><span class="line">...     user:<span class="string">'admin'</span>,</span><br><span class="line">...     <span class="built_in">pwd</span>:<span class="string">'123456'</span>,</span><br><span class="line">...     roles:[&#123;role:<span class="string">'userAdminAnyDatabase'</span>, db:<span class="string">'admin'</span>&#125;]</span><br><span class="line">... &#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>说明</strong></p>
+<ul>
+<li>这里所说的管理员账号不是像linux里面无所不能的root，而是一个能分配账号的账号。</li>
+<li>这样就创建了一个账号,user为admin，密码为123456，他能在admin库中管理任何库的用户。</li>
+</ul>
+<h4 id="添加数据操作账号"><a href="#添加数据操作账号" class="headerlink" title="添加数据操作账号"></a>添加数据操作账号</h4><p>一旦开启的权限管理，接下来所有的操作都必须用合适的账号去做,我们创建的admin账号只能管理用户，而我们真正需要的账号是要能用来读写数据的，那就需要创建一个可读写数据的账号。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt; use admin</span><br><span class="line">switched to db admin</span><br><span class="line">&gt; db.auth(<span class="string">"admin"</span>,<span class="string">"123456"</span>);</span><br><span class="line">1</span><br><span class="line">&gt; use stream;</span><br><span class="line">switched to db stream</span><br><span class="line">&gt; db.createUser(&#123;</span><br><span class="line">...     user:<span class="string">'test'</span>,</span><br><span class="line">...     <span class="built_in">pwd</span>:<span class="string">'testpwd'</span>,</span><br><span class="line">...     roles:[&#123;role:<span class="string">'readWrite'</span>, db:<span class="string">'stream'</span>&#125;]</span><br><span class="line">... &#125;);</span><br><span class="line">&gt; <span class="built_in">exit</span></span><br><span class="line"><span class="built_in">bye</span></span><br><span class="line">[root@localhost mongo]<span class="comment"># bin/mongo 127.0.0.1:27017/stream -utest -ptestpwd</span></span><br></pre></td></tr></table></figure>
+<p>示例给stream库添加了一个账号为”test”,密码为”testpwd”, 权限为”readWrite”的用户.</p>
+<h2 id="DaemonTools安装"><a href="#DaemonTools安装" class="headerlink" title="DaemonTools安装"></a>DaemonTools安装</h2><blockquote>
+<p>Daemontools是一个守护进程工具，用来监视一个进程以免其意外退出; 它包含了很多管理Unix服务的工具的软件包，其中最核心的工具是supervise，它的功能是监控一个指定的服务，当该服务进程消亡，则重新启动该进程。而要添加让supervise监控的服务非常容易，只需要添加一个被监控的服务的目录，在该目录中添加启动服务器的名字为run的脚本文件即可; 官网地址: <a href="http://cr.yp.to/daemontools.html" target="_blank" rel="noopener">http://cr.yp.to/daemontools.html</a></p>
+</blockquote>
+<h3 id="DaemonTools安装示例"><a href="#DaemonTools安装示例" class="headerlink" title="DaemonTools安装示例"></a>DaemonTools安装示例</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost daemontools]<span class="comment"># pwd</span></span><br><span class="line">/<span class="built_in">export</span>/backup/daemontools</span><br><span class="line">[root@localhost daemontools]<span class="comment"># wget http://cr.yp.to/daemontools/daemontools-0.76.tar.gz</span></span><br><span class="line">[root@localhost daemontools]<span class="comment"># gunzip daemontools-0.76.tar.gz</span></span><br><span class="line">[root@localhost daemontools]<span class="comment"># ls</span></span><br><span class="line">daemontools-0.76.tar</span><br><span class="line">[root@localhost daemontools]<span class="comment"># tar -xpf daemontools-0.76.tar</span></span><br><span class="line">[root@localhost daemontools]<span class="comment"># ls</span></span><br><span class="line">admin  daemontools-0.76.tar</span><br><span class="line">[root@localhost daemontools]<span class="comment"># rm -f daemontools-0.76.tar</span></span><br><span class="line">[root@localhost daemontools]<span class="comment"># cd admin/daemontools-0.76</span></span><br><span class="line">[root@localhost daemontools]<span class="comment"># package/install</span></span><br></pre></td></tr></table></figure>
+<p>说明: 安装完会在根目录/下创建两个目录：/service和/command目录.</p>
+<ul>
+<li>/service目录： 存放被daemontools管理的进程，注意在/service目录下存放的只能是连接。</li>
+<li>/command目录:  存放的是daemontools的一些常用命令。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost daemontools]<span class="comment"># cd ~</span></span><br><span class="line">[root@localhost ~]<span class="comment"># ls /command/</span></span><br><span class="line">envdir     fghack    pgrphack       setlock    softlimit  svc   svscan      svstat  tai64nlocal</span><br><span class="line">envuidgid  multilog  readproctitle  setuidgid  supervise  svok  svscanboot  tai64n</span><br><span class="line">[root@localhost ~]<span class="comment"># ls /service/</span></span><br></pre></td></tr></table></figure>
+<h3 id="DaemonTools开机启动"><a href="#DaemonTools开机启动" class="headerlink" title="DaemonTools开机启动"></a>DaemonTools开机启动</h3><p>在<code>/etc/init/</code>下增添加<code>svscan.conf</code>文件, 文件内容如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># cat /etc/init/svscan.conf</span></span><br><span class="line"><span class="comment"># svscan - daemontools</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># This service starts daemontools from the point the system is</span></span><br><span class="line"><span class="comment"># started until it is shut down again.</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">limit</span> nofile 1000000 1000000</span><br><span class="line">start on runlevel [345]</span><br><span class="line">stop on runlevel [06]</span><br><span class="line"></span><br><span class="line">respawn</span><br><span class="line"><span class="built_in">exec</span> /<span class="built_in">command</span>/svscanboot</span><br></pre></td></tr></table></figure>
+<p>注释掉安装,在<code>/etc/inittab</code>中自动配置的一行(不使用该方法开机启动,会存在不同系统失效的问题)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># cat /etc/inittab</span></span><br><span class="line"><span class="comment"># inittab is only used by upstart for the default runlevel.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># ADDING OTHER CONFIGURATION HERE WILL HAVE NO EFFECT ON YOUR SYSTEM.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># System initialization is started by /etc/init/rcS.conf</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Individual runlevels are started by /etc/init/rc.conf</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Ctrl-Alt-Delete is handled by /etc/init/control-alt-delete.conf</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Terminal gettys are handled by /etc/init/tty.conf and /etc/init/serial.conf,</span></span><br><span class="line"><span class="comment"># with configuration in /etc/sysconfig/init.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># For information on how to write upstart event handlers, or how</span></span><br><span class="line"><span class="comment"># upstart works, see init(5), init(8), and initctl(8).</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Default runlevel. The runlevels used are:</span></span><br><span class="line"><span class="comment">#   0 - halt (Do NOT set initdefault to this)</span></span><br><span class="line"><span class="comment">#   1 - Single user mode</span></span><br><span class="line"><span class="comment">#   2 - Multiuser, without NFS (The same as 3, if you do not have networking)</span></span><br><span class="line"><span class="comment">#   3 - Full multiuser mode</span></span><br><span class="line"><span class="comment">#   4 - unused</span></span><br><span class="line"><span class="comment">#   5 - X11</span></span><br><span class="line"><span class="comment">#   6 - reboot (Do NOT set initdefault to this)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">id:3:initdefault:</span><br><span class="line"></span><br><span class="line">SV:123456:respawn:/<span class="built_in">command</span>/svscanboot</span><br></pre></td></tr></table></figure>
+<p>添加完启动配置后, 执行以下指令是配置重新加载</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># initctl reload-configuration</span></span><br><span class="line">[root@localhost ~]<span class="comment"># initctl start svscan</span></span><br></pre></td></tr></table></figure>
+<h3 id="DaemonTools状态检测"><a href="#DaemonTools状态检测" class="headerlink" title="DaemonTools状态检测"></a>DaemonTools状态检测</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># ps -ef | grep svscan</span></span><br><span class="line">root     20141     1  0 22:38 ?        00:00:00 /bin/sh /<span class="built_in">command</span>/svscanboot</span><br><span class="line">root     20143 20141  0 22:38 ?        00:00:00 svscan /service</span><br><span class="line">root     20162 19819  0 22:39 pts/1    00:00:00 grep svscan</span><br><span class="line">svscan start/running, process 20141</span><br><span class="line">[root@localhost ~]<span class="comment"># pstree -a -p 20141</span></span><br><span class="line">svscanboot,20141 /<span class="built_in">command</span>/svscanboot</span><br><span class="line">  ├─readproctitle,20144 service errors:...</span><br><span class="line">  └─svscan,20143 /service</span><br></pre></td></tr></table></figure>
+<h3 id="DaemonTools目录规范"><a href="#DaemonTools目录规范" class="headerlink" title="DaemonTools目录规范"></a>DaemonTools目录规范</h3><p>在需要被supervise监控的目录下建立可执行的 run 脚本文件<br>将这个目录软链到/service下，svscan检测到这是个新目录，会自动执行 svc -u</p>
+<blockquote>
+<p>关于run脚本：切记，要用 exec 执行最终执行服务的程序，否则运行 run 脚本的shell收到 svc -d 的 TERM 信号退出之后，实际执行服务的那个程序不会跟着退出。</p>
+</blockquote>
+<p>因为supervise是通过监控run退出时产生的SIGCHLD信号来识别服务已经终止，并重启服务的。<br>如果这里没exec，则会导致fork+exec效果，在svc -d终止服务时，只给run脚本发送TERM命令，而run脚本fork出来的子进程不会收到信号，从而变成孤儿进程继续运行，占据文件锁、TCP端口等资源<br>对于不便exec的程序，可以在后面加&amp;符号后台运行，并在调用命令之后用 waitpid %1 命令等待，从而阻止run脚本退出；run脚本开头处应该用trap命令捕获TERM信号，信号处理过程中给%1发送TERM信号，即可实现整体退出的效果</p>
+<p>一个受监控的配置示例结构应当如下图:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">myservice</span><br><span class="line">    ├── run</span><br><span class="line">    └── supervise     -- 这个目录是daemontools生成的</span><br><span class="line">        ├── control</span><br><span class="line">        ├── lock</span><br><span class="line">        ├── ok</span><br><span class="line">        └── status</span><br></pre></td></tr></table></figure>
+<h3 id="DaemonTools监控示例"><a href="#DaemonTools监控示例" class="headerlink" title="DaemonTools监控示例"></a>DaemonTools监控示例</h3><h4 id="创建监控测试进程"><a href="#创建监控测试进程" class="headerlink" title="创建监控测试进程"></a>创建监控测试进程</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># cd /service/</span></span><br><span class="line">[root@localhost service]<span class="comment"># mkdir test.daemontools</span></span><br><span class="line">[root@localhost service]<span class="comment"># cd test.daemontools/</span></span><br><span class="line">[root@localhost test.daemontools]<span class="comment"># vim TestDaemon.java</span></span><br><span class="line">[root@localhost test.daemontools]<span class="comment"># pwd</span></span><br><span class="line">/service/test.daemontools</span><br><span class="line">[root@localhost test.daemontools]<span class="comment"># ls</span></span><br><span class="line">supervise  TestDaemon.java</span><br><span class="line">[root@localhost test.daemontools]<span class="comment"># ls</span></span><br><span class="line">supervise  TestDaemon.java</span><br><span class="line">[root@localhost test.daemontools]<span class="comment"># javac -d . TestDaemon.java</span></span><br><span class="line">[root@localhost test.daemontools]<span class="comment"># vim run</span></span><br><span class="line">[root@localhost test.daemontools]<span class="comment"># chmod +x run</span></span><br><span class="line">[root@localhost test.daemontools]<span class="comment"># cat run</span></span><br><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">"daemon tools test with java demo"</span>;</span><br><span class="line"><span class="built_in">exec</span> java TestDaemon</span><br><span class="line">[root@localhost test.daemontools]<span class="comment"># ls</span></span><br><span class="line">run  supervise  TestDaemon.class  TestDaemon.java</span><br><span class="line">[root@localhost test.daemontools]<span class="comment"># sh run</span></span><br><span class="line">start <span class="built_in">test</span></span><br><span class="line">i=0</span><br><span class="line">i=1</span><br><span class="line">i=2</span><br></pre></td></tr></table></figure>
+<p>说明: 要监控的监控必须对应一个run脚本(名字必须是run而且权限是755)</p>
+<h4 id="尝试kill掉测试进程"><a href="#尝试kill掉测试进程" class="headerlink" title="尝试kill掉测试进程"></a>尝试kill掉测试进程</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost test.daemontools]<span class="comment"># jps</span></span><br><span class="line">31783 Jps</span><br><span class="line">31654 TestDaemon</span><br><span class="line">14696 Bootstrap</span><br><span class="line">[root@localhost test.daemontools]<span class="comment"># kill -9 31654</span></span><br><span class="line">[root@localhost test.daemontools]<span class="comment"># jps</span></span><br><span class="line">31801 TestDaemon</span><br><span class="line">31815 Jps</span><br><span class="line">14696 Bootstrap</span><br></pre></td></tr></table></figure>
+<h3 id="DaemonTools常用指令"><a href="#DaemonTools常用指令" class="headerlink" title="DaemonTools常用指令"></a>DaemonTools常用指令</h3><h4 id="启动被管理的进程"><a href="#启动被管理的进程" class="headerlink" title="启动被管理的进程"></a>启动被管理的进程</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># svc -u /service/test.daemontools/</span></span><br></pre></td></tr></table></figure>
+<h4 id="查看被管理的进程状态"><a href="#查看被管理的进程状态" class="headerlink" title="查看被管理的进程状态"></a>查看被管理的进程状态</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># svstat /service/test.daemontools/</span></span><br><span class="line">/service/test.daemontools/: up (pid 31801) 202 seconds</span><br></pre></td></tr></table></figure>
+<h4 id="重启被管理的服务"><a href="#重启被管理的服务" class="headerlink" title="重启被管理的服务"></a>重启被管理的服务</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重启服务（向当前进程发一个TERM信号，退出后，svc会自动将其启动）</span></span><br><span class="line">[root@localhost ~]<span class="comment"># svc -t /service/gtbot1</span></span><br></pre></td></tr></table></figure>
+<h4 id="关闭被管理的进程"><a href="#关闭被管理的进程" class="headerlink" title="关闭被管理的进程"></a>关闭被管理的进程</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># svc -d /service/test.daemontools/</span></span><br><span class="line">[root@localhost ~]<span class="comment"># svstat /service/test.daemontools/</span></span><br><span class="line">/service/test.daemontools/: down 3 seconds, normally up</span><br><span class="line">[root@localhost ~]<span class="comment"># jps</span></span><br><span class="line">5993 Bootstrap</span><br><span class="line">31893 Jps</span><br><span class="line">1746 Bootstrap</span><br><span class="line">15606 Bootstrap</span><br><span class="line">27289 Bootstrap</span><br><span class="line">14696 Bootstrap</span><br></pre></td></tr></table></figure>
+<h3 id="问题处理"><a href="#问题处理" class="headerlink" title="问题处理"></a>问题处理</h3><h4 id="问题1-could-not-read-symbols-Bad-value"><a href="#问题1-could-not-read-symbols-Bad-value" class="headerlink" title="问题1: could not read symbols: Bad value"></a>问题1: could not read symbols: Bad value</h4><p>错误:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ld: errno: TLS definition <span class="keyword">in</span> /lib64/libc.so.6 section .tbss mismatches non-TLS reference <span class="keyword">in</span> envdir.o</span><br><span class="line">/lib64/libc.so.6: could not <span class="built_in">read</span> symbols: Bad value</span><br><span class="line">collect2: ld 返回 1</span><br><span class="line">make: *** [envdir] 错误 1</span><br></pre></td></tr></table></figure>
+<p>解决: 编辑src/conf-cc, 在gcc开头的一行最后加上<code>-include /usr/include/errno.h</code></p>
+<h4 id="问题2-应用程序的错误输出需要重定向到STDOUT去"><a href="#问题2-应用程序的错误输出需要重定向到STDOUT去" class="headerlink" title="问题2: 应用程序的错误输出需要重定向到STDOUT去"></a>问题2: 应用程序的错误输出需要重定向到STDOUT去</h4><p>应用程序的错误输出需要 重定向 到 STDOUT 去，不然 daemontools 会认为你的程序出错导致一起重启。通常很多 java 程序是直接把错误输出在 标准错误输出的，需要注意。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exec java xxx.jar <span class="number">2</span>&gt;&amp;<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="CentOs7防火墙"><a href="#CentOs7防火墙" class="headerlink" title="CentOs7防火墙"></a>CentOs7防火墙</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost opt]<span class="comment"># systemctl start firewalld.service</span></span><br><span class="line">[root@localhost opt]<span class="comment"># systemctl status firewalld.service</span></span><br><span class="line">● firewalld.service - firewalld - dynamic firewall daemon</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/firewalld.service; disabled; vendor preset: enabled)</span><br><span class="line">   Active: active (running) since 六 2018-04-21 13:16:20 CST; 5s ago</span><br><span class="line">     Docs: man:firewalld(1)</span><br><span class="line"> Main PID: 20152 (firewalld)</span><br><span class="line">   CGroup: /system.slice/firewalld.service</span><br><span class="line">           └─20152 /usr/bin/python -Es /usr/sbin/firewalld --nofork --nopid</span><br><span class="line"></span><br><span class="line">4月 21 13:16:19 localhost systemd[1]: Starting firewalld - dynamic firewall daemon...</span><br><span class="line">4月 21 13:16:20 localhost systemd[1]: Started firewalld - dynamic firewall daemon.</span><br><span class="line">4月 21 13:16:20 localhost firewalld[20152]: WARNING: ICMP <span class="built_in">type</span> <span class="string">'beyond-scope'</span> is not supported by the kernel <span class="keyword">for</span> ipv6.</span><br><span class="line">4月 21 13:16:20 localhost firewalld[20152]: WARNING: beyond-scope: INVALID_ICMPTYPE: No supported ICMP <span class="built_in">type</span>., igno...time.</span><br><span class="line">4月 21 13:16:20 localhost firewalld[20152]: WARNING: ICMP <span class="built_in">type</span> <span class="string">'failed-policy'</span> is not supported by the kernel <span class="keyword">for</span> ipv6.</span><br><span class="line">4月 21 13:16:20 localhost firewalld[20152]: WARNING: failed-policy: INVALID_ICMPTYPE: No supported ICMP <span class="built_in">type</span>., ign...time.</span><br><span class="line">4月 21 13:16:20 localhost firewalld[20152]: WARNING: ICMP <span class="built_in">type</span> <span class="string">'reject-route'</span> is not supported by the kernel <span class="keyword">for</span> ipv6.</span><br><span class="line">4月 21 13:16:20 localhost firewalld[20152]: WARNING: reject-route: INVALID_ICMPTYPE: No supported ICMP <span class="built_in">type</span>., igno...time.</span><br><span class="line">Hint: Some lines were ellipsized, use -l to show <span class="keyword">in</span> full.</span><br><span class="line">[root@localhost opt]<span class="comment"># firewall-cmd --zone=public --add-port=80/tcp --permanent</span></span><br><span class="line">success</span><br><span class="line">[root@localhost opt]<span class="comment"># firewall-cmd --zone=public --add-port=3306/tcp --permanent</span></span><br><span class="line">success</span><br></pre></td></tr></table></figure>
+<h3 id="firewall命令说明"><a href="#firewall命令说明" class="headerlink" title="firewall命令说明"></a>firewall命令说明</h3><ul>
+<li>firewall-cmd –state                           ##查看防火墙状态，是否是running</li>
+<li>firewall-cmd –reload                          ##重新载入配置，比如添加规则之后，需要执行此命令</li>
+<li>firewall-cmd –get-zones                       ##列出支持的zone</li>
+<li>firewall-cmd –get-services                    ##列出支持的服务，在列表中的服务是放行的</li>
+<li>firewall-cmd –query-service ftp               ##查看ftp服务是否支持，返回yes或者no</li>
+<li>firewall-cmd –add-service=ftp                 ##临时开放ftp服务</li>
+<li>firewall-cmd –add-service=ftp –permanent     ##永久开放ftp服务</li>
+<li>firewall-cmd –remove-service=ftp –permanent  ##永久移除ftp服务</li>
+<li>firewall-cmd –add-port=80/tcp –permanent     ##永久添加80端口(–zone #作用域, –permanent #永久生效，没有此参数重启后失效)</li>
+<li>iptables -L -n                                 ##查看规则，这个命令是和iptables的相同的</li>
+<li>man firewall-cmd                               ##查看帮助</li>
+</ul>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
+<li><a href="https://blog.52itstyle.com/archives/1158/" target="_blank" rel="noopener">https://blog.52itstyle.com/archives/1158/</a></li>
+<li><a href="https://blog.csdn.net/achang21/article/details/52538049" target="_blank" rel="noopener">https://blog.csdn.net/achang21/article/details/52538049</a> (防火墙)</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Nginx/" rel="tag"># Nginx</a>
+          
+            <a href="/tags/Install/" rel="tag"># Install</a>
+          
+            <a href="/tags/NodeJs/" rel="tag"># NodeJs</a>
+          
+            <a href="/tags/JDK/" rel="tag"># JDK</a>
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+            <a href="/tags/Redis/" rel="tag"># Redis</a>
+          
+            <a href="/tags/Mongo/" rel="tag"># Mongo</a>
+          
+            <a href="/tags/DaemonTools/" rel="tag"># DaemonTools</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/01/11/组件框架/管理工具-Maven/" rel="next" title="管理工具-Maven">
+                <i class="fa fa-chevron-left"></i> 管理工具-Maven
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/04/17/组件框架/文档工具-Markdown/" rel="prev" title="文档工具-Markdown">
+                文档工具-Markdown <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/havatar.png" alt="蘇若年">
+            
+              <p class="site-author-name" itemprop="name">蘇若年</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">文章</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分類</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">標籤</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Node安装"><span class="nav-number">1.</span> <span class="nav-text">Node安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo安装"><span class="nav-number">2.</span> <span class="nav-text">Hexo安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo安装实例"><span class="nav-number">2.1.</span> <span class="nav-text">Hexo安装实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo插件安装"><span class="nav-number">2.2.</span> <span class="nav-text">Hexo插件安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo创建项目"><span class="nav-number">2.3.</span> <span class="nav-text">Hexo创建项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo启动项目"><span class="nav-number">2.4.</span> <span class="nav-text">Hexo启动项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo静态化项目"><span class="nav-number">2.5.</span> <span class="nav-text">Hexo静态化项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo主题扩展"><span class="nav-number">2.6.</span> <span class="nav-text">Hexo主题扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo推送Git"><span class="nav-number">2.7.</span> <span class="nav-text">Hexo推送Git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo安装问题"><span class="nav-number">2.8.</span> <span class="nav-text">Hexo安装问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK-安装"><span class="nav-number">3.</span> <span class="nav-text">JDK 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#移除自带的OpenJDK"><span class="nav-number">3.1.</span> <span class="nav-text">移除自带的OpenJDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Oracle官方JDK"><span class="nav-number">3.2.</span> <span class="nav-text">安装Oracle官方JDK</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx安装"><span class="nav-number">4.</span> <span class="nav-text">Nginx安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx安装示例"><span class="nav-number">4.1.</span> <span class="nav-text">Nginx安装示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx安装验证"><span class="nav-number">4.2.</span> <span class="nav-text">Nginx安装验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx启停脚本"><span class="nav-number">4.3.</span> <span class="nav-text">Nginx启停脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx配置说明"><span class="nav-number">4.4.</span> <span class="nav-text">Nginx配置说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx平滑升级"><span class="nav-number">4.5.</span> <span class="nav-text">Nginx平滑升级</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql安装"><span class="nav-number">5.</span> <span class="nav-text">Mysql安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Yum安装MysSQL"><span class="nav-number">5.1.</span> <span class="nav-text">Yum安装MysSQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用官方仓库安装"><span class="nav-number">5.2.</span> <span class="nav-text">使用官方仓库安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL开机启动"><span class="nav-number">5.3.</span> <span class="nav-text">MySQL开机启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL授权访问"><span class="nav-number">5.4.</span> <span class="nav-text">MySQL授权访问</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Elastic安装"><span class="nav-number">6.</span> <span class="nav-text">Elastic安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis安装"><span class="nav-number">7.</span> <span class="nav-text">Redis安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis安装-1"><span class="nav-number">7.1.</span> <span class="nav-text">Redis安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis配置"><span class="nav-number">7.2.</span> <span class="nav-text">Redis配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis启停脚本"><span class="nav-number">7.3.</span> <span class="nav-text">Redis启停脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis开机启动"><span class="nav-number">7.4.</span> <span class="nav-text">Redis开机启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis授权访问"><span class="nav-number">7.5.</span> <span class="nav-text">Redis授权访问</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mongo安装"><span class="nav-number">8.</span> <span class="nav-text">Mongo安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mongo安装-1"><span class="nav-number">8.1.</span> <span class="nav-text">Mongo安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mongo配置"><span class="nav-number">8.2.</span> <span class="nav-text">Mongo配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mongo验证"><span class="nav-number">8.3.</span> <span class="nav-text">Mongo验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mongo权限"><span class="nav-number">8.4.</span> <span class="nav-text">Mongo权限</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#开启权限认证"><span class="nav-number">8.4.1.</span> <span class="nav-text">开启权限认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加管理员账号"><span class="nav-number">8.4.2.</span> <span class="nav-text">添加管理员账号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加数据操作账号"><span class="nav-number">8.4.3.</span> <span class="nav-text">添加数据操作账号</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DaemonTools安装"><span class="nav-number">9.</span> <span class="nav-text">DaemonTools安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DaemonTools安装示例"><span class="nav-number">9.1.</span> <span class="nav-text">DaemonTools安装示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DaemonTools开机启动"><span class="nav-number">9.2.</span> <span class="nav-text">DaemonTools开机启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DaemonTools状态检测"><span class="nav-number">9.3.</span> <span class="nav-text">DaemonTools状态检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DaemonTools目录规范"><span class="nav-number">9.4.</span> <span class="nav-text">DaemonTools目录规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DaemonTools监控示例"><span class="nav-number">9.5.</span> <span class="nav-text">DaemonTools监控示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建监控测试进程"><span class="nav-number">9.5.1.</span> <span class="nav-text">创建监控测试进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尝试kill掉测试进程"><span class="nav-number">9.5.2.</span> <span class="nav-text">尝试kill掉测试进程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DaemonTools常用指令"><span class="nav-number">9.6.</span> <span class="nav-text">DaemonTools常用指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#启动被管理的进程"><span class="nav-number">9.6.1.</span> <span class="nav-text">启动被管理的进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看被管理的进程状态"><span class="nav-number">9.6.2.</span> <span class="nav-text">查看被管理的进程状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重启被管理的服务"><span class="nav-number">9.6.3.</span> <span class="nav-text">重启被管理的服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关闭被管理的进程"><span class="nav-number">9.6.4.</span> <span class="nav-text">关闭被管理的进程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题处理"><span class="nav-number">9.7.</span> <span class="nav-text">问题处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题1-could-not-read-symbols-Bad-value"><span class="nav-number">9.7.1.</span> <span class="nav-text">问题1: could not read symbols: Bad value</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题2-应用程序的错误输出需要重定向到STDOUT去"><span class="nav-number">9.7.2.</span> <span class="nav-text">问题2: 应用程序的错误输出需要重定向到STDOUT去</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CentOs7防火墙"><span class="nav-number">10.</span> <span class="nav-text">CentOs7防火墙</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#firewall命令说明"><span class="nav-number">10.1.</span> <span class="nav-text">firewall命令说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文章"><span class="nav-number">11.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HuntsWork</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 強力驅動</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主題 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66129992";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz',
+        appKey: 'pYydnhaL1ddP6c3fPWRnj9AO',
+        placeholder: '天青色等烟雨 而我 在等你 ...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz", "pYydnhaL1ddP6c3fPWRnj9AO");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 15497,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

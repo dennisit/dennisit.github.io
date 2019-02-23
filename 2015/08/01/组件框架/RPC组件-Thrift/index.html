@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-tw">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="kFp8mZ25PsFpJW_ipN268gzlsa4pfBk-LYkLTBR2jQc">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="分布式,Thrift,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="花辭" type="application/atom+xml">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('该文章被加密, 输入访问口令!') !== ''){
+                alert('密码错误！');
+                //history.go(-1);
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<meta name="description" content="Thrift概述Thrift作为Facebook开源的RPC框架, 通过IDL(Interface Definition Language)中间语言, 并借助代码生成引擎生成各种主流语言的rpc框架服务端/客户端代码 语义语法注释 Thrift支持C多行风格和Java/C++单行风格.  命名空间 Thrift中的命名空间类似于C++中的namespace和java中的package，它们提供了一">
+<meta name="keywords" content="分布式,Thrift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RPC服务-Thrift">
+<meta property="og:url" content="http://dennisit.github.io/2015/08/01/组件框架/RPC组件-Thrift/index.html">
+<meta property="og:site_name" content="花辭">
+<meta property="og:description" content="Thrift概述Thrift作为Facebook开源的RPC框架, 通过IDL(Interface Definition Language)中间语言, 并借助代码生成引擎生成各种主流语言的rpc框架服务端/客户端代码 语义语法注释 Thrift支持C多行风格和Java/C++单行风格.  命名空间 Thrift中的命名空间类似于C++中的namespace和java中的package，它们提供了一">
+<meta property="og:locale" content="zh-tw">
+<meta property="og:updated_time" content="2018-12-11T14:45:20.379Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RPC服务-Thrift">
+<meta name="twitter:description" content="Thrift概述Thrift作为Facebook开源的RPC框架, 通过IDL(Interface Definition Language)中间语言, 并借助代码生成引擎生成各种主流语言的rpc框架服务端/客户端代码 语义语法注释 Thrift支持C多行风格和Java/C++单行风格.  命名空间 Thrift中的命名空间类似于C++中的namespace和java中的package，它们提供了一">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  document.oncontextmenu= function(){return false;}
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://dennisit.github.io/2015/08/01/组件框架/RPC组件-Thrift/">
+
+
+
+
+
+  <title>RPC服务-Thrift | 花辭</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?57443a2926e41ae04a903a8093e16326";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">花辭</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">風月不瘦,雖以千年後。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            關於
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            標籤
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站點地圖
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dennisit.github.io/2015/08/01/组件框架/RPC组件-Thrift/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蘇若年">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/havatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花辭">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">RPC服务-Thrift</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2015-08-01T19:58:53+08:00">
+                2015-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/组件框架/" itemprop="url" rel="index">
+                    <span itemprop="name">组件框架</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/08/01/组件框架/RPC组件-Thrift/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2015/08/01/组件框架/RPC组件-Thrift/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2015/08/01/组件框架/RPC组件-Thrift/" class="leancloud_visitors" data-flag-title="RPC服务-Thrift">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">閱讀次數&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Thrift概述"><a href="#Thrift概述" class="headerlink" title="Thrift概述"></a>Thrift概述</h2><p>Thrift作为Facebook开源的RPC框架, 通过IDL(Interface Definition Language)中间语言, 并借助代码生成引擎生成各种主流语言的rpc框架服务端/客户端代码</p>
+<h2 id="语义语法"><a href="#语义语法" class="headerlink" title="语义语法"></a>语义语法</h2><h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><ul>
+<li>Thrift支持C多行风格和Java/C++单行风格.</li>
+</ul>
+<h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><ul>
+<li>Thrift中的命名空间类似于C++中的namespace和java中的package，它们提供了一种组织(隔离)代码的简便方式; 名字空间也可以用于解决类型定义中的名字冲突.</li>
+</ul>
+<a id="more"></a>
+<h3 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h3><ul>
+<li><p><code>bool</code>: 布尔值 对应Java中的boolean</p>
+</li>
+<li><p><code>byte</code>: 8位有符号整型 对应Java中的byte</p>
+</li>
+<li><p><code>i16</code>: 16位有符号整型 对应Java中的short</p>
+</li>
+<li><p><code>i32</code>: 32位有符号整型 对应Java中的int</p>
+</li>
+<li><p><code>i64</code>: 64位有符号整型 对应Java中的long</p>
+</li>
+<li><p><code>double</code>: 64位浮点型 对应Java中的double</p>
+</li>
+<li><p><code>string</code>: 字符串 对应Java中的String</p>
+</li>
+<li><p><code>binary</code>: Blob 类型 对应Java中的byte[]</p>
+</li>
+</ul>
+<h3 id="集合类型"><a href="#集合类型" class="headerlink" title="集合类型"></a>集合类型</h3><ul>
+<li><p><code>list&lt;t&gt;</code>: 元素类型为t的有序表,容许元素重复.</p>
+</li>
+<li><p><code>set&lt;t&gt;</code>: 元素类型为t的无序表,不容许元素重复.</p>
+</li>
+<li><p><code>map&lt;t, t&gt;</code>: 值类型为t的键值对,键不容许重复.</p>
+</li>
+</ul>
+<h3 id="枚举类型"><a href="#枚举类型" class="headerlink" title="枚举类型"></a>枚举类型</h3><ul>
+<li>Thrift不支持枚举类嵌套，枚举常量必须是32位的正整数, 末尾属性没有分号</li>
+</ul>
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><ul>
+<li>在变量前面加上const, 改变量被声明为一个常量.</li>
+</ul>
+<h3 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h3><ul>
+<li><p>类似与Java中的对象, struct不能继承，但是可以嵌套(不能嵌套自己), 其成员都是有明确类型. 不支持泛型. 成员分割符可以是<code>,</code>或是<code>;</code> 定义结构体成员时, 成员必须是被正整数编号过的，其中的编号使不能重复的，这个是为了在传输过程中编码使用.</p>
+</li>
+<li><p>字段会有optional和required之分, 如果不指定则为无类型–可以不填充该值，但是在序列化传输的时候也会序列化进去，optional是不填充则部序列化，required是必须填充也必须序列化.</p>
+</li>
+<li><p>同一文件可以定义多个struct，也可以定义在不同的文件，进行include引入.</p>
+</li>
+</ul>
+<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><ul>
+<li>异常在语法和功能上类似于结构体，差别是异常使用关键字exception，而且异常是继承每种语言的基础异常类</li>
+</ul>
+<h3 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h3><ul>
+<li>为了便于管理、重用和提高模块性/组织性，我们常常分割Thrift定义在不同的文件中; 通过<code>include</code>关键字进行分文件的引入包含</li>
+</ul>
+<h2 id="应用示例"><a href="#应用示例" class="headerlink" title="应用示例"></a>应用示例</h2><h3 id="基于IDL示例"><a href="#基于IDL示例" class="headerlink" title="基于IDL示例"></a>基于IDL示例</h3><h4 id="示例结构"><a href="#示例结构" class="headerlink" title="示例结构"></a>示例结构</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost etc]$ tree sample</span><br><span class="line">sample</span><br><span class="line">├── generate.sh</span><br><span class="line">├── idl</span><br><span class="line">│   ├── Request.thrift</span><br><span class="line">│   ├── Response.thrift</span><br><span class="line">│   └── ServiceIface.thrift</span><br><span class="line">└── src</span><br></pre></td></tr></table></figure>
+<h4 id="定义结构体"><a href="#定义结构体" class="headerlink" title="定义结构体"></a>定义结构体</h4><p>定义入参</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost sample]$ cat idl/Request.thrift</span><br><span class="line">// 定义包名</span><br><span class="line">namespace java com.sample.thrift.model</span><br><span class="line"></span><br><span class="line">include <span class="string">"Response.thrift"</span></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 查询入参</span><br><span class="line"> */</span><br><span class="line">struct QueryEntry &#123;</span><br><span class="line">    required string keyword;            // 检索词组(required 必填)</span><br><span class="line">    optional Response.AuditEnum audit;  // 审核状态(optional 选填)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义出参</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost sample]$ cat idl/Response.thrift</span><br><span class="line">// 定义包名</span><br><span class="line">namespace java com.sample.thrift.model</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 审批状态枚举定义</span><br><span class="line"> */</span><br><span class="line">enum AuditEnum &#123;</span><br><span class="line">    SUBMIT = 1,     // 提交待审</span><br><span class="line">    APPROVED = 2,   // 审核通过</span><br><span class="line">    REJECT = 3,     // 提交驳回</span><br><span class="line">    CANCEL = 4      // 提交取消</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 数据结果集</span><br><span class="line"> */</span><br><span class="line">struct SampleView &#123;</span><br><span class="line">    optional i64 id;            // 主键</span><br><span class="line">    optional string title;      // 标题</span><br><span class="line">    optional list&lt;string&gt; tags; // 标签</span><br><span class="line">    optional bool online;       // 是否上线</span><br><span class="line">    optional AuditEnum audit;   // 审核状态</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 数据状态模型</span><br><span class="line"> */</span><br><span class="line">struct ApiResult &#123;</span><br><span class="line">   optional i32 status;                 // 状态</span><br><span class="line">   optional string message;             // 描述</span><br><span class="line">   optional map&lt;i64,SampleView&gt; data;   // 数据</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="定义接口"><a href="#定义接口" class="headerlink" title="定义接口"></a>定义接口</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost sample]$ cat idl/ServiceIface.thrift</span><br><span class="line">// 定义包名</span><br><span class="line">namespace java com.sample.thrift.iface</span><br><span class="line"></span><br><span class="line">include <span class="string">"Request.thrift"</span></span><br><span class="line">include <span class="string">"Response.thrift"</span></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 定义服务接口</span><br><span class="line"> */</span><br><span class="line">service SampleService &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 定义RPC服务接口</span><br><span class="line">     * param query 查询条件</span><br><span class="line">     * param page 页码</span><br><span class="line">     * param size 页量</span><br><span class="line">     */</span><br><span class="line">    Response.ApiResult query(1:Request.QueryEntry query, 2: i32 page, 3: i32 size);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="代码生成"><a href="#代码生成" class="headerlink" title="代码生成"></a>代码生成</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost sample]$ thrift -version</span><br><span class="line">Thrift version 0.11.0</span><br><span class="line">[root@localhost sample]$ cat generate.sh</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> file <span class="keyword">in</span> `ls idl`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	thrift -r -gen java -out ./src idl/<span class="variable">$file</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line">[root@localhost sample]$ sh generate.sh</span><br><span class="line">[root@localhost sample]$ tree src</span><br><span class="line">src</span><br><span class="line">└── com</span><br><span class="line">    └── sample</span><br><span class="line">        └── thrift</span><br><span class="line">            ├── iface</span><br><span class="line">            │   └── SampleService.java</span><br><span class="line">            └── model</span><br><span class="line">                ├── ApiResult.java</span><br><span class="line">                ├── AuditEnum.java</span><br><span class="line">                ├── QueryEntry.java</span><br><span class="line">                └── SampleView.java</span><br><span class="line"></span><br><span class="line">5 directories, 5 files</span><br></pre></td></tr></table></figure>
+<h3 id="基于注解示例"><a href="#基于注解示例" class="headerlink" title="基于注解示例"></a>基于注解示例</h3><p>上面的IDL生成的方式我们可以使用注解方式进行定义</p>
+<h4 id="定义结构体-1"><a href="#定义结构体-1" class="headerlink" title="定义结构体"></a>定义结构体</h4><p>QueryEntry.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ThriftStruct</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">QueryEntry</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 关键词</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String keyword;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果有非无参构造函数，需要在构造函数上加上@ThriftConstructor注解，</span></span><br><span class="line">    <span class="comment">// 一个类只能有一个带有@ThriftConstructor注解的构造函数</span></span><br><span class="line">    <span class="meta">@ThriftConstructor</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">QueryEntry</span><span class="params">(String keyword)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.keyword = keyword;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ThriftField</span>(<span class="number">1</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getKeyword</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> keyword;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>AuditEnum.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义枚举</span></span><br><span class="line"><span class="meta">@ThriftEnum</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> AuditEnum &#123;</span><br><span class="line"></span><br><span class="line">    SUBMIT(<span class="number">1</span>),     <span class="comment">// 提交待审</span></span><br><span class="line">    APPROVED(<span class="number">2</span>),   <span class="comment">// 审核通过</span></span><br><span class="line">    REJECT(<span class="number">3</span>),     <span class="comment">// 提交驳回</span></span><br><span class="line">    CANCEL(<span class="number">4</span>);     <span class="comment">// 提交取消</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> audit;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>SampleView.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ThriftStruct</span></span><br><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SampleView</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 主键</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 标题</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String title;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 标签</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; tags;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 是否上线</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> online;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 审核状态</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> AuditEnum audit;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ThriftField</span>(<span class="number">1</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Long <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ThriftField</span>(<span class="number">2</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getTitle</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> title;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ThriftField</span>(<span class="number">3</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getTags</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> tags;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ThriftField</span>(<span class="number">4</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isOnline</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> online;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ThriftField</span>(<span class="number">5</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> AuditEnum <span class="title">getAudit</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> audit;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ApiResult.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ThriftStruct</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ApiResult</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 状态</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> status;</span><br><span class="line">    <span class="comment">// 描述</span></span><br><span class="line">    <span class="keyword">private</span> String message;</span><br><span class="line">    <span class="comment">// 数据</span></span><br><span class="line">    <span class="keyword">private</span> Map&lt;Long, SampleView&gt; data;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ThriftField</span>(value = <span class="number">1</span>, requiredness = ThriftField.Requiredness.REQUIRED)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getStatus</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> status;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ThriftField</span>(<span class="number">2</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getMessage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ThriftField</span>(<span class="number">3</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;Long, SampleView&gt; <span class="title">getData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="定义接口服务"><a href="#定义接口服务" class="headerlink" title="定义接口服务"></a>定义接口服务</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ThriftService</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SampleService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 服务接口</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@ThriftMethod</span>(exception = &#123;<span class="meta">@ThriftException</span>(type = TException.class, id = <span class="number">1</span>)&#125;)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ApiResult <span class="title">query</span><span class="params">(QueryEntry query, <span class="keyword">int</span> page, <span class="keyword">int</span> size)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>说明: 示例中<code>@Getter</code>、<code>@Setter</code>、<code>@NoArgsConstructor</code>是lombok注解(简化模板代码),非thrift注解.</p>
+<h2 id="Maven生成插件"><a href="#Maven生成插件" class="headerlink" title="Maven生成插件"></a>Maven生成插件</h2><p>thrift对应maven生成插件为maven-thrift-plugin(注意：将thrift文件放置在src/main/thrift/目录下)</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;compiler-plugin.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">encoding</span>&gt;</span>$&#123;project.build.sourceEncoding&#125;<span class="tag">&lt;/<span class="name">encoding</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.thrift.tools<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-thrift-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.1.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- config thrift bin file path --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">thriftExecutable</span>&gt;</span>/usr/local/bin/thrift<span class="tag">&lt;/<span class="name">thriftExecutable</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">id</span>&gt;</span>thrift-sources<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">phase</span>&gt;</span>generate-sources<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">id</span>&gt;</span>thrift-test-sources<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">phase</span>&gt;</span>generate-test-sources<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>testCompile<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>运行mvn package后，会自动在target目录下生成java源码及编译后的class</p>
+<h2 id="数据传输协议"><a href="#数据传输协议" class="headerlink" title="数据传输协议"></a>数据传输协议</h2><p>Thrift在传输协议(传输格式)上总体上划分为文本(text)和二进制(binary)传输协议;为节约带宽，提供传输效率, 一般情况下使用二进制类型的传输协议为多数.</p>
+<ul>
+<li><p><code>TBinaryProtocol</code>: 二进制编码格式进行数据传输。</p>
+</li>
+<li><p><code>TCompactProtocol</code>:  压缩格式进行数据传输。</p>
+</li>
+<li><p><code>TTupleProtoco</code>: 继承于TCompactProtocol，Struct的编解码时使用更省地方但IDL间版本不兼容的TupleScheme.</p>
+</li>
+<li><p><code>TJSONProtocol</code>: JSON格式编码协议进行数据传输。</p>
+</li>
+<li><p><code>TSimpleJSONProtocol</code>: 这种协议只提供JSON只写的协议，适用于通过脚本语言解析</p>
+</li>
+<li><p><code>TDebugProtocol</code>: 在开发的过程中帮助开发人员调试用的，使用易懂的可读的文本格式.</p>
+</li>
+</ul>
+<p>说明: 客户端和服务端的协议要一致.</p>
+<h2 id="数据传输方式"><a href="#数据传输方式" class="headerlink" title="数据传输方式"></a>数据传输方式</h2><p>protocol说明的是什么被传送(传送内容格式)，transports说明的是如何传送(传送方式)</p>
+<p>一个server只允许定义一个接口服务。这样的话多个接口需要多个server。这样会带来资源的浪费。通常可以通过定义一个组合服务来解决。</p>
+<ul>
+<li><p><code>TSocket</code>:  采用blocking socket I/O</p>
+</li>
+<li><p><code>TFileTransport</code>: 以文件(日志)形式进行传输。</p>
+</li>
+<li><p><code>TFramedTransport</code>: 以帧的形式发送，每帧前面是一个长度。要求服务器方式为non-blocking server</p>
+</li>
+<li><p><code>TZlibTransport</code>: 使用zlib进行压缩传输,与其他传输方式联合使用.</p>
+</li>
+<li><p><code>TMemoryTransport</code>: 使用内存I/O,java实现中在内部使用了ByteArrayOutputStream</p>
+</li>
+<li><p><code>TNonblockingTransport</code>: 使用JDKNIO的Transport实现,读写的byte[]会每次被wrap成一个ByteBuffer.</p>
+</li>
+</ul>
+<h2 id="序列化和反序列化"><a href="#序列化和反序列化" class="headerlink" title="序列化和反序列化"></a>序列化和反序列化</h2><p>Thrift序列化时属性标识如下, 没有域的名称,因此与JSON/XML这种序列化工具相比，thrift序列化后生成的文件体积要小很多.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数字ID + 属性类型TYPE</span><br></pre></td></tr></table></figure>
+<p>Thrift的向后兼容性需要满足2个条件, 这样无论增加还是删除域，都可以实现向后兼容.</p>
+<ol>
+<li><p>域的序号不能改变(数值)</p>
+</li>
+<li><p>域的类型不能改变(类型)</p>
+</li>
+</ol>
+<h2 id="服务端类型"><a href="#服务端类型" class="headerlink" title="服务端类型"></a>服务端类型</h2><p>Thrift提供网络模型有单线程、多线程、事件驱动; 也可划分为：阻塞服务模型、非阻塞服务模型。</p>
+<h3 id="阻塞服务模型"><a href="#阻塞服务模型" class="headerlink" title="阻塞服务模型"></a>阻塞服务模型</h3><ul>
+<li><p><code>TSimpleServer</code>:  简单的单线程服务器，主要用于测试.</p>
+</li>
+<li><p><code>TThreadPoolServer</code>: 使用标准阻塞式IO的多线程服务器</p>
+</li>
+</ul>
+<h3 id="非阻塞服务模型"><a href="#非阻塞服务模型" class="headerlink" title="非阻塞服务模型"></a>非阻塞服务模型</h3><ul>
+<li><p><code>TNonblockingServer</code>: 采用NIO的模式, 借助Channel/Selector机制, 采用IO事件模型来处理.唯一可惜的是这个单线程处理. 当遇到handler里有阻塞的操作时, 会导致整个服务被阻塞住.（需使用TFramedTransport数据传输方式）</p>
+</li>
+<li><p><code>THsHaServer</code>: 同步半异步的服务模型，一个单独的线程用来处理网络I/O，一个worker线程池用来进行消息的处理.</p>
+</li>
+<li><p><code>TThreadedSelectorServer</code>: 有一条线程专门负责accept，若干条Selector线程处理网络IO，一个Worker线程池处理消息(使用得最多)。</p>
+</li>
+</ul>
+<p>相关文档</p>
+<ul>
+<li><a href="http://calvin1978.blogcn.com/articles/apache-thrift.html" target="_blank" rel="noopener">http://calvin1978.blogcn.com/articles/apache-thrift.html</a></li>
+<li><a href="https://blog.csdn.net/xuemengrui12/article/details/60876260" target="_blank" rel="noopener">https://blog.csdn.net/xuemengrui12/article/details/60876260</a></li>
+</ul>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://www.micmiu.com/soa/rpc/thrift-sample/" target="_blank" rel="noopener">http://www.micmiu.com/soa/rpc/thrift-sample/</a></li>
+<li><a href="https://www.cnblogs.com/cyfonly/p/6059374.html" target="_blank" rel="noopener">https://www.cnblogs.com/cyfonly/p/6059374.html</a></li>
+<li><a href="https://www.ibm.com/developerworks/cn/java/j-lo-apachethrift/" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/java/j-lo-apachethrift/</a></li>
+<li><a href="http://dongxicheng.org/search-engine/thrift-framework-intro/" target="_blank" rel="noopener">http://dongxicheng.org/search-engine/thrift-framework-intro/</a></li>
+<li><a href="https://www.cnblogs.com/mumuxinfei/p/3875165.html" target="_blank" rel="noopener">https://www.cnblogs.com/mumuxinfei/p/3875165.html</a></li>
+<li><a href="http://1csh1.github.io/2017/02/21/Thrift%20IDL%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95" target="_blank" rel="noopener">http://1csh1.github.io/2017/02/21/Thrift%20IDL%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/分布式/" rel="tag"># 分布式</a>
+          
+            <a href="/tags/Thrift/" rel="tag"># Thrift</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/17/组件框架/版本工具-Git/" rel="next" title="版本工具-Git">
+                <i class="fa fa-chevron-left"></i> 版本工具-Git
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/01/组件框架/RPC组件-Dubbo/" rel="prev" title="RPC服务-Dubbo">
+                RPC服务-Dubbo <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/havatar.png" alt="蘇若年">
+            
+              <p class="site-author-name" itemprop="name">蘇若年</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">文章</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分類</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">標籤</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Thrift概述"><span class="nav-number">1.</span> <span class="nav-text">Thrift概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语义语法"><span class="nav-number">2.</span> <span class="nav-text">语义语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注释"><span class="nav-number">2.1.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命名空间"><span class="nav-number">2.2.</span> <span class="nav-text">命名空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本类型"><span class="nav-number">2.3.</span> <span class="nav-text">基本类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合类型"><span class="nav-number">2.4.</span> <span class="nav-text">集合类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#枚举类型"><span class="nav-number">2.5.</span> <span class="nav-text">枚举类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常量"><span class="nav-number">2.6.</span> <span class="nav-text">常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构体"><span class="nav-number">2.7.</span> <span class="nav-text">结构体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常"><span class="nav-number">2.8.</span> <span class="nav-text">异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件包含"><span class="nav-number">2.9.</span> <span class="nav-text">文件包含</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用示例"><span class="nav-number">3.</span> <span class="nav-text">应用示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于IDL示例"><span class="nav-number">3.1.</span> <span class="nav-text">基于IDL示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#示例结构"><span class="nav-number">3.1.1.</span> <span class="nav-text">示例结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定义结构体"><span class="nav-number">3.1.2.</span> <span class="nav-text">定义结构体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定义接口"><span class="nav-number">3.1.3.</span> <span class="nav-text">定义接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码生成"><span class="nav-number">3.1.4.</span> <span class="nav-text">代码生成</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于注解示例"><span class="nav-number">3.2.</span> <span class="nav-text">基于注解示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义结构体-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">定义结构体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定义接口服务"><span class="nav-number">3.2.2.</span> <span class="nav-text">定义接口服务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Maven生成插件"><span class="nav-number">4.</span> <span class="nav-text">Maven生成插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据传输协议"><span class="nav-number">5.</span> <span class="nav-text">数据传输协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据传输方式"><span class="nav-number">6.</span> <span class="nav-text">数据传输方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#序列化和反序列化"><span class="nav-number">7.</span> <span class="nav-text">序列化和反序列化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务端类型"><span class="nav-number">8.</span> <span class="nav-text">服务端类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#阻塞服务模型"><span class="nav-number">8.1.</span> <span class="nav-text">阻塞服务模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非阻塞服务模型"><span class="nav-number">8.2.</span> <span class="nav-text">非阻塞服务模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文档"><span class="nav-number">9.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HuntsWork</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 強力驅動</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主題 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66129992";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz',
+        appKey: 'pYydnhaL1ddP6c3fPWRnj9AO',
+        placeholder: '天青色等烟雨 而我 在等你 ...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz", "pYydnhaL1ddP6c3fPWRnj9AO");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 15497,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

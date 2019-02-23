@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-tw">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="kFp8mZ25PsFpJW_ipN268gzlsa4pfBk-LYkLTBR2jQc">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Elastic,CentOs,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="花辭" type="application/atom+xml">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('该文章被加密, 输入访问口令!') !== ''){
+                alert('密码错误！');
+                //history.go(-1);
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<meta name="description" content="Elastic下载安装下载Elastic123[root@elonsu cloud]# wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.0.tar.gz[root@elonsu cloud]# tar -zxvf elasticsearch-5.6.0.tar.gz [root@elonsu c">
+<meta name="keywords" content="Elastic,CentOs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Elastic安装配置说明">
+<meta property="og:url" content="http://dennisit.github.io/2017/10/10/组件框架/Elastic/Elastic安装配置说明/index.html">
+<meta property="og:site_name" content="花辭">
+<meta property="og:description" content="Elastic下载安装下载Elastic123[root@elonsu cloud]# wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.0.tar.gz[root@elonsu cloud]# tar -zxvf elasticsearch-5.6.0.tar.gz [root@elonsu c">
+<meta property="og:locale" content="zh-tw">
+<meta property="og:updated_time" content="2019-01-30T15:40:34.197Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Elastic安装配置说明">
+<meta name="twitter:description" content="Elastic下载安装下载Elastic123[root@elonsu cloud]# wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.0.tar.gz[root@elonsu cloud]# tar -zxvf elasticsearch-5.6.0.tar.gz [root@elonsu c">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  document.oncontextmenu= function(){return false;}
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://dennisit.github.io/2017/10/10/组件框架/Elastic/Elastic安装配置说明/">
+
+
+
+
+
+  <title>Elastic安装配置说明 | 花辭</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?57443a2926e41ae04a903a8093e16326";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">花辭</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">風月不瘦,雖以千年後。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            關於
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            標籤
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站點地圖
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dennisit.github.io/2017/10/10/组件框架/Elastic/Elastic安装配置说明/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蘇若年">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/havatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花辭">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Elastic安装配置说明</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-10-10T16:23:15+08:00">
+                2017-10-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/入门教程/" itemprop="url" rel="index">
+                    <span itemprop="name">入门教程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/10/组件框架/Elastic/Elastic安装配置说明/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/10/10/组件框架/Elastic/Elastic安装配置说明/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/10/10/组件框架/Elastic/Elastic安装配置说明/" class="leancloud_visitors" data-flag-title="Elastic安装配置说明">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">閱讀次數&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Elastic下载安装"><a href="#Elastic下载安装" class="headerlink" title="Elastic下载安装"></a>Elastic下载安装</h3><h4 id="下载Elastic"><a href="#下载Elastic" class="headerlink" title="下载Elastic"></a>下载Elastic</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@elonsu cloud]<span class="comment"># wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.0.tar.gz</span></span><br><span class="line">[root@elonsu cloud]<span class="comment"># tar -zxvf elasticsearch-5.6.0.tar.gz </span></span><br><span class="line">[root@elonsu cloud]<span class="comment"># mv elasticsearch-5.6.0 elastic</span></span><br></pre></td></tr></table></figure>
+<h4 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h4><p>Elastic默认不支持root用户启动, 这里创建用户dennisit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@elonsu cloud]<span class="comment"># pwd</span></span><br><span class="line">/<span class="built_in">export</span>/cloud</span><br><span class="line">[root@elonsu ~]<span class="comment"># adduser dennisit</span></span><br><span class="line">[root@elonsu ~]<span class="comment"># passwd dennisit</span></span><br><span class="line">Changing password <span class="keyword">for</span> user dennisit.</span><br><span class="line">New password: </span><br><span class="line">Retype new password: </span><br><span class="line">passwd: all authentication tokens updated successfully.</span><br><span class="line">[root@elonsu cloud]<span class="comment"># chown dennisit:dennisit elastic -R</span></span><br><span class="line">[root@elonsu cloud]<span class="comment"># su dennisit</span></span><br><span class="line">[dennisit@elonsu cloud]$ <span class="built_in">cd</span> elastic</span><br><span class="line">[dennisit@elonsu elastic]$ bin/elasticsearch &amp;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="Elastic分词插件"><a href="#Elastic分词插件" class="headerlink" title="Elastic分词插件"></a>Elastic分词插件</h3><h4 id="中文分词插件"><a href="#中文分词插件" class="headerlink" title="中文分词插件"></a>中文分词插件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[dennisit@elonsu elastic]$ bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.0.0/elasticsearch-analysis-ik-6.0.0.zip</span><br></pre></td></tr></table></figure>
+<h4 id="拼音分词插件"><a href="#拼音分词插件" class="headerlink" title="拼音分词插件"></a>拼音分词插件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[dennisit@elonsu elastic]$ bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-pinyin/releases/download/v6.0.0/elasticsearch-analysis-pinyin-6.0.0.zip</span><br></pre></td></tr></table></figure>
+<h4 id="简繁转换插件"><a href="#简繁转换插件" class="headerlink" title="简繁转换插件"></a>简繁转换插件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[dennisit@elonsu elastic]$ bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-stconvert/releases/download/v6.0.0/elasticsearch-analysis-stconvert-6.0.0.zip</span><br></pre></td></tr></table></figure>
+<!-- more -->
+<h4 id="安装插件查看"><a href="#安装插件查看" class="headerlink" title="安装插件查看"></a>安装插件查看</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[dennisit@elonsu elastic]$ bin/elasticsearch-plugin list</span><br><span class="line">analysis-ik</span><br><span class="line">analysis-pinyin</span><br><span class="line">analysis-stconvert</span><br></pre></td></tr></table></figure>
+<h3 id="Elastic插件-Head插件"><a href="#Elastic插件-Head插件" class="headerlink" title="Elastic插件-Head插件"></a>Elastic插件-Head插件</h3><p>插件地址: <a href="https://github.com/mobz/elasticsearch-head/" target="_blank" rel="noopener">https://github.com/mobz/elasticsearch-head/</a><br>推荐安装: Chrome插件方式(简单省事)</p>
+<h3 id="Elastic插件-IK分词器"><a href="#Elastic插件-IK分词器" class="headerlink" title="Elastic插件-IK分词器"></a>Elastic插件-IK分词器</h3><h4 id="插件主页"><a href="#插件主页" class="headerlink" title="插件主页"></a>插件主页</h4><p><a href="https://github.com/medcl/elasticsearch-analysis-ik" target="_blank" rel="noopener">https://github.com/medcl/elasticsearch-analysis-ik</a></p>
+<h4 id="安装IK分词器"><a href="#安装IK分词器" class="headerlink" title="安装IK分词器"></a>安装IK分词器</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[dennisit@elonsu cloud]$ <span class="built_in">cd</span> elastic</span><br><span class="line">[dennisit@elonsu elastic]$ bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v5.6.0/elasticsearch-analysis-ik-5.6.0.zip</span><br><span class="line">-&gt; Downloading https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v5.6.0/elasticsearch-analysis-ik-5.6.0.zip</span><br><span class="line">[=================================================] 100%   </span><br><span class="line">-&gt; Installed analysis-ik</span><br><span class="line">[dennisit@elonsu elastic]$ bin/elasticsearch &amp;</span><br><span class="line">[1] 33893</span><br></pre></td></tr></table></figure>
+<h4 id="查看安装插件"><a href="#查看安装插件" class="headerlink" title="查看安装插件"></a>查看安装插件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[elon@icloud-store elasticsearch-6.0.0]$ bin/elasticsearch-plugin list</span><br><span class="line">analysis-ik</span><br><span class="line">analysis-pinyin</span><br><span class="line">analysis-stconvert</span><br></pre></td></tr></table></figure>
+<h4 id="验证IK分词器"><a href="#验证IK分词器" class="headerlink" title="验证IK分词器"></a>验证IK分词器</h4><h5 id="创建index"><a href="#创建index" class="headerlink" title="创建index"></a>创建index</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[dennisit@elonsu elastic]$ curl -XPUT http://localhost:9200/index</span><br><span class="line">[2017-09-26T14:08:12,782][INFO ][o.w.a.d.Monitor          ] try load config from /<span class="built_in">export</span>/cloud/elastic/config/analysis-ik/IKAnalyzer.cfg.xml</span><br><span class="line">[2017-09-26T14:08:13,243][INFO ][o.e.c.m.MetaDataCreateIndexService] [OWIX3y4] [index] creating index, cause [api], templates [], shards [5]/[1], mappings []</span><br></pre></td></tr></table></figure>
+<h5 id="创建mapping"><a href="#创建mapping" class="headerlink" title="创建mapping"></a>创建mapping</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[dennisit@elonsu elastic]$ curl -XPOST http://localhost:9200/index/fulltext/_mapping -d<span class="string">'</span></span><br><span class="line"><span class="string">&gt; &#123;</span></span><br><span class="line"><span class="string">&gt;         "properties": &#123;</span></span><br><span class="line"><span class="string">&gt;             "content": &#123;</span></span><br><span class="line"><span class="string">&gt;                 "type": "text",</span></span><br><span class="line"><span class="string">&gt;                 "analyzer": "ik_max_word",</span></span><br><span class="line"><span class="string">&gt;                 "search_analyzer": "ik_max_word"</span></span><br><span class="line"><span class="string">&gt;             &#125;</span></span><br><span class="line"><span class="string">&gt;         &#125;</span></span><br><span class="line"><span class="string">&gt;     </span></span><br><span class="line"><span class="string">&gt; &#125;'</span></span><br><span class="line">[2017-09-26T14:08:58,805][INFO ][o.e.c.m.MetaDataMappingService] [OWIX3y4] [index/ZNJu9Nz_R-qJKTDUnoIlxQ] create_mapping [fulltext]</span><br><span class="line">&#123;<span class="string">"acknowledged"</span>:<span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="索引Document"><a href="#索引Document" class="headerlink" title="索引Document"></a>索引Document</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">[dennisit@elonsu elastic]$ curl -XPOST http://localhost:9200/index/fulltext/3?pretty -d  <span class="string">'&#123;"content":"中韩渔警冲突调查：韩警平均每天扣1艘中国渔船"&#125;'</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"_index"</span> : <span class="string">"index"</span>,</span><br><span class="line">  <span class="string">"_type"</span> : <span class="string">"fulltext"</span>,</span><br><span class="line">  <span class="string">"_id"</span> : <span class="string">"3"</span>,</span><br><span class="line">  <span class="string">"_version"</span> : 1,</span><br><span class="line">  <span class="string">"result"</span> : <span class="string">"created"</span>,</span><br><span class="line">  <span class="string">"_shards"</span> : &#123;</span><br><span class="line">    <span class="string">"total"</span> : 2,</span><br><span class="line">    <span class="string">"successful"</span> : 1,</span><br><span class="line">    <span class="string">"failed"</span> : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"created"</span> : <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[dennisit@elonsu elastic]$ curl -XPOST http://localhost:9200/index/fulltext/4?pretty -d  <span class="string">'&#123;"content":"中国驻洛杉矶领事馆遭亚裔男子枪击 嫌犯已自首"&#125;'</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"_index"</span> : <span class="string">"index"</span>,</span><br><span class="line">  <span class="string">"_type"</span> : <span class="string">"fulltext"</span>,</span><br><span class="line">  <span class="string">"_id"</span> : <span class="string">"4"</span>,</span><br><span class="line">  <span class="string">"_version"</span> : 1,</span><br><span class="line">  <span class="string">"result"</span> : <span class="string">"created"</span>,</span><br><span class="line">  <span class="string">"_shards"</span> : &#123;</span><br><span class="line">    <span class="string">"total"</span> : 2,</span><br><span class="line">    <span class="string">"successful"</span> : 1,</span><br><span class="line">    <span class="string">"failed"</span> : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"created"</span> : <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[dennisit@elonsu elastic]$ curl -XPOST http://localhost:9200/index/fulltext/5?pretty -d  <span class="string">'&#123;"content":"10月1日是中国国庆节"&#125;'</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"_index"</span> : <span class="string">"index"</span>,</span><br><span class="line">  <span class="string">"_type"</span> : <span class="string">"fulltext"</span>,</span><br><span class="line">  <span class="string">"_id"</span> : <span class="string">"5"</span>,</span><br><span class="line">  <span class="string">"_version"</span> : 1,</span><br><span class="line">  <span class="string">"result"</span> : <span class="string">"created"</span>,</span><br><span class="line">  <span class="string">"_shards"</span> : &#123;</span><br><span class="line">    <span class="string">"total"</span> : 2,</span><br><span class="line">    <span class="string">"successful"</span> : 1,</span><br><span class="line">    <span class="string">"failed"</span> : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"created"</span> : <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="查询Document"><a href="#查询Document" class="headerlink" title="查询Document"></a>查询Document</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">[dennisit@elonsu elastic]$ curl -XPOST http://localhost:9200/index/fulltext/_search?pretty  -d<span class="string">'</span></span><br><span class="line"><span class="string"> &#123;</span></span><br><span class="line"><span class="string">     "query" : &#123; "match" : &#123; "content" : "中国" &#125;&#125;,</span></span><br><span class="line"><span class="string">     "highlight" : &#123;</span></span><br><span class="line"><span class="string">         "pre_tags" : ["&lt;tag1&gt;", "&lt;tag2&gt;"],</span></span><br><span class="line"><span class="string">         "post_tags" : ["&lt;/tag1&gt;", "&lt;/tag2&gt;"],</span></span><br><span class="line"><span class="string">         "fields" : &#123;</span></span><br><span class="line"><span class="string">             "content" : &#123;&#125;</span></span><br><span class="line"><span class="string">         &#125;</span></span><br><span class="line"><span class="string">     &#125;</span></span><br><span class="line"><span class="string"> &#125;</span></span><br><span class="line"><span class="string">'</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"took"</span> : 6,</span><br><span class="line">  <span class="string">"timed_out"</span> : <span class="literal">false</span>,</span><br><span class="line">  <span class="string">"_shards"</span> : &#123;</span><br><span class="line">    <span class="string">"total"</span> : 5,</span><br><span class="line">    <span class="string">"successful"</span> : 5,</span><br><span class="line">    <span class="string">"skipped"</span> : 0,</span><br><span class="line">    <span class="string">"failed"</span> : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"hits"</span> : &#123;</span><br><span class="line">    <span class="string">"total"</span> : 3,</span><br><span class="line">    <span class="string">"max_score"</span> : 0.27233246,</span><br><span class="line">    <span class="string">"hits"</span> : [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"_index"</span> : <span class="string">"index"</span>,</span><br><span class="line">        <span class="string">"_type"</span> : <span class="string">"fulltext"</span>,</span><br><span class="line">        <span class="string">"_id"</span> : <span class="string">"5"</span>,</span><br><span class="line">        <span class="string">"_score"</span> : 0.27233246,</span><br><span class="line">        <span class="string">"_source"</span> : &#123;</span><br><span class="line">          <span class="string">"content"</span> : <span class="string">"10月1日是中国国庆节"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"highlight"</span> : &#123;</span><br><span class="line">          <span class="string">"content"</span> : [</span><br><span class="line">            <span class="string">"10月1日是&lt;tag1&gt;中国&lt;/tag1&gt;国庆节"</span></span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"_index"</span> : <span class="string">"index"</span>,</span><br><span class="line">        <span class="string">"_type"</span> : <span class="string">"fulltext"</span>,</span><br><span class="line">        <span class="string">"_id"</span> : <span class="string">"4"</span>,</span><br><span class="line">        <span class="string">"_score"</span> : 0.27179778,</span><br><span class="line">        <span class="string">"_source"</span> : &#123;</span><br><span class="line">          <span class="string">"content"</span> : <span class="string">"中国驻洛杉矶领事馆遭亚裔男子枪击 嫌犯已自首"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"highlight"</span> : &#123;</span><br><span class="line">          <span class="string">"content"</span> : [</span><br><span class="line">            <span class="string">"&lt;tag1&gt;中国&lt;/tag1&gt;驻洛杉矶领事馆遭亚裔男子枪击 嫌犯已自首"</span></span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"_index"</span> : <span class="string">"index"</span>,</span><br><span class="line">        <span class="string">"_type"</span> : <span class="string">"fulltext"</span>,</span><br><span class="line">        <span class="string">"_id"</span> : <span class="string">"3"</span>,</span><br><span class="line">        <span class="string">"_score"</span> : 0.27179778,</span><br><span class="line">        <span class="string">"_source"</span> : &#123;</span><br><span class="line">          <span class="string">"content"</span> : <span class="string">"中韩渔警冲突调查：韩警平均每天扣1艘中国渔船"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"highlight"</span> : &#123;</span><br><span class="line">          <span class="string">"content"</span> : [</span><br><span class="line">            <span class="string">"中韩渔警冲突调查：韩警平均每天扣1艘&lt;tag1&gt;中国&lt;/tag1&gt;渔船"</span></span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">[dennisit@elonsu elastic]$</span><br></pre></td></tr></table></figure>
+<h5 id="删除Document"><a href="#删除Document" class="headerlink" title="删除Document"></a>删除Document</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">[dennisit@elonsu elastic]$ curl -XDELETE  http://localhost:9200/index/fulltext/3?pretty</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"found"</span> : <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"_index"</span> : <span class="string">"index"</span>,</span><br><span class="line">  <span class="string">"_type"</span> : <span class="string">"fulltext"</span>,</span><br><span class="line">  <span class="string">"_id"</span> : <span class="string">"3"</span>,</span><br><span class="line">  <span class="string">"_version"</span> : 2,</span><br><span class="line">  <span class="string">"result"</span> : <span class="string">"deleted"</span>,</span><br><span class="line">  <span class="string">"_shards"</span> : &#123;</span><br><span class="line">    <span class="string">"total"</span> : 2,</span><br><span class="line">    <span class="string">"successful"</span> : 1,</span><br><span class="line">    <span class="string">"failed"</span> : 0</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">[dennisit@elonsu elastic]$ curl -XDELETE  http://localhost:9200/index/fulltext/5?pretty</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"found"</span> : <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"_index"</span> : <span class="string">"index"</span>,</span><br><span class="line">  <span class="string">"_type"</span> : <span class="string">"fulltext"</span>,</span><br><span class="line">  <span class="string">"_id"</span> : <span class="string">"5"</span>,</span><br><span class="line">  <span class="string">"_version"</span> : 2,</span><br><span class="line">  <span class="string">"result"</span> : <span class="string">"deleted"</span>,</span><br><span class="line">  <span class="string">"_shards"</span> : &#123;</span><br><span class="line">    <span class="string">"total"</span> : 2,</span><br><span class="line">    <span class="string">"successful"</span> : 1,</span><br><span class="line">    <span class="string">"failed"</span> : 0</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">[dennisit@elonsu elastic]$ curl -XDELETE  http://localhost:9200/index/fulltext/9?pretty</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"found"</span> : <span class="literal">false</span>,</span><br><span class="line">  <span class="string">"_index"</span> : <span class="string">"index"</span>,</span><br><span class="line">  <span class="string">"_type"</span> : <span class="string">"fulltext"</span>,</span><br><span class="line">  <span class="string">"_id"</span> : <span class="string">"9"</span>,</span><br><span class="line">  <span class="string">"_version"</span> : 1,</span><br><span class="line">  <span class="string">"result"</span> : <span class="string">"not_found"</span>,</span><br><span class="line">  <span class="string">"_shards"</span> : &#123;</span><br><span class="line">    <span class="string">"total"</span> : 2,</span><br><span class="line">    <span class="string">"successful"</span> : 1,</span><br><span class="line">    <span class="string">"failed"</span> : 0</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">[dennisit@elonsu elastic]$ curl -XPOST http://localhost:9200/index/fulltext/_search?pretty  -d<span class="string">'</span></span><br><span class="line"><span class="string"> &#123;</span></span><br><span class="line"><span class="string">     "query" : &#123; "match" : &#123; "content" : "中国" &#125;&#125;,</span></span><br><span class="line"><span class="string">     "highlight" : &#123;</span></span><br><span class="line"><span class="string">         "pre_tags" : ["&lt;tag1&gt;", "&lt;tag2&gt;"],</span></span><br><span class="line"><span class="string">         "post_tags" : ["&lt;/tag1&gt;", "&lt;/tag2&gt;"],</span></span><br><span class="line"><span class="string">         "fields" : &#123;</span></span><br><span class="line"><span class="string">             "content" : &#123;&#125;</span></span><br><span class="line"><span class="string">         &#125;</span></span><br><span class="line"><span class="string">     &#125;</span></span><br><span class="line"><span class="string"> &#125;</span></span><br><span class="line"><span class="string">'</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"took"</span> : 7,</span><br><span class="line">  <span class="string">"timed_out"</span> : <span class="literal">false</span>,</span><br><span class="line">  <span class="string">"_shards"</span> : &#123;</span><br><span class="line">    <span class="string">"total"</span> : 5,</span><br><span class="line">    <span class="string">"successful"</span> : 5,</span><br><span class="line">    <span class="string">"skipped"</span> : 0,</span><br><span class="line">    <span class="string">"failed"</span> : 0</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"hits"</span> : &#123;</span><br><span class="line">    <span class="string">"total"</span> : 1,</span><br><span class="line">    <span class="string">"max_score"</span> : 0.27179778,</span><br><span class="line">    <span class="string">"hits"</span> : [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"_index"</span> : <span class="string">"index"</span>,</span><br><span class="line">        <span class="string">"_type"</span> : <span class="string">"fulltext"</span>,</span><br><span class="line">        <span class="string">"_id"</span> : <span class="string">"4"</span>,</span><br><span class="line">        <span class="string">"_score"</span> : 0.27179778,</span><br><span class="line">        <span class="string">"_source"</span> : &#123;</span><br><span class="line">          <span class="string">"content"</span> : <span class="string">"中国驻洛杉矶领事馆遭亚裔男子枪击 嫌犯已自首"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"highlight"</span> : &#123;</span><br><span class="line">          <span class="string">"content"</span> : [</span><br><span class="line">            <span class="string">"&lt;tag1&gt;中国&lt;/tag1&gt;驻洛杉矶领事馆遭亚裔男子枪击 嫌犯已自首"</span></span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="修改索引查询最大窗口"><a href="#修改索引查询最大窗口" class="headerlink" title="修改索引查询最大窗口"></a>修改索引查询最大窗口</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~ ]$ curl http://localhost:9200/idx_index/_settings/?pretty</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"idx_index"</span> : &#123;</span><br><span class="line">    <span class="string">"settings"</span> : &#123;</span><br><span class="line">      <span class="string">"index"</span> : &#123;</span><br><span class="line">        <span class="string">"creation_date"</span> : <span class="string">"1529829607133"</span>,</span><br><span class="line">        <span class="string">"number_of_shards"</span> : <span class="string">"5"</span>,</span><br><span class="line">        <span class="string">"number_of_replicas"</span> : <span class="string">"1"</span>,</span><br><span class="line">        <span class="string">"uuid"</span> : <span class="string">"XtX1yMORQWqH2jihDqLomw"</span>,</span><br><span class="line">        <span class="string">"version"</span> : &#123;</span><br><span class="line">          <span class="string">"created"</span> : <span class="string">"6020499"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">"provided_name"</span> : <span class="string">"idx_index"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">[root@localhost ~ ]$ curl -H <span class="string">"Content-Type: application/json"</span> -XPUT http://localhost:9200/idx_index/_settings\?pretty -d <span class="string">'&#123; "index" : &#123; "max_result_window" : 100000000&#125;&#125;'</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"acknowledged"</span> : <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line">[root@localhost ~ ]$  curl http://localhost:9200/idx_index/_settings/\?pretty</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"idx_index"</span> : &#123;</span><br><span class="line">    <span class="string">"settings"</span> : &#123;</span><br><span class="line">      <span class="string">"index"</span> : &#123;</span><br><span class="line">        <span class="string">"number_of_shards"</span> : <span class="string">"5"</span>,</span><br><span class="line">        <span class="string">"provided_name"</span> : <span class="string">"idx_index"</span>,</span><br><span class="line">        <span class="string">"max_result_window"</span> : <span class="string">"100000000"</span>,</span><br><span class="line">        <span class="string">"creation_date"</span> : <span class="string">"1529829607133"</span>,</span><br><span class="line">        <span class="string">"number_of_replicas"</span> : <span class="string">"1"</span>,</span><br><span class="line">        <span class="string">"uuid"</span> : <span class="string">"XtX1yMORQWqH2jihDqLomw"</span>,</span><br><span class="line">        <span class="string">"version"</span> : &#123;</span><br><span class="line">          <span class="string">"created"</span> : <span class="string">"6020499"</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="安装Nginx"><a href="#安装Nginx" class="headerlink" title="安装Nginx"></a>安装Nginx</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@elonsu cloud]<span class="comment"># wget http://nginx.org/download/nginx-1.12.1.tar.gz</span></span><br><span class="line">[root@elonsu cloud]<span class="comment"># tar -zxvf nginx-1.12.1.tar.gz </span></span><br><span class="line">[root@elonsu cloud]<span class="comment"># cd nginx-1.12.1</span></span><br><span class="line">[root@elonsu nginx-1.12.1]<span class="comment"># ./configure \</span></span><br><span class="line">  --prefix=/usr/<span class="built_in">local</span>/nginx  \</span><br><span class="line">  --sbin-path=/usr/<span class="built_in">local</span>/nginx/sbin/nginx \</span><br><span class="line">  --conf-path=/usr/<span class="built_in">local</span>/nginx/conf/nginx.conf \</span><br><span class="line">  --http-log-path=/usr/<span class="built_in">local</span>/nginx/logs/access.log \</span><br><span class="line">  --error-log-path=/usr/<span class="built_in">local</span>/nginx/logs/error.log \</span><br><span class="line">  --pid-path=/usr/<span class="built_in">local</span>/nginx/logs/nginx.pid \</span><br><span class="line">  --lock-path=/usr/<span class="built_in">local</span>/nginx/lock/nginx.lock \</span><br><span class="line">  --http-client-body-temp-path=/usr/<span class="built_in">local</span>/nginx/client_body_temp \</span><br><span class="line">  --http-proxy-temp-path=/usr/<span class="built_in">local</span>/nginx/proxy_temp \</span><br><span class="line">  --http-fastcgi-temp-path=/usr/<span class="built_in">local</span>/nginx/fastcgi-temp \</span><br><span class="line">  --http-uwsgi-temp-path=/usr/<span class="built_in">local</span>/nginx/uwsgi-temp \</span><br><span class="line">  --http-scgi-temp-path=/usr/<span class="built_in">local</span>/nginx/scgi-temp \</span><br><span class="line">  --user=root \</span><br><span class="line">  --group=root \</span><br><span class="line">  --with-http_ssl_module \</span><br><span class="line">  --with-http_flv_module \</span><br><span class="line">  --with-http_mp4_module \</span><br><span class="line">  --with-http_gzip_static_module \</span><br><span class="line">  --with-http_stub_status_module</span><br><span class="line">[root@elonsu nginx-1.12.1]<span class="comment"># make </span></span><br><span class="line">[root@elonsu nginx-1.12.1]<span class="comment"># make install</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置nginx"><a href="#配置nginx" class="headerlink" title="配置nginx"></a>配置nginx</h3><p>上面我们安装了nginx在目录<code>/usr/local/nginx/</code>,接下来配置upstream</p>
+<h4 id="Nginx主配置文件修改"><a href="#Nginx主配置文件修改" class="headerlink" title="Nginx主配置文件修改"></a>Nginx主配置文件修改</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">[root@elonsu conf]<span class="comment"># pwd</span></span><br><span class="line">/usr/<span class="built_in">local</span>/nginx/conf</span><br><span class="line">[root@elonsu conf]<span class="comment"># cat nginx.conf</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#user  nobody;</span></span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line"><span class="comment">#error_log  logs/error.log;</span></span><br><span class="line"><span class="comment">#error_log  logs/error.log  notice;</span></span><br><span class="line"><span class="comment">#error_log  logs/error.log  info;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#pid        logs/nginx.pid;</span></span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    log_format  main  <span class="string">'$remote_addr - $remote_user [$time_local] "$request" '</span></span><br><span class="line">                      <span class="string">'$status $body_bytes_sent "$http_referer" '</span></span><br><span class="line">                      <span class="string">'"$http_user_agent" "$http_x_forwarded_for"'</span>;</span><br><span class="line"></span><br><span class="line">    access_log  logs/access.log  main;  </span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    </span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    gzip  on;</span><br><span class="line">    </span><br><span class="line">    server_names_hash_bucket_size 64;</span><br><span class="line">    server_names_hash_max_size 512;</span><br><span class="line">    </span><br><span class="line">    include domains/*;    </span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line">        </span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">       </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该配置文件我们做了最简单的配置, 在nginx默认的配置上做了如下修改:</p>
+<ul>
+<li>打开log_format</li>
+<li>增加server_names_hash相关配置</li>
+<li>使用<code>include domains/*;</code> 加载我们自定义upstream配置</li>
+</ul>
+<h4 id="自定义Upstream配置"><a href="#自定义Upstream配置" class="headerlink" title="自定义Upstream配置"></a>自定义Upstream配置</h4><p>这里我们对elastic进行代理</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[root@elonsu domains]<span class="comment"># pwd</span></span><br><span class="line">/usr/<span class="built_in">local</span>/nginx/conf/domains</span><br><span class="line">[root@elonsu domains]<span class="comment"># cat elastic.icloud.com.conf </span></span><br><span class="line">upstream domain.elastic.local &#123;</span><br><span class="line">                server 127.0.0.1:9200  weight=10 max_fails=2 fail_timeout=300s;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">                listen                   80;</span><br><span class="line">                server_name              elastic.icloud.com;</span><br><span class="line">                root                     /<span class="built_in">export</span>/cloud/elastic/;</span><br><span class="line">                access_log               /<span class="built_in">export</span>/cloud/elastic/logs/elastic.icloud.com_access.log main;</span><br><span class="line">                error_log                /<span class="built_in">export</span>/cloud/elastic/logs/elastic.icloud.com_error.log warn;</span><br><span class="line">                error_page              403 404 /40x.html;</span><br><span class="line"></span><br><span class="line">                location / &#123;</span><br><span class="line">                        index index.html index.htm;</span><br><span class="line">                        proxy_next_upstream     http_500 http_502 http_503 http_504 error timeout invalid_header;</span><br><span class="line">                        proxy_set_header        Host  <span class="variable">$host</span>;</span><br><span class="line">                        proxy_set_header        X-Real-IP        <span class="variable">$remote_addr</span>;</span><br><span class="line">                        proxy_set_header        X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">                        proxy_pass              http://domain.elastic.local;</span><br><span class="line">                        expires                 0d;</span><br><span class="line">                &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="配置完启动nginx"><a href="#配置完启动nginx" class="headerlink" title="配置完启动nginx"></a>配置完启动nginx</h4><p><a href="http://dennisit.github.io/2015/07/10/skill-tutorial-centos-with-nginx-intall/">Nginx的启停脚本</a></p>
+<p>启动Nginx并访问</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@elonsu domains]<span class="comment"># service nginx restart</span></span><br><span class="line">Stopping Nginx:                                            [  OK  ]</span><br><span class="line">Starting Nginx:                                            [  OK  ]</span><br><span class="line">[root@elonsu domains]<span class="comment"># curl -XGET  http://127.0.0.1:9200/index/fulltext/4\?pretty</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"_index"</span> : <span class="string">"index"</span>,</span><br><span class="line">  <span class="string">"_type"</span> : <span class="string">"fulltext"</span>,</span><br><span class="line">  <span class="string">"_id"</span> : <span class="string">"4"</span>,</span><br><span class="line">  <span class="string">"_version"</span> : 1,</span><br><span class="line">  <span class="string">"found"</span> : <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"_source"</span> : &#123;</span><br><span class="line">    <span class="string">"content"</span> : <span class="string">"中国驻洛杉矶领事馆遭亚裔男子枪击 嫌犯已自首"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="本机使用外网域名访问"><a href="#本机使用外网域名访问" class="headerlink" title="本机使用外网域名访问"></a>本机使用外网域名访问</h4><p>上面服务器上Elastic的反向代理已经配置好, 本机使用域名访问(因为域名非公网域名,所以本机需要配置host)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~ ]$ curl  http://elastic.icloud.com/index/fulltext/4\?pretty</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"_index"</span> : <span class="string">"index"</span>,</span><br><span class="line">  <span class="string">"_type"</span> : <span class="string">"fulltext"</span>,</span><br><span class="line">  <span class="string">"_id"</span> : <span class="string">"4"</span>,</span><br><span class="line">  <span class="string">"_version"</span> : 1,</span><br><span class="line">  <span class="string">"found"</span> : <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"_source"</span> : &#123;</span><br><span class="line">    <span class="string">"content"</span> : <span class="string">"中国驻洛杉矶领事馆遭亚裔男子枪击 嫌犯已自首"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Elastic/" rel="tag"># Elastic</a>
+          
+            <a href="/tags/CentOs/" rel="tag"># CentOs</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/22/应用实践/持续集成-发布系统/" rel="next" title="持续集成 - 发布系统">
+                <i class="fa fa-chevron-left"></i> 持续集成 - 发布系统
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/11/组件框架/Elastic/Elastic分词插件介绍/" rel="prev" title="Elastic分词插件介绍">
+                Elastic分词插件介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/havatar.png" alt="蘇若年">
+            
+              <p class="site-author-name" itemprop="name">蘇若年</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">文章</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分類</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">標籤</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Elastic下载安装"><span class="nav-number">1.</span> <span class="nav-text">Elastic下载安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载Elastic"><span class="nav-number">1.1.</span> <span class="nav-text">下载Elastic</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建用户"><span class="nav-number">1.2.</span> <span class="nav-text">创建用户</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Elastic分词插件"><span class="nav-number">2.</span> <span class="nav-text">Elastic分词插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#中文分词插件"><span class="nav-number">2.1.</span> <span class="nav-text">中文分词插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拼音分词插件"><span class="nav-number">2.2.</span> <span class="nav-text">拼音分词插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简繁转换插件"><span class="nav-number">2.3.</span> <span class="nav-text">简繁转换插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装插件查看"><span class="nav-number">2.4.</span> <span class="nav-text">安装插件查看</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Elastic插件-Head插件"><span class="nav-number">3.</span> <span class="nav-text">Elastic插件-Head插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Elastic插件-IK分词器"><span class="nav-number">4.</span> <span class="nav-text">Elastic插件-IK分词器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#插件主页"><span class="nav-number">4.1.</span> <span class="nav-text">插件主页</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装IK分词器"><span class="nav-number">4.2.</span> <span class="nav-text">安装IK分词器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看安装插件"><span class="nav-number">4.3.</span> <span class="nav-text">查看安装插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#验证IK分词器"><span class="nav-number">4.4.</span> <span class="nav-text">验证IK分词器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#创建index"><span class="nav-number">4.4.1.</span> <span class="nav-text">创建index</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建mapping"><span class="nav-number">4.4.2.</span> <span class="nav-text">创建mapping</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#索引Document"><span class="nav-number">4.4.3.</span> <span class="nav-text">索引Document</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查询Document"><span class="nav-number">4.4.4.</span> <span class="nav-text">查询Document</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除Document"><span class="nav-number">4.4.5.</span> <span class="nav-text">删除Document</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#修改索引查询最大窗口"><span class="nav-number">4.4.6.</span> <span class="nav-text">修改索引查询最大窗口</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Nginx"><span class="nav-number">5.</span> <span class="nav-text">安装Nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置nginx"><span class="nav-number">6.</span> <span class="nav-text">配置nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Nginx主配置文件修改"><span class="nav-number">6.1.</span> <span class="nav-text">Nginx主配置文件修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义Upstream配置"><span class="nav-number">6.2.</span> <span class="nav-text">自定义Upstream配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置完启动nginx"><span class="nav-number">6.3.</span> <span class="nav-text">配置完启动nginx</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本机使用外网域名访问"><span class="nav-number">6.4.</span> <span class="nav-text">本机使用外网域名访问</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HuntsWork</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 強力驅動</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主題 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66129992";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz',
+        appKey: 'pYydnhaL1ddP6c3fPWRnj9AO',
+        placeholder: '天青色等烟雨 而我 在等你 ...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz", "pYydnhaL1ddP6c3fPWRnj9AO");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 15497,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

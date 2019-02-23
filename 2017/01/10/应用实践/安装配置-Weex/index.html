@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-tw">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="kFp8mZ25PsFpJW_ipN268gzlsa4pfBk-LYkLTBR2jQc">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="App,Weex,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="花辭" type="application/atom+xml">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('该文章被加密, 输入访问口令!') !== ''){
+                alert('密码错误！');
+                //history.go(-1);
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<meta name="description" content="Weex介绍 Weex 是一套简单易用的跨平台开发方案,能以web的开发体验构建高性能、可扩展的native应用,出自阿里团队.  Weex安装安装前置条件: Weex安装前需要安装Node环境,点此下载 检测Node环境1234[elonsu@localhost Elonsu ]$ node -vv7.3.0[elonsu@localhost Elonsu ]$ npm -v3.10.10 Np">
+<meta name="keywords" content="App,Weex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安装配置 - Weex">
+<meta property="og:url" content="http://dennisit.github.io/2017/01/10/应用实践/安装配置-Weex/index.html">
+<meta property="og:site_name" content="花辭">
+<meta property="og:description" content="Weex介绍 Weex 是一套简单易用的跨平台开发方案,能以web的开发体验构建高性能、可扩展的native应用,出自阿里团队.  Weex安装安装前置条件: Weex安装前需要安装Node环境,点此下载 检测Node环境1234[elonsu@localhost Elonsu ]$ node -vv7.3.0[elonsu@localhost Elonsu ]$ npm -v3.10.10 Np">
+<meta property="og:locale" content="zh-tw">
+<meta property="og:updated_time" content="2019-02-23T09:34:05.507Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="安装配置 - Weex">
+<meta name="twitter:description" content="Weex介绍 Weex 是一套简单易用的跨平台开发方案,能以web的开发体验构建高性能、可扩展的native应用,出自阿里团队.  Weex安装安装前置条件: Weex安装前需要安装Node环境,点此下载 检测Node环境1234[elonsu@localhost Elonsu ]$ node -vv7.3.0[elonsu@localhost Elonsu ]$ npm -v3.10.10 Np">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  document.oncontextmenu= function(){return false;}
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://dennisit.github.io/2017/01/10/应用实践/安装配置-Weex/">
+
+
+
+
+
+  <title>安装配置 - Weex | 花辭</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?57443a2926e41ae04a903a8093e16326";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">花辭</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">風月不瘦,雖以千年後。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            關於
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            標籤
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站點地圖
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dennisit.github.io/2017/01/10/应用实践/安装配置-Weex/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蘇若年">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/havatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花辭">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">安装配置 - Weex</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-01-10T15:23:15+08:00">
+                2017-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/运维部署/" itemprop="url" rel="index">
+                    <span itemprop="name">运维部署</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/01/10/应用实践/安装配置-Weex/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/01/10/应用实践/安装配置-Weex/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/01/10/应用实践/安装配置-Weex/" class="leancloud_visitors" data-flag-title="安装配置 - Weex">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">閱讀次數&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Weex介绍"><a href="#Weex介绍" class="headerlink" title="Weex介绍"></a>Weex介绍</h3><blockquote>
+<p>Weex 是一套简单易用的跨平台开发方案,能以web的开发体验构建高性能、可扩展的native应用,出自阿里团队.</p>
+</blockquote>
+<h3 id="Weex安装"><a href="#Weex安装" class="headerlink" title="Weex安装"></a>Weex安装</h3><p>安装前置条件: Weex安装前需要安装Node环境,<a href="https://nodejs.org/en/" target="_blank" rel="noopener">点此下载</a></p>
+<h4 id="检测Node环境"><a href="#检测Node环境" class="headerlink" title="检测Node环境"></a>检测Node环境</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[elonsu@localhost Elonsu ]$ node -v</span><br><span class="line">v7.3.0</span><br><span class="line">[elonsu@localhost Elonsu ]$ npm -v</span><br><span class="line">3.10.10</span><br></pre></td></tr></table></figure>
+<h4 id="Npm安装weex"><a href="#Npm安装weex" class="headerlink" title="Npm安装weex"></a>Npm安装weex</h4><p> npm 是一个 JavaScript 包管理工具,它可以让开发者轻松共享和重用代码。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[elonsu@localhost Elonsu ]$ npm install -g week-toolkit</span><br></pre></td></tr></table></figure>
+<p> 国内开发者可以考虑使用淘宝的npm镜像cnpm安装weex-toolkit</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[elonsu@localhost Elonsu ]$ sudo npm install -g cnpm</span><br><span class="line">[elonsu@localhost Elonsu ]$ sudo cnpm install -g weex-toolkit</span><br></pre></td></tr></table></figure>
+<p>安装结束后你可以直接使用<code>weex</code>命令验证是否安装成功,它会显示weex命令行工具各参数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[elonsu@localhost Elonsu ]$ weex</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="Weex开篇HelloWorld"><a href="#Weex开篇HelloWorld" class="headerlink" title="Weex开篇HelloWorld"></a>Weex开篇HelloWorld</h3><h4 id="示例程序"><a href="#示例程序" class="headerlink" title="示例程序"></a>示例程序</h4><p>在上面安装正常的情况下, 创建我们的示例hello.we文件; 文件内容如下:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">text</span> <span class="attr">class</span>=<span class="string">"text"</span> <span class="attr">style</span>=<span class="string">"color: #FF0000;"</span>&gt;</span>Hello world<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">   .text&#123;</span></span><br><span class="line"><span class="undefined">     font-size: 50;</span></span><br><span class="line"><span class="undefined">   &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>说明: <code>&lt;template&gt;</code>、<code>&lt;style&gt;</code> 、<code>&lt;script&gt;</code> 分别对应于Web中的 <code>HTML</code>,<code>CSS(&lt;style&gt; 标签)</code>,<code>JavaScript(&lt;script&gt; 标签)</code>。<br>注意: Weex遵循HTML特性命名规范,所以特性命名时请不要使用陀峰格式(CamelCase),采用以“-”分割的 long-name 形式。</p>
+<h4 id="编译运行"><a href="#编译运行" class="headerlink" title="编译运行"></a>编译运行</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[elonsu@localhost Elonsu ]$ weex hello.we</span><br><span class="line">info Sat Jan 07 2017 17:27:24 GMT+0800 (CST)WebSocket  is listening on port 8082</span><br><span class="line">info Sat Jan 07 2017 17:27:24 GMT+0800 (CST)http  is listening on port 8081</span><br></pre></td></tr></table></figure>
+<p>执行结果: 我们会在浏览器页面中看到执行成功后页面,显示红色的”Hello world”效果.</p>
+<h4 id="终端预览"><a href="#终端预览" class="headerlink" title="终端预览"></a>终端预览</h4><p>手机端预览效果需要安装Playground App(<a href="https://weex-project.io/download.html" target="_blank" rel="noopener">https://weex-project.io/download.html</a>)<br>我们在编译运行的命令后面增加<code>--qr</code>参数,表示生成二维码。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[elonsu@localhost Elonsu ]$ weex hello.we --qr</span><br></pre></td></tr></table></figure>
+<p>执行上述命令,会在控制台生成一个二维码, 手机端使用Playground App扫描二维码即可看到效果.</p>
+<h4 id="开发调试"><a href="#开发调试" class="headerlink" title="开发调试"></a>开发调试</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[elonsu@localhost Elonsu ]$ weex debug hello.we</span><br></pre></td></tr></table></figure>
+<h4 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[elonsu@localhost Elonsu ]$ mkdir wuyu-platform-weex</span><br><span class="line">[elonsu@localhost Elonsu ]$ cd wuyu-platform-weex</span><br><span class="line">[elonsu@localhost wuyu-platform-weex ]$ weex init</span><br><span class="line">prompt: Project Name:  (wuyu-platform-weex)</span><br><span class="line">file: .gitignore created.</span><br><span class="line">file: README.md created.</span><br><span class="line">file: index.html created.</span><br><span class="line">file: package.json created.</span><br><span class="line">file: src/weex-bootstrap.we created.</span><br><span class="line">file: webpack.config.js created.</span><br></pre></td></tr></table></figure>
+<p>上面操作我们创建了一个工程,工程名叫wuyu-platform-weex.<br>接下来执行工程依赖包安装,以及编译并运行.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[elonsu@localhost wuyu-platform-weex ]$ npm install</span><br><span class="line">[elonsu@localhost wuyu-platform-weex ]$ npm run dev</span><br><span class="line">[elonsu@localhost wuyu-platform-weex ]$ npm run serve</span><br></pre></td></tr></table></figure>
+<h3 id="Weex开发套件Weexpack"><a href="#Weex开发套件Weexpack" class="headerlink" title="Weex开发套件Weexpack"></a>Weex开发套件Weexpack</h3><p>Weexpack 是 Weex 新一代的工程开发套件,它允许开发者通过简单的命令,创建 weex 工程项目,将项目运行在不同的开发平台上。</p>
+<h4 id="Weexpack安装"><a href="#Weexpack安装" class="headerlink" title="Weexpack安装"></a>Weexpack安装</h4><p>Weexpack安装使用命令<code>npm install weexpack -g</code>或者<code>cnpm install weexpack -g</code>, 这里我们使用淘宝镜像。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[elonsu@localhost Elonsu ]$ sudo cnpm install weexpack -g</span><br></pre></td></tr></table></figure>
+<h4 id="Weexpack初始化工程"><a href="#Weexpack初始化工程" class="headerlink" title="Weexpack初始化工程"></a>Weexpack初始化工程</h4><p>我们创建一个工程<code>wuyu-weex</code>,使用<code>weexpack init 工程名</code> 会自动创建一个以工程名命名的文件夹,并进行工程初始化.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[elonsu@localhost Elonsu ]$ weexpack init wuyu-weex</span><br><span class="line">=&gt; Initialize a new Weex app (wuyu-weex)</span><br></pre></td></tr></table></figure>
+<p>进入工程安装依赖</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[elonsu@localhost Elonsu ]$ <span class="built_in">cd</span> wuyu-weex</span><br><span class="line">[elonsu@localhost wuyu-weex ]$ npm install</span><br></pre></td></tr></table></figure>
+<h4 id="Weexpack初始化工程说明"><a href="#Weexpack初始化工程说明" class="headerlink" title="Weexpack初始化工程说明"></a>Weexpack初始化工程说明</h4><p>Tree形结构展示目录结构, 笔者在Mac环境下.使用如下命令展示tree形目录结构</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[elonsu@localhost wuyu-weex ]$ find . -<span class="built_in">print</span> | sed -e <span class="string">'s;[^/]*/;|____;g;s;____|; |;g'</span></span><br></pre></td></tr></table></figure>
+<p>Weexpack初始化的后面结构大致如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">-&gt; /wuyu-weex</span><br><span class="line">.</span><br><span class="line">|—— .gitignore</span><br><span class="line">|—— README.md</span><br><span class="line">|—— package.json</span><br><span class="line">|-- android.config.json</span><br><span class="line">|-- ios.config.json</span><br><span class="line">|—— webpack.config.js</span><br><span class="line">|—— /src</span><br><span class="line">|     |—— index.we</span><br><span class="line">|—— /html5</span><br><span class="line">|     |—— index.html</span><br><span class="line">|—— /ios</span><br><span class="line">|     |—— /playground</span><br><span class="line">|     |—— /sdk</span><br><span class="line">|     |—— /WXDevtool</span><br><span class="line">|—— /android</span><br><span class="line">|     |—— /playground</span><br><span class="line">|     |—— /appframework</span><br></pre></td></tr></table></figure>
+<p>目录结构说明:</p>
+<ul>
+<li>webpack.config.js 是 webpack 配置文件,用于生成 .we 文件的 JSBunlde</li>
+<li>ios.config.json 是 iOS 项目配置文件</li>
+<li>android.config.json 是 Android 项目配置文件</li>
+<li>/src 目录放置 Weex 页面</li>
+<li>/html5 是 H5 端入口文件</li>
+<li>/ios 放置 iOS 项目</li>
+<li>/android 放置 Android 项目</li>
+</ul>
+<h4 id="工程运行与打包"><a href="#工程运行与打包" class="headerlink" title="工程运行与打包"></a>工程运行与打包</h4><p>如果一切运行正常, 便可以使用weexpack打包或模拟器运行了.</p>
+<h5 id="Android平台"><a href="#Android平台" class="headerlink" title="Android平台"></a>Android平台</h5><p>Android下打包和构建是一体的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[elonsu@localhost wuyu-weex ]$ weexpack run android</span><br></pre></td></tr></table></figure>
+<h5 id="Ios平台"><a href="#Ios平台" class="headerlink" title="Ios平台"></a>Ios平台</h5><p>Ios下运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[elonsu@localhost wuyu-weex ]$ weexpack run ios</span><br></pre></td></tr></table></figure>
+<p>Ios下打包<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[elonsu@localhost wuyu-weex ]$ weexpack build ios</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/App/" rel="tag"># App</a>
+          
+            <a href="/tags/Weex/" rel="tag"># Weex</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/30/应用实践/skill-tutorial-java-date-locale-date-using/" rel="next" title="Java日期常用示例">
+                <i class="fa fa-chevron-left"></i> Java日期常用示例
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/21/应用实践/skill-tookit-web-session-manage/" rel="prev" title="Web應用會話管理">
+                Web應用會話管理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/havatar.png" alt="蘇若年">
+            
+              <p class="site-author-name" itemprop="name">蘇若年</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">文章</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分類</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">標籤</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Weex介绍"><span class="nav-number">1.</span> <span class="nav-text">Weex介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Weex安装"><span class="nav-number">2.</span> <span class="nav-text">Weex安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#检测Node环境"><span class="nav-number">2.1.</span> <span class="nav-text">检测Node环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Npm安装weex"><span class="nav-number">2.2.</span> <span class="nav-text">Npm安装weex</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Weex开篇HelloWorld"><span class="nav-number">3.</span> <span class="nav-text">Weex开篇HelloWorld</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#示例程序"><span class="nav-number">3.1.</span> <span class="nav-text">示例程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编译运行"><span class="nav-number">3.2.</span> <span class="nav-text">编译运行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#终端预览"><span class="nav-number">3.3.</span> <span class="nav-text">终端预览</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开发调试"><span class="nav-number">3.4.</span> <span class="nav-text">开发调试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建工程"><span class="nav-number">3.5.</span> <span class="nav-text">创建工程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Weex开发套件Weexpack"><span class="nav-number">4.</span> <span class="nav-text">Weex开发套件Weexpack</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Weexpack安装"><span class="nav-number">4.1.</span> <span class="nav-text">Weexpack安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Weexpack初始化工程"><span class="nav-number">4.2.</span> <span class="nav-text">Weexpack初始化工程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Weexpack初始化工程说明"><span class="nav-number">4.3.</span> <span class="nav-text">Weexpack初始化工程说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工程运行与打包"><span class="nav-number">4.4.</span> <span class="nav-text">工程运行与打包</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Android平台"><span class="nav-number">4.4.1.</span> <span class="nav-text">Android平台</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Ios平台"><span class="nav-number">4.4.2.</span> <span class="nav-text">Ios平台</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HuntsWork</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 強力驅動</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主題 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66129992";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz',
+        appKey: 'pYydnhaL1ddP6c3fPWRnj9AO',
+        placeholder: '天青色等烟雨 而我 在等你 ...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz", "pYydnhaL1ddP6c3fPWRnj9AO");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 15497,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

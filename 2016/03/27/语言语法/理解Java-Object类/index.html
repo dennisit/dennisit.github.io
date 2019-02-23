@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-tw">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="kFp8mZ25PsFpJW_ipN268gzlsa4pfBk-LYkLTBR2jQc">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="花辭" type="application/atom+xml">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('该文章被加密, 输入访问口令!') !== ''){
+                alert('密码错误！');
+                //history.go(-1);
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<meta name="description" content="Java中的Object有哪些公用方法1．clone方法保护方法, 创建并返回此对象的一个副本, 用于实现对象的浅复制, 只有实现了Cloneable接口才可以调用该方法，否则抛出CloneNotSupportedException异常;JAVA里除了8种基本类型传参数是值传递，其他的类对象传参数都是引用传递，我们有时候不希望在方法里将参数改变，这时就需要在类中复写clone方法. 2．getCl">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解Java-Object类">
+<meta property="og:url" content="http://dennisit.github.io/2016/03/27/语言语法/理解Java-Object类/index.html">
+<meta property="og:site_name" content="花辭">
+<meta property="og:description" content="Java中的Object有哪些公用方法1．clone方法保护方法, 创建并返回此对象的一个副本, 用于实现对象的浅复制, 只有实现了Cloneable接口才可以调用该方法，否则抛出CloneNotSupportedException异常;JAVA里除了8种基本类型传参数是值传递，其他的类对象传参数都是引用传递，我们有时候不希望在方法里将参数改变，这时就需要在类中复写clone方法. 2．getCl">
+<meta property="og:locale" content="zh-tw">
+<meta property="og:updated_time" content="2019-02-12T01:33:38.397Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="理解Java-Object类">
+<meta name="twitter:description" content="Java中的Object有哪些公用方法1．clone方法保护方法, 创建并返回此对象的一个副本, 用于实现对象的浅复制, 只有实现了Cloneable接口才可以调用该方法，否则抛出CloneNotSupportedException异常;JAVA里除了8种基本类型传参数是值传递，其他的类对象传参数都是引用传递，我们有时候不希望在方法里将参数改变，这时就需要在类中复写clone方法. 2．getCl">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  document.oncontextmenu= function(){return false;}
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://dennisit.github.io/2016/03/27/语言语法/理解Java-Object类/">
+
+
+
+
+
+  <title>理解Java-Object类 | 花辭</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?57443a2926e41ae04a903a8093e16326";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">花辭</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">風月不瘦,雖以千年後。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            關於
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            標籤
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站點地圖
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dennisit.github.io/2016/03/27/语言语法/理解Java-Object类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蘇若年">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/havatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花辭">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">理解Java-Object类</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2016-03-27T20:18:49+08:00">
+                2016-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/语言语法/" itemprop="url" rel="index">
+                    <span itemprop="name">语言语法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/03/27/语言语法/理解Java-Object类/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2016/03/27/语言语法/理解Java-Object类/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/03/27/语言语法/理解Java-Object类/" class="leancloud_visitors" data-flag-title="理解Java-Object类">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">閱讀次數&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Java中的Object有哪些公用方法"><a href="#Java中的Object有哪些公用方法" class="headerlink" title="Java中的Object有哪些公用方法"></a>Java中的Object有哪些公用方法</h2><h3 id="1．clone方法"><a href="#1．clone方法" class="headerlink" title="1．clone方法"></a>1．clone方法</h3><p>保护方法, 创建并返回此对象的一个副本, 用于实现对象的浅复制, 只有实现了Cloneable接口才可以调用该方法，否则抛出CloneNotSupportedException异常;<br>JAVA里除了8种基本类型传参数是值传递，其他的类对象传参数都是引用传递，我们有时候不希望在方法里将参数改变，这时就需要在类中复写clone方法.</p>
+<h3 id="2．getClass方法"><a href="#2．getClass方法" class="headerlink" title="2．getClass方法"></a>2．getClass方法</h3><p>final方法，返回一个对象的运行时类。</p>
+<h3 id="3．toString方法"><a href="#3．toString方法" class="headerlink" title="3．toString方法"></a>3．toString方法</h3><p>返回该对象的字符串表示, 该方法用得比较多，一般子类都有覆盖。</p>
+<a id="more"></a>
+<h3 id="4．finalize方法"><a href="#4．finalize方法" class="headerlink" title="4．finalize方法"></a>4．finalize方法</h3><p>该方法用于释放资源。当垃圾回收器确定不存在对该对象的更多引用时，由对象的垃圾回收器调用此方法。子类重写 finalize 方法，以配置系统资源或执行其他清除。</p>
+<p>在启用某个对象的 finalize 方法后，将不会执行进一步操作，直到 Java 虚拟机再次确定尚未终止的任何线程无法再通过任何方法访问此对象，其中包括由准备终止的其他对象或类执行的可能操作，在执行该操作时，对象可能被丢弃。</p>
+<p>对于任何给定对象，Java 虚拟机最多只调用一次 finalize 方法。</p>
+<h3 id="5．equals方法"><a href="#5．equals方法" class="headerlink" title="5．equals方法"></a>5．equals方法</h3><p>该方法是非常重要的一个方法。一般equals和==是不一样的，但是在Object中两者是一样的。子类一般都要重写这个方法。</p>
+<h3 id="6．hashCode方法"><a href="#6．hashCode方法" class="headerlink" title="6．hashCode方法"></a>6．hashCode方法</h3><p>该方法用于哈希查找，可以减少在查找中使用equals的次数，重写了equals方法一般都要重写hashCode方法。这个方法在一些具有哈希功能的Collection中用到。</p>
+<p>一般必须满足obj1.equals(obj2)==true。可以推出obj1.hashCode()==obj2.hashCode()，但是hashCode相等不一定就满足equals。不过为了提高效率，应该尽量使上面两个条件接近等价。</p>
+<p>如果不重写hashCode(),在HashSet中添加两个equals的对象，会将两个对象都加入进去。</p>
+<h3 id="7．wait方法"><a href="#7．wait方法" class="headerlink" title="7．wait方法"></a>7．wait方法</h3><p>wait方法就是使当前线程等待该对象的锁，当前线程必须是该对象的拥有者，也就是具有该对象的锁。wait()方法一直等待，直到获得锁或者被中断。wait(long timeout)设定一个超时间隔，如果在规定时间内没有获得锁就返回。</p>
+<p>调用该方法后当前线程进入睡眠状态，直到以下事件发生。</p>
+<p>（1）其他线程调用了该对象的notify方法。</p>
+<p>（2）其他线程调用了该对象的notifyAll方法。</p>
+<p>（3）其他线程调用了interrupt中断该线程。</p>
+<p>（4）时间间隔到了。</p>
+<p>此时该线程就可以被调度了，如果是被中断的话就抛出一个InterruptedException异常。</p>
+<h3 id="8．notify方法"><a href="#8．notify方法" class="headerlink" title="8．notify方法"></a>8．notify方法</h3><p>该方法唤醒在该对象上等待的某个线程。</p>
+<h3 id="9．notifyAll方法"><a href="#9．notifyAll方法" class="headerlink" title="9．notifyAll方法"></a>9．notifyAll方法</h3><p>该方法唤醒在该对象上等待的所有线程。</p>
+<h2 id="面试延伸"><a href="#面试延伸" class="headerlink" title="面试延伸"></a>面试延伸</h2><blockquote>
+<h3 id="Java是值传递还是引用传递"><a href="#Java是值传递还是引用传递" class="headerlink" title="Java是值传递还是引用传递"></a>Java是值传递还是引用传递</h3></blockquote>
+<p>Java是指传递, 对于基本类型传递的是值, 对于引用类型传递的是指针的地址</p>
+<ul>
+<li><p>值传递：方法调用时，实际参数把它的值传递给对应的形式参数，方法执行中形式参数值的改变不影响实际参数的值。</p>
+</li>
+<li><p>引用传递：也称为传地址, 方法调用时实际参数的引用(地址,而不是参数的值)被传递给方法中相对应的形式参数,在方法执行中对形式参数的操作实际上就是对实际参数的操作,方法执行中形式参数值的改变将会影响实际参数的值.</p>
+</li>
+</ul>
+<blockquote>
+<h3 id="阐述final、finally、finalize的区别"><a href="#阐述final、finally、finalize的区别" class="headerlink" title="阐述final、finally、finalize的区别"></a>阐述final、finally、finalize的区别</h3></blockquote>
+<ul>
+<li><p>final：修饰符(关键字)有三种用法：(1)修饰类：表示该类不能被继承；(2)修饰方法：表示方法不能被重写；(3)修饰变量：表示变量只能一次赋值以后值不能被修改（常量）</p>
+</li>
+<li><p>finally：通常放在try…catch…的后面构造总是执行代码块(try{}里的return语句，其后finally{}里的代码会方法返回给调用者前执行)，这就意味着程序无论正常执行还是发生异常，这里的代码只要JVM不关闭都能执行，可以将释放外部资源的代码写在finally块中。</p>
+</li>
+<li><p>finalize：Object类中定义的方法，Java中允许使用finalize()方法在垃圾收集器将对象从内存中清除出去之前做必要的清理工作(如关闭连接、关闭文件)。这个方法一般不会显示的调用, 通常是由垃圾收集器在销毁对象时调用的，通过重写finalize()方法可以整理系统资源或者执行其他清理工作。</p>
+</li>
+</ul>
+<p>说明: <a href="http://www.iteye.com/topic/484934" target="_blank" rel="noopener">http://www.iteye.com/topic/484934</a></p>
+<blockquote>
+<h3 id="equals与-的区别"><a href="#equals与-的区别" class="headerlink" title="equals与==的区别"></a>equals与==的区别</h3></blockquote>
+<ul>
+<li><p><code>==</code> 比较的是变量(栈)内存中存放的对象的(堆)内存地址，用来判断两个对象的地址是否相同，即是否是指相同一个对象。比较的是真正意义上的指针操作.</p>
+</li>
+<li><p><code>equals</code> 比较的是两个对象的内容是否相等，由于所有的类都是继承自java.lang.Object类的，所以适用于所有对象，而equals()可以返回true或者false主要取决于重写<code>equals</code>方法的实现逻辑.</p>
+</li>
+</ul>
+<p><strong>代码示例</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">   String a = <span class="keyword">new</span> String(<span class="string">"ab"</span>); <span class="comment">// a 为一个引用</span></span><br><span class="line">   String b = <span class="keyword">new</span> String(<span class="string">"ab"</span>); <span class="comment">// b为另一个引用,对象的内容一样</span></span><br><span class="line">   String aa = <span class="string">"ab"</span>; <span class="comment">// 放在常量池中</span></span><br><span class="line">   String bb = <span class="string">"ab"</span>; <span class="comment">// 从常量池中查找</span></span><br><span class="line">   <span class="keyword">if</span> (aa == bb) <span class="comment">// true</span></span><br><span class="line">       System.out.println(<span class="string">"aa==bb"</span>);</span><br><span class="line">   <span class="keyword">if</span> (a == b)   <span class="comment">// false，非同一对象</span></span><br><span class="line">       System.out.println(<span class="string">"a==b"</span>);</span><br><span class="line">   <span class="keyword">if</span> (a.equals(b))  <span class="comment">// true</span></span><br><span class="line">       System.out.println(<span class="string">"aEQb"</span>);</span><br><span class="line">   <span class="keyword">if</span> (<span class="number">42</span> == <span class="number">42.0</span>) &#123; <span class="comment">// true</span></span><br><span class="line">       System.out.println(<span class="string">"true"</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h3 id="对象值相同-x-equals-y-为true-，但却可以有不同的hash值"><a href="#对象值相同-x-equals-y-为true-，但却可以有不同的hash值" class="headerlink" title="对象值相同(x.equals(y)为true)，但却可以有不同的hash值?"></a>对象值相同(x.equals(y)为true)，但却可以有不同的hash值?</h3></blockquote>
+<p>如果两个对象满足equals为true，既 <code>x.equals(y)==true</code>, 那么他的哈希码(hash code)必然相同.</p>
+<p>如果两个对象的hashCode相同, 它们并不一定相同. </p>
+<blockquote>
+<h3 id="如何解决Hash冲突"><a href="#如何解决Hash冲突" class="headerlink" title="如何解决Hash冲突"></a>如何解决Hash冲突</h3></blockquote>
+<p>通过构造性能良好的哈希函数，可以减少冲突，但一般不可能完全避免冲突，因此解决冲突是哈希法的另一个关键问题。创建哈希表和查找哈希表都会遇到冲突，两种情况下解决冲突的方法应该一致。下面以创建哈希表为例，说明解决冲突的方法。常用的解决冲突方法有以下四种:</p>
+<h4 id="开放定址法"><a href="#开放定址法" class="headerlink" title="开放定址法"></a>开放定址法</h4><p>又称为开放散列法</p>
+<p>基本思想是: 当关键字key的哈希地址p=H(key)出现冲突时，以p为基础,产生另一个哈希地址p1,如果p1仍然冲突,再以p为基础,产生另一个哈希地址p2, …;直到找出一个不冲突的哈希地址pi ，将相应元素存入其中.</p>
+<p>这种方法有一个通用的再散列函数形式: Hi = ( H(key) + di ) % m  其中 i=1，2，…，n</p>
+<p>说明: <code>H(key)</code>为哈希函数, <code>m</code>为表长, <code>di</code>称为增量序列, 增量序列的取值方式不同，相应的再散列方式也不同, 主要有以下三种：</p>
+<h5 id="线性探测再散列"><a href="#线性探测再散列" class="headerlink" title="线性探测再散列"></a>线性探测再散列</h5><p>di i=1，2，3，…，m-1</p>
+<p>这种方法的特点是: 冲突发生时，顺序查看表中下一单元，直到找出一个空单元或查遍全表。</p>
+<h5 id="二次探测再散列"><a href="#二次探测再散列" class="headerlink" title="二次探测再散列"></a>二次探测再散列</h5><p>di = 12，-12，22，-22，…，k2，-k2  (k&lt;=m/2)</p>
+<p>这种方法的特点是: 冲突发生时，在表的左右进行跳跃式探测，比较灵活。</p>
+<h5 id="伪随机探测再散列"><a href="#伪随机探测再散列" class="headerlink" title="伪随机探测再散列"></a>伪随机探测再散列</h5><p>di = 伪随机数序列.</p>
+<h5 id="示例说明"><a href="#示例说明" class="headerlink" title="示例说明"></a>示例说明</h5><p>例如: 已知哈希表长度m=11，哈希函数为：H(key) = key  %  11，则H（47）=3，H（26）=4，H（60）=5，假设下一个关键字为69，则H（69）=3，与47冲突.</p>
+<p>用线性探测再散列处理冲突: 下一个哈希地址为H1=(3 + 1) % 11 = 4，仍然冲突，再找下一个哈希地址为H2= (3 + 2) % 11 = 5，还是冲突，继续找下一个哈希地址为H3=（3 + 3）% 11 = 6，此时不再冲突，将69填入5号单元。</p>
+<p>用二次探测再散列处理冲突: 下一个哈希地址为H1=(3 + 12)% 11 = 4，仍然冲突，再找下一个哈希地址为H2= (3 - 12) % 11 = 2，此时不再冲突，将69填入2号单元。</p>
+<p>用伪随机探测再散列处理冲突: 设伪随机数序列为: 2，5，9，……..，则下一个哈希地址为H1=（3 + 2）% 11 = 5，仍然冲突，再找下一个哈希地址为H2=（3 + 5）% 11 = 8，此时不再冲突，将69填入8号单元。</p>
+<h4 id="再哈希法"><a href="#再哈希法" class="headerlink" title="再哈希法"></a>再哈希法</h4><p>基本思想: 同时构造多个不同的哈希函数: Hi=RH1(key) i=1, 2, …, k</p>
+<p>当哈希地址Hi=RH1(key)发生冲突时，再计算Hi=RH2(key)…, 直到冲突不再产生。这种方法不易产生聚集，但增加了计算时间.</p>
+<h4 id="链地址法"><a href="#链地址法" class="headerlink" title="链地址法"></a>链地址法</h4><p>基本思想: 将所有哈希地址相同的记录都链接在同一单链表中; 并将单链表的头指针存在哈希表的第i个单元中，因而查找、插入和删除主要在同义词链中进行.</p>
+<p>链地址法适用于经常进行插入和删除的情况.</p>
+<h4 id="建立公共溢出区"><a href="#建立公共溢出区" class="headerlink" title="建立公共溢出区"></a>建立公共溢出区</h4><p>基本思想: 将哈希表分为基本表和溢出表两部分，凡是和基本表发生冲突的元素，一律填入溢出表</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://www.cnblogs.com/zjc950516/p/7877511.html" target="_blank" rel="noopener">http://www.cnblogs.com/zjc950516/p/7877511.html</a></li>
+<li><a href="https://blog.csdn.net/qq_33098049/article/details/82664061" target="_blank" rel="noopener">https://blog.csdn.net/qq_33098049/article/details/82664061</a></li>
+<li><a href="https://www.cnblogs.com/wuchaodzxx/p/7396599.html" target="_blank" rel="noopener">https://www.cnblogs.com/wuchaodzxx/p/7396599.html</a></li>
+<li><a href="https://blog.csdn.net/yeiweilan/article/details/73412438" target="_blank" rel="noopener">https://blog.csdn.net/yeiweilan/article/details/73412438</a></li>
+<li><a href="https://www.cnblogs.com/qqzy168/p/3246057.html" target="_blank" rel="noopener">https://www.cnblogs.com/qqzy168/p/3246057.html</a></li>
+<li><a href="https://jingyan.baidu.com/article/4f34706e0a1ba9e387b56dab.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/4f34706e0a1ba9e387b56dab.html</a></li>
+<li><a href="https://www.cnblogs.com/moongeek/p/7631447.html" target="_blank" rel="noopener">https://www.cnblogs.com/moongeek/p/7631447.html</a></li>
+<li><a href="https://www.jianshu.com/p/25e243850bd2?appinstall=0" target="_blank" rel="noopener">https://www.jianshu.com/p/25e243850bd2?appinstall=0</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/27/语言语法/理解Java-面向对象/" rel="next" title="理解Java-面向对象">
+                <i class="fa fa-chevron-left"></i> 理解Java-面向对象
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/27/应用实践/Guava 常用工具示例/" rel="prev" title="Guava 常用操作示例">
+                Guava 常用操作示例 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/havatar.png" alt="蘇若年">
+            
+              <p class="site-author-name" itemprop="name">蘇若年</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">文章</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分類</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">標籤</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java中的Object有哪些公用方法"><span class="nav-number">1.</span> <span class="nav-text">Java中的Object有哪些公用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1．clone方法"><span class="nav-number">1.1.</span> <span class="nav-text">1．clone方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2．getClass方法"><span class="nav-number">1.2.</span> <span class="nav-text">2．getClass方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3．toString方法"><span class="nav-number">1.3.</span> <span class="nav-text">3．toString方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4．finalize方法"><span class="nav-number">1.4.</span> <span class="nav-text">4．finalize方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5．equals方法"><span class="nav-number">1.5.</span> <span class="nav-text">5．equals方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6．hashCode方法"><span class="nav-number">1.6.</span> <span class="nav-text">6．hashCode方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7．wait方法"><span class="nav-number">1.7.</span> <span class="nav-text">7．wait方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8．notify方法"><span class="nav-number">1.8.</span> <span class="nav-text">8．notify方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9．notifyAll方法"><span class="nav-number">1.9.</span> <span class="nav-text">9．notifyAll方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面试延伸"><span class="nav-number">2.</span> <span class="nav-text">面试延伸</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java是值传递还是引用传递"><span class="nav-number">2.1.</span> <span class="nav-text">Java是值传递还是引用传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阐述final、finally、finalize的区别"><span class="nav-number">2.2.</span> <span class="nav-text">阐述final、finally、finalize的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#equals与-的区别"><span class="nav-number">2.3.</span> <span class="nav-text">equals与==的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象值相同-x-equals-y-为true-，但却可以有不同的hash值"><span class="nav-number">2.4.</span> <span class="nav-text">对象值相同(x.equals(y)为true)，但却可以有不同的hash值?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何解决Hash冲突"><span class="nav-number">2.5.</span> <span class="nav-text">如何解决Hash冲突</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#开放定址法"><span class="nav-number">2.5.1.</span> <span class="nav-text">开放定址法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#线性探测再散列"><span class="nav-number">2.5.1.1.</span> <span class="nav-text">线性探测再散列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二次探测再散列"><span class="nav-number">2.5.1.2.</span> <span class="nav-text">二次探测再散列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#伪随机探测再散列"><span class="nav-number">2.5.1.3.</span> <span class="nav-text">伪随机探测再散列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例说明"><span class="nav-number">2.5.1.4.</span> <span class="nav-text">示例说明</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#再哈希法"><span class="nav-number">2.5.2.</span> <span class="nav-text">再哈希法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链地址法"><span class="nav-number">2.5.3.</span> <span class="nav-text">链地址法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立公共溢出区"><span class="nav-number">2.5.4.</span> <span class="nav-text">建立公共溢出区</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HuntsWork</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 強力驅動</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主題 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66129992";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz',
+        appKey: 'pYydnhaL1ddP6c3fPWRnj9AO',
+        placeholder: '天青色等烟雨 而我 在等你 ...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz", "pYydnhaL1ddP6c3fPWRnj9AO");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 15497,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-tw">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="kFp8mZ25PsFpJW_ipN268gzlsa4pfBk-LYkLTBR2jQc">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Spring,RestTemplate,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="花辭" type="application/atom+xml">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('该文章被加密, 输入访问口令!') !== ''){
+                alert('密码错误！');
+                //history.go(-1);
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<meta name="description" content="RestTemplate介绍 RestTemplate是Spring提供的用于访问Rest服务的客户端，同时RestTemplate提供了多种便捷访问远程Http服务的方法，能够大大提高客户端的编写效率。  RestTemplate初探通过实例展示RestTemplate的使用 1234567891011121314151617181920212223242526272829@Testpublic">
+<meta name="keywords" content="Spring,RestTemplate">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RestTemplate使用說明">
+<meta property="og:url" content="http://dennisit.github.io/2015/12/07/应用实践/RestTemplate 应用说明/index.html">
+<meta property="og:site_name" content="花辭">
+<meta property="og:description" content="RestTemplate介绍 RestTemplate是Spring提供的用于访问Rest服务的客户端，同时RestTemplate提供了多种便捷访问远程Http服务的方法，能够大大提高客户端的编写效率。  RestTemplate初探通过实例展示RestTemplate的使用 1234567891011121314151617181920212223242526272829@Testpublic">
+<meta property="og:locale" content="zh-tw">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/14811221835178.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/14811227718554.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/14811244275180.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/14811262176596.jpg">
+<meta property="og:updated_time" content="2018-10-05T01:26:58.839Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RestTemplate使用說明">
+<meta name="twitter:description" content="RestTemplate介绍 RestTemplate是Spring提供的用于访问Rest服务的客户端，同时RestTemplate提供了多种便捷访问远程Http服务的方法，能够大大提高客户端的编写效率。  RestTemplate初探通过实例展示RestTemplate的使用 1234567891011121314151617181920212223242526272829@Testpublic">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/14811221835178.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  document.oncontextmenu= function(){return false;}
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://dennisit.github.io/2015/12/07/应用实践/RestTemplate 应用说明/">
+
+
+
+
+
+  <title>RestTemplate使用說明 | 花辭</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?57443a2926e41ae04a903a8093e16326";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">花辭</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">風月不瘦,雖以千年後。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            關於
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            標籤
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站點地圖
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dennisit.github.io/2015/12/07/应用实践/RestTemplate 应用说明/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蘇若年">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/havatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花辭">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">RestTemplate使用說明</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2015-12-07T17:52:30+08:00">
+                2015-12-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/应用实践/" itemprop="url" rel="index">
+                    <span itemprop="name">应用实践</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/12/07/应用实践/RestTemplate 应用说明/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2015/12/07/应用实践/RestTemplate 应用说明/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2015/12/07/应用实践/RestTemplate 应用说明/" class="leancloud_visitors" data-flag-title="RestTemplate使用說明">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">閱讀次數&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="RestTemplate介绍"><a href="#RestTemplate介绍" class="headerlink" title="RestTemplate介绍"></a>RestTemplate介绍</h3><blockquote>
+<p>RestTemplate是Spring提供的用于访问Rest服务的客户端，同时RestTemplate提供了多种便捷访问远程Http服务的方法，能够大大提高客户端的编写效率。</p>
+</blockquote>
+<h3 id="RestTemplate初探"><a href="#RestTemplate初探" class="headerlink" title="RestTemplate初探"></a>RestTemplate初探</h3><p>通过实例展示RestTemplate的使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test01</span><span class="params">()</span></span>&#123;</span><br><span class="line">   RestTemplate restTemplate = <span class="keyword">new</span> RestTemplate();</span><br><span class="line">   String url = <span class="string">"http://www.baidu.com?id=&#123;id&#125;&amp;name=&#123;name&#125;&amp;num=&#123;age&#125;"</span>;</span><br><span class="line">   ResponseEntity&lt;String&gt; responseEntity = restTemplate.getForEntity(url, String.class, <span class="number">1</span>, <span class="string">"Elon"</span>, <span class="number">20</span>);</span><br><span class="line">   <span class="keyword">if</span>(responseEntity.getStatusCode() == HttpStatus.OK)&#123;</span><br><span class="line">       System.out.println(responseEntity.getBody());</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test02</span><span class="params">()</span></span>&#123;</span><br><span class="line">    RestTemplate restTemplate = <span class="keyword">new</span> RestTemplate();</span><br><span class="line">    String url = <span class="string">"http://localhost:8080/api/v1/org/&#123;department&#125;/list"</span>);</span><br><span class="line">    HttpEntity&lt;String&gt; formEntity = <span class="keyword">new</span> HttpEntity&lt;String&gt;(getHttpHeaders());</span><br><span class="line">    ResponseEntity&lt;String&gt; responseEntity = restTemplate.exchange(url, HttpMethod.GET, formEntity, String.class, <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">if</span>(responseEntity.getStatusCode() == HttpStatus.OK)&#123;</span><br><span class="line">       System.out.println(responseEntity.getBody());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Mock登录授权信息</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> HttpHeaders <span class="title">getHttpHeaders</span><span class="params">()</span></span>&#123;</span><br><span class="line">    HttpHeaders headers = <span class="keyword">new</span> HttpHeaders();</span><br><span class="line">    headers.setContentType(MediaType.APPLICATION_JSON_UTF8);</span><br><span class="line">    headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));</span><br><span class="line">    headers.add(<span class="string">"Cookie"</span>, <span class="string">"token=123244545"</span>);</span><br><span class="line">    <span class="keyword">return</span> headers;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例参数:</p>
+<ul>
+<li>String url: 该方法第一个参数标识请求的url</li>
+<li>Class<t> responseType: 该参数标识该次HTTP请求的结果映射成的对象类型,</t></li>
+<li>Object… urlVariables: 该参数用来为url中的参数赋值,支持多个值传递.</li>
+</ul>
+<a id="more"></a>
+<h3 id="RestTemplate的交互说明"><a href="#RestTemplate的交互说明" class="headerlink" title="RestTemplate的交互说明"></a>RestTemplate的交互说明</h3><p>上面示例中的交互可以分为三个步骤:</p>
+<ol>
+<li>url和参数聚合</li>
+<li>HTTP请求交互</li>
+<li>HTTP结果映射</li>
+</ol>
+<p>对应的SpringRest中的如下方法.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">execute</span><span class="params">(String url, HttpMethod method, RequestCallback requestCallback, ResponseExtractor&lt;T&gt; responseExtractor, Object... urlVariables)</span> <span class="keyword">throws</span> RestClientException </span>&#123;</span><br><span class="line">   URI expanded = getUriTemplateHandler().expand(url, urlVariables);</span><br><span class="line">   <span class="keyword">return</span> doExecute(expanded, method, requestCallback, responseExtractor);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="URL和参数聚合"><a href="#URL和参数聚合" class="headerlink" title="URL和参数聚合"></a>URL和参数聚合</h4><p>RestTemplate的源码中使用<code>getUriTemplateHandler().expand(url, urlVariables)</code>来完善完成URL中占位符参数的聚合。<br>示例:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">url</span><span class="params">()</span></span>&#123;</span><br><span class="line">   String url = <span class="string">"http://www.baidu.com?id=&#123;id&#125;&amp;name=&#123;name&#125;&amp;num=&#123;age&#125;"</span>;</span><br><span class="line">   URI expanded = restTemplate.getUriTemplateHandler().expand(url, <span class="number">1</span>, <span class="string">"Elon"</span>, <span class="number">20</span>);</span><br><span class="line">   <span class="comment">// 输出结果： http://www.baidu.com?id=1&amp;name=Elon&amp;num=20</span></span><br><span class="line">   System.out.println(expanded.toString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="RestTemplate中HTTP交互过程"><a href="#RestTemplate中HTTP交互过程" class="headerlink" title="RestTemplate中HTTP交互过程"></a>RestTemplate中HTTP交互过程</h4><h5 id="http交互规范的定义"><a href="#http交互规范的定义" class="headerlink" title="http交互规范的定义"></a>http交互规范的定义</h5><p>了解该块前先看看Spring中对ClientHttpRequest和对应的工厂接口的定义</p>
+<p><strong>ClientHttpRequest接口的定义</strong></p>
+<p>ClientHttpRequest接口的定义很简单,一个钩子方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ClientHttpRequest</span> <span class="keyword">extends</span> <span class="title">HttpRequest</span>, <span class="title">HttpOutputMessage</span> </span>&#123;</span><br><span class="line">   <span class="function">ClientHttpResponse <span class="title">execute</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ClientHttpRequest接口默认提供了如下的扩展类</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/14811221835178.jpg" alt></p>
+<p><strong>ClientHttpRequestFactory接口的定义</strong></p>
+<p>ClientHttpRequestFactory接口的定义如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ClientHttpRequestFactory</span> </span>&#123;</span><br><span class="line">	<span class="function">ClientHttpRequest <span class="title">createRequest</span><span class="params">(URI uri, HttpMethod httpMethod)</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ClientHttpRequestFactory接口提供的实现类如下:</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/14811227718554.jpg" alt></p>
+<p><strong>HttpAccessor的代理实现</strong></p>
+<p>Spring中定义了抽象类HttpAccessor, 提供了默认的ClientHttpRequestFactory实现,<br>ClientHttpRequestFactory默认值为SimpleClientHttpRequestFactory().</p>
+<p>对应的HttpAccessor实现的代码:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpAccessor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">protected</span> <span class="keyword">final</span> Log logger = LogFactory.getLog(getClass());</span><br><span class="line">   <span class="keyword">private</span> ClientHttpRequestFactory requestFactory = <span class="keyword">new</span> SimpleClientHttpRequestFactory();</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRequestFactory</span><span class="params">(ClientHttpRequestFactory requestFactory)</span> </span>&#123;</span><br><span class="line">       Assert.notNull(requestFactory, <span class="string">"'requestFactory' must not be null"</span>);</span><br><span class="line">       <span class="keyword">this</span>.requestFactory = requestFactory;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> ClientHttpRequestFactory <span class="title">getRequestFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">this</span>.requestFactory;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">protected</span> ClientHttpRequest <span class="title">createRequest</span><span class="params">(URI url, HttpMethod method)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">       ClientHttpRequest request = getRequestFactory().createRequest(url, method);</span><br><span class="line">       <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</span><br><span class="line">           logger.debug(<span class="string">"Created "</span> + method.name() + <span class="string">" request for \""</span> + url + <span class="string">"\""</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> request;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="doExecute中的钩子使用"><a href="#doExecute中的钩子使用" class="headerlink" title="doExecute中的钩子使用"></a>doExecute中的钩子使用</h5><p>URL构建完成后RestTemplate调用的是一个<code>doExecute</code>方法,该方法对应的代码如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> &lt;T&gt; <span class="function">T <span class="title">doExecute</span><span class="params">(URI url, HttpMethod method, RequestCallback requestCallback,	ResponseExtractor&lt;T&gt; responseExtractor)</span> <span class="keyword">throws</span> RestClientException </span>&#123;</span><br><span class="line">   Assert.notNull(url, <span class="string">"'url' must not be null"</span>);</span><br><span class="line">   Assert.notNull(method, <span class="string">"'method' must not be null"</span>);</span><br><span class="line">   ClientHttpResponse response = <span class="keyword">null</span>;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">       ClientHttpRequest request = createRequest(url, method);</span><br><span class="line">       <span class="keyword">if</span> (requestCallback != <span class="keyword">null</span>) &#123;</span><br><span class="line">           requestCallback.doWithRequest(request);</span><br><span class="line">       &#125;</span><br><span class="line">       response = request.execute();</span><br><span class="line">       handleResponse(url, method, response);</span><br><span class="line">       <span class="keyword">if</span> (responseExtractor != <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">return</span> responseExtractor.extractData(response);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">else</span> &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">       <span class="keyword">throw</span> <span class="keyword">new</span> ResourceAccessException(<span class="string">"I/O error on "</span> + method.name() +</span><br><span class="line">               <span class="string">" request for \""</span> + url + <span class="string">"\": "</span> + ex.getMessage(), ex);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">finally</span> &#123;</span><br><span class="line">       <span class="keyword">if</span> (response != <span class="keyword">null</span>) &#123;</span><br><span class="line">           response.close();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里的<code>createRequest(url, method)</code>方法集成自抽象类HttpAccessor.这样,在构建完成后,HTTP交互过程交给定义的ClientHttpRequest的规范实现.</p>
+<h3 id="HTTP交互结果处理"><a href="#HTTP交互结果处理" class="headerlink" title="HTTP交互结果处理"></a>HTTP交互结果处理</h3><p>HTTP交互接口返回通过<code>ResponseExtractor&lt;T&gt;</code>该规范来处理.<br>ResponseExtractor<t>接口的定义:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ResponseExtractor</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">	<span class="function">T <span class="title">extractData</span><span class="params">(ClientHttpResponse response)</span> <span class="keyword">throws</span> IOException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></t></p>
+<p>ResponseExtractor<t>接口默认提供的实现:</t></p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/14811244275180.jpg" alt></p>
+<p>示例中我们的接口调用的返回结果实现使用的是<code>ResponseEntityResponseExtractor&lt;T&gt;</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> &lt;T&gt; <span class="function">ResponseEntity&lt;T&gt; <span class="title">getForEntity</span><span class="params">(String url, Class&lt;T&gt; responseType, Object... urlVariables)</span></span></span><br><span class="line"><span class="function">       <span class="keyword">throws</span> RestClientException </span>&#123;</span><br><span class="line">   RequestCallback requestCallback = acceptHeaderRequestCallback(responseType);</span><br><span class="line">   ResponseExtractor&lt;ResponseEntity&lt;T&gt;&gt; responseExtractor = responseEntityExtractor(responseType);</span><br><span class="line">   <span class="keyword">return</span> execute(url, HttpMethod.GET, requestCallback, responseExtractor, urlVariables);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体的实现可以参看RestTemplate，不再做过多介绍.</p>
+<h3 id="RestTemplate类关系图"><a href="#RestTemplate类关系图" class="headerlink" title="RestTemplate类关系图"></a>RestTemplate类关系图</h3><p>RestTemplate类关系图</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/14811262176596.jpg" alt></p>
+<p>这里RestTemplate使用的常见的Rest请求的接口都定义在RestOperations中，对应的规范定义如下:</p>
+<h4 id="GET-规范"><a href="#GET-规范" class="headerlink" title="GET 规范"></a>GET 规范</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// GET</span></span><br><span class="line"></span><br><span class="line">&lt;T&gt; <span class="function">T <span class="title">getForObject</span><span class="params">(String url, Class&lt;T&gt; responseType, Object... uriVariables)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br><span class="line">	</span><br><span class="line">&lt;T&gt; <span class="function">T <span class="title">getForObject</span><span class="params">(String url, Class&lt;T&gt; responseType, Map&lt;String, ?&gt; uriVariables)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br><span class="line">	</span><br><span class="line">&lt;T&gt; <span class="function">T <span class="title">getForObject</span><span class="params">(URI url, Class&lt;T&gt; responseType)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br><span class="line">	</span><br><span class="line">&lt;T&gt; <span class="function">ResponseEntity&lt;T&gt; <span class="title">getForEntity</span><span class="params">(String url, Class&lt;T&gt; responseType, Object... uriVariables)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br><span class="line">	</span><br><span class="line">&lt;T&gt; <span class="function">ResponseEntity&lt;T&gt; <span class="title">getForEntity</span><span class="params">(String url, Class&lt;T&gt; responseType, Map&lt;String, ?&gt; uriVariables)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br><span class="line"></span><br><span class="line">&lt;T&gt; <span class="function">ResponseEntity&lt;T&gt; <span class="title">getForEntity</span><span class="params">(URI url, Class&lt;T&gt; responseType)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="HEAD-规范"><a href="#HEAD-规范" class="headerlink" title="HEAD 规范"></a>HEAD 规范</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// HEAD</span></span><br><span class="line">	</span><br><span class="line"><span class="function">HttpHeaders <span class="title">headForHeaders</span><span class="params">(String url, Object... uriVariables)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br><span class="line"></span><br><span class="line"><span class="function">HttpHeaders <span class="title">headForHeaders</span><span class="params">(String url, Map&lt;String, ?&gt; uriVariables)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br><span class="line">	</span><br><span class="line"><span class="function">HttpHeaders <span class="title">headForHeaders</span><span class="params">(URI url)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="POST-规范"><a href="#POST-规范" class="headerlink" title="POST 规范"></a>POST 规范</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// POST</span></span><br><span class="line"></span><br><span class="line"><span class="function">URI <span class="title">postForLocation</span><span class="params">(String url, Object request, Object... uriVariables)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br><span class="line">	</span><br><span class="line"><span class="function">URI <span class="title">postForLocation</span><span class="params">(String url, Object request, Map&lt;String, ?&gt; uriVariables)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br><span class="line">	</span><br><span class="line"><span class="function">URI <span class="title">postForLocation</span><span class="params">(URI url, Object request)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br><span class="line"></span><br><span class="line">&lt;T&gt; <span class="function">T <span class="title">postForObject</span><span class="params">(String url, Object request, Class&lt;T&gt; responseType, Object... uriVariables)</span></span></span><br><span class="line"><span class="function">		<span class="keyword">throws</span> RestClientException</span>;</span><br><span class="line">	</span><br><span class="line">&lt;T&gt; <span class="function">T <span class="title">postForObject</span><span class="params">(String url, Object request, Class&lt;T&gt; responseType, Map&lt;String, ?&gt; uriVariables)</span></span></span><br><span class="line"><span class="function">		<span class="keyword">throws</span> RestClientException</span>;</span><br><span class="line">	</span><br><span class="line">&lt;T&gt; <span class="function">T <span class="title">postForObject</span><span class="params">(URI url, Object request, Class&lt;T&gt; responseType)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br><span class="line">	</span><br><span class="line">&lt;T&gt; <span class="function">ResponseEntity&lt;T&gt; <span class="title">postForEntity</span><span class="params">(String url, Object request, Class&lt;T&gt; responseType, Object... uriVariables)</span></span></span><br><span class="line"><span class="function">		<span class="keyword">throws</span> RestClientException</span>;</span><br><span class="line">	</span><br><span class="line">&lt;T&gt; <span class="function">ResponseEntity&lt;T&gt; <span class="title">postForEntity</span><span class="params">(String url, Object request, Class&lt;T&gt; responseType, Map&lt;String, ?&gt; uriVariables)</span></span></span><br><span class="line"><span class="function">		<span class="keyword">throws</span> RestClientException</span>;</span><br><span class="line">	</span><br><span class="line">&lt;T&gt; <span class="function">ResponseEntity&lt;T&gt; <span class="title">postForEntity</span><span class="params">(URI url, Object request, Class&lt;T&gt; responseType)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="PUT-规范"><a href="#PUT-规范" class="headerlink" title="PUT 规范"></a>PUT 规范</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PUT</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">put</span><span class="params">(String url, Object request, Object... uriVariables)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">put</span><span class="params">(String url, Object request, Map&lt;String, ?&gt; uriVariables)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">put</span><span class="params">(URI url, Object request)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="DELETE-规范"><a href="#DELETE-规范" class="headerlink" title="DELETE 规范"></a>DELETE 规范</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// DELETE</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delete</span><span class="params">(String url, Object... uriVariables)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delete</span><span class="params">(String url, Map&lt;String, ?&gt; uriVariables)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">delete</span><span class="params">(URI url)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="OPTIONS-规范"><a href="#OPTIONS-规范" class="headerlink" title="OPTIONS 规范"></a>OPTIONS 规范</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// OPTIONS</span></span><br><span class="line">	</span><br><span class="line"><span class="function">Set&lt;HttpMethod&gt; <span class="title">optionsForAllow</span><span class="params">(String url, Object... uriVariables)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br><span class="line"></span><br><span class="line"><span class="function">Set&lt;HttpMethod&gt; <span class="title">optionsForAllow</span><span class="params">(String url, Map&lt;String, ?&gt; uriVariables)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br><span class="line">	</span><br><span class="line"><span class="function">Set&lt;HttpMethod&gt; <span class="title">optionsForAllow</span><span class="params">(URI url)</span> <span class="keyword">throws</span> RestClientException</span>;</span><br></pre></td></tr></table></figure>
+<p>在提供通用REST(GET、POST、HEAD、PUT、DELETE、OPTIONS)规范操作的基础上还提供了exchange()和execute()相关的规范操作接口定义.</p>
+<h3 id="RestTemplate异步模块"><a href="#RestTemplate异步模块" class="headerlink" title="RestTemplate异步模块"></a>RestTemplate异步模块</h3><p>AsyncRestTemplate是提供的异步操作RestTemplate的组件快.使用方式比较简单.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">   AsyncRestTemplate asyncRestTemplate = <span class="keyword">new</span> AsyncRestTemplate();</span><br><span class="line">   String url = <span class="string">"http://www.baidu.com?id=&#123;id&#125;&amp;name=&#123;name&#125;&amp;num=&#123;age&#125;"</span>;</span><br><span class="line">   ListenableFuture&lt;ResponseEntity&lt;String&gt;&gt; listenableFuture = asyncRestTemplate.getForEntity(url, String.class, <span class="number">1</span>, <span class="string">"Elon"</span>, <span class="number">20</span>);</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">       ResponseEntity&lt;String&gt; responseEntity = listenableFuture.get();</span><br><span class="line">       <span class="keyword">if</span>(responseEntity.getStatusCode() == HttpStatus.OK)&#123;</span><br><span class="line">           System.out.println(responseEntity.getBody());</span><br><span class="line">       &#125;</span><br><span class="line">   &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">       LOG.error(e.getLocalizedMessage(), e);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><p><a href="http://docs.spring.io/spring-android/docs/2.0.0.M3/reference/html/rest-template.html" target="_blank" rel="noopener">官方文档</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring/" rel="tag"># Spring</a>
+          
+            <a href="/tags/RestTemplate/" rel="tag"># RestTemplate</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/01/应用实践/稳定性保障优雅重试/" rel="next" title="稳定性保障优雅重试">
+                <i class="fa fa-chevron-left"></i> 稳定性保障优雅重试
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/01/11/应用实践/集合对象纵向維度聚合/" rel="prev" title="集合对象纵向維度聚合">
+                集合对象纵向維度聚合 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/havatar.png" alt="蘇若年">
+            
+              <p class="site-author-name" itemprop="name">蘇若年</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">文章</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分類</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">標籤</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#RestTemplate介绍"><span class="nav-number">1.</span> <span class="nav-text">RestTemplate介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RestTemplate初探"><span class="nav-number">2.</span> <span class="nav-text">RestTemplate初探</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RestTemplate的交互说明"><span class="nav-number">3.</span> <span class="nav-text">RestTemplate的交互说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#URL和参数聚合"><span class="nav-number">3.1.</span> <span class="nav-text">URL和参数聚合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RestTemplate中HTTP交互过程"><span class="nav-number">3.2.</span> <span class="nav-text">RestTemplate中HTTP交互过程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#http交互规范的定义"><span class="nav-number">3.2.1.</span> <span class="nav-text">http交互规范的定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#doExecute中的钩子使用"><span class="nav-number">3.2.2.</span> <span class="nav-text">doExecute中的钩子使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP交互结果处理"><span class="nav-number">4.</span> <span class="nav-text">HTTP交互结果处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RestTemplate类关系图"><span class="nav-number">5.</span> <span class="nav-text">RestTemplate类关系图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GET-规范"><span class="nav-number">5.1.</span> <span class="nav-text">GET 规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HEAD-规范"><span class="nav-number">5.2.</span> <span class="nav-text">HEAD 规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#POST-规范"><span class="nav-number">5.3.</span> <span class="nav-text">POST 规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PUT-规范"><span class="nav-number">5.4.</span> <span class="nav-text">PUT 规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DELETE-规范"><span class="nav-number">5.5.</span> <span class="nav-text">DELETE 规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OPTIONS-规范"><span class="nav-number">5.6.</span> <span class="nav-text">OPTIONS 规范</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RestTemplate异步模块"><span class="nav-number">6.</span> <span class="nav-text">RestTemplate异步模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文档"><span class="nav-number">7.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HuntsWork</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 強力驅動</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主題 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66129992";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz',
+        appKey: 'pYydnhaL1ddP6c3fPWRnj9AO',
+        placeholder: '天青色等烟雨 而我 在等你 ...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz", "pYydnhaL1ddP6c3fPWRnj9AO");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 15497,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-tw">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="kFp8mZ25PsFpJW_ipN268gzlsa4pfBk-LYkLTBR2jQc">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,Akka,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="花辭" type="application/atom+xml">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('该文章被加密, 输入访问口令!') !== ''){
+                alert('密码错误！');
+                //history.go(-1);
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<meta name="description" content="Akka介绍 Akka是用scala编写的actor模型框架。它在使用中不需要锁和多线程，每个Actor在独立空间中进行数据操作，Actor之间并不直接通信,而是通过了消息来相互沟通,每一个Actor都把它要做的事情都封装在了它的内部，操作都是异步进行的。理论上来讲,每一个Actor都拥有属于自己的轻量级线程,保护它不会被系统中的其他部分影响.因此,我们在编写Actor时,就不用担心并发的问题,">
+<meta name="keywords" content="Java,Akka">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Akka介绍与入门示例">
+<meta property="og:url" content="http://dennisit.github.io/2017/02/01/组件框架/Akka/Akka介绍与入门示例/index.html">
+<meta property="og:site_name" content="花辭">
+<meta property="og:description" content="Akka介绍 Akka是用scala编写的actor模型框架。它在使用中不需要锁和多线程，每个Actor在独立空间中进行数据操作，Actor之间并不直接通信,而是通过了消息来相互沟通,每一个Actor都把它要做的事情都封装在了它的内部，操作都是异步进行的。理论上来讲,每一个Actor都拥有属于自己的轻量级线程,保护它不会被系统中的其他部分影响.因此,我们在编写Actor时,就不用担心并发的问题,">
+<meta property="og:locale" content="zh-tw">
+<meta property="og:updated_time" content="2018-12-13T00:37:46.670Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Akka介绍与入门示例">
+<meta name="twitter:description" content="Akka介绍 Akka是用scala编写的actor模型框架。它在使用中不需要锁和多线程，每个Actor在独立空间中进行数据操作，Actor之间并不直接通信,而是通过了消息来相互沟通,每一个Actor都把它要做的事情都封装在了它的内部，操作都是异步进行的。理论上来讲,每一个Actor都拥有属于自己的轻量级线程,保护它不会被系统中的其他部分影响.因此,我们在编写Actor时,就不用担心并发的问题,">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  document.oncontextmenu= function(){return false;}
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://dennisit.github.io/2017/02/01/组件框架/Akka/Akka介绍与入门示例/">
+
+
+
+
+
+  <title>Akka介绍与入门示例 | 花辭</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?57443a2926e41ae04a903a8093e16326";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">花辭</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">風月不瘦,雖以千年後。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            關於
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            標籤
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站點地圖
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dennisit.github.io/2017/02/01/组件框架/Akka/Akka介绍与入门示例/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蘇若年">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/havatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花辭">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Akka介绍与入门示例</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-02-01T19:57:53+08:00">
+                2017-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/入门教程/" itemprop="url" rel="index">
+                    <span itemprop="name">入门教程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/02/01/组件框架/Akka/Akka介绍与入门示例/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/02/01/组件框架/Akka/Akka介绍与入门示例/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/02/01/组件框架/Akka/Akka介绍与入门示例/" class="leancloud_visitors" data-flag-title="Akka介绍与入门示例">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">閱讀次數&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Akka介绍"><a href="#Akka介绍" class="headerlink" title="Akka介绍"></a>Akka介绍</h3><blockquote>
+<p>Akka是用scala编写的actor模型框架。它在使用中不需要锁和多线程，每个Actor在独立空间中进行数据操作，Actor之间并不直接通信,而是通过了消息来相互沟通,每一个Actor都把它要做的事情都封装在了它的内部，操作都是异步进行的。<br>理论上来讲,每一个Actor都拥有属于自己的轻量级线程,保护它不会被系统中的其他部分影响.因此,我们在编写Actor时,就不用担心并发的问题, 通过Actor能够简化锁以及线程管理.<br>它可以用于高并发、分布式场景，需要注意的是，Akka消息的传递不保证绝对可靠投递，当然这带来了好处是整个实现简单.</p>
+</blockquote>
+<p>Actor具有以下的特性</p>
+<ul>
+<li>提供了一种高级的抽象,能够封装状态和操作.简化并发应用的开发.</li>
+<li>提供了异步的非阻塞的/高性能的事件驱动模型</li>
+<li>超级轻量级的线程事件处理能力.</li>
+</ul>
+<a id="more"></a>
+<h3 id="概念认知"><a href="#概念认知" class="headerlink" title="概念认知"></a>概念认知</h3><p>在了解Akka前先了解几个概念</p>
+<h4 id="并发-amp-并行"><a href="#并发-amp-并行" class="headerlink" title="并发&amp;并行"></a>并发&amp;并行</h4><p>并发: 指的是两个或多个任务都有进展，即使他们没有被同时执行。例如可以这样实现：划分出时间片，几个任务交叉执行，尽管时间片的执行是线性的。<br>并行: 指可以真正同时执行。</p>
+<h4 id="异步-amp-同步"><a href="#异步-amp-同步" class="headerlink" title="异步&amp;同步"></a>异步&amp;同步</h4><p>所谓同步，就是在发出一个功能调用时，在没有得到结果之前，该调用就不返回。当一个异步过程调用发出后，调用者不能立刻得到结果。实际处理这个调用的部件在完成后，通过状态、通知和回调来通知调用者。</p>
+<h4 id="阻塞-amp-非阻塞"><a href="#阻塞-amp-非阻塞" class="headerlink" title="阻塞&amp;非阻塞"></a>阻塞&amp;非阻塞</h4><p>阻塞调用是指调用结果返回之前，当前线程会被挂起。函数只有在得到结果之后才会返回。有人也许会把阻塞调用和同步调用等同起来，实际上他是不同的。对于同步调用来说，很多时候当前线程还是激活的，只是从逻辑上当前函数没有返回而已。<br>非阻塞和阻塞的概念相对应，指在不能立刻得到结果之前，该函数不会阻塞当前线程，而会立刻返回</p>
+<h3 id="Akka模块介绍"><a href="#Akka模块介绍" class="headerlink" title="Akka模块介绍"></a>Akka模块介绍</h3><ul>
+<li>akka-actor:最核心的依赖包,里面实现了Actor模型的大部分东西</li>
+<li>akka-agent:代理/整合了Scala中的一些STM特性</li>
+<li>akka-camel:整合了Apache的Camel</li>
+<li>akka-cluster:akka集群依赖,封装了集群成员的管理和路由</li>
+<li>akka-kernel:akka的一个极简化的应用服务器,可以脱离项目单独运行.</li>
+<li>akka-osgi:对OSGI容器的支持,有akka的最基本的Bundle</li>
+<li>akka-remote:akka远程调用</li>
+<li>akka-slf4j:Akka的日志事件监听</li>
+<li>akka-testkit:Akka的各种测试工具</li>
+<li>akka-zeromq:整合ZeroMQ</li>
+</ul>
+<p>其中最总要的就是akka-actor,最简单的AKKA使用的话,只需要引入这个包就可以了.</p>
+<h3 id="建议一个Akka系统的步骤"><a href="#建议一个Akka系统的步骤" class="headerlink" title="建议一个Akka系统的步骤"></a>建议一个Akka系统的步骤</h3><ol>
+<li>建立角色系统，ActorSystem;</li>
+<li>定义角色，actor;</li>
+<li>注册角色，actorSystem.actorOf；</li>
+<li>消息的传递，tell；</li>
+<li>在actor内消息的处理（处理完后，也可通过actorSelect路径选择其它actor，并发送消息)</li>
+</ol>
+<p>相关模块说明</p>
+<ul>
+<li>角色系统<code>ActorSystem</code></li>
+</ul>
+<p>在akka中，所有角色都需在角色系统中，可以通过ActorSystem.create方法建立，同时可以指定角色系统名称，这会在actor路径中体现出来；</p>
+<ul>
+<li>角色(Actor)</li>
+</ul>
+<p>通过继承AbstractActor类，实现抽象方法createReceive,并在此方法定义消息处理模块(使用reciveBuilder.build进行构造), 接收消息（消息类型，其实也就是消息的class类型区分消息），并进行消息处理；</p>
+<ul>
+<li>角色(Actor)注册/创建</li>
+</ul>
+<p>通过ActorSystem的actorOf方法创建actor，创建时可以通过new BalancingPool(3)指定该actor的工作worker数量，以及actor的名称，这会在路径中体现出来。</p>
+<ul>
+<li>角色(Actor)路径及查找</li>
+</ul>
+<p>Akka内的各个actor采用类似于分布式文件系统（如hdfs）进行管理，actor类似于文件系统的各个文件。</p>
+<p>Akka主要根路径有三个：/（根路径），/system（系统相关的路径），/user(用户路径，通常定义的actor在此路径下)。</p>
+<p>有了路径，可以通过getContext().actorSelect()方法基于路径,获取到相关actor引用，进而发送消息.</p>
+<p>/user: 守护Actor</p>
+<p>这个名为”/user”的守护者，作为所有用户创建actor的父actor，可能是需要打交道最多的。使用system.actorOf()创建的actor都是其子actor。这意味着，当该守护者终止时，系统中所有的普通actor都将被关闭。同时也意味着，该守护者的监管策略决定了普通顶级actor是如何被监督的.</p>
+<p>/system: 系统守护者</p>
+<p>这个特殊的守护者被引入，是为了实现正确的关闭顺序，即日志（logging）要保持可用直到所有普通actor终止，即使日志本身也是用actor实现的。其实现方法是：系统守护者观察user守护者，并在收到Terminated消息初始化其自己的关闭过程。顶级的系统actor被监管的策略是，对收到的除ActorInitializationException和ActorKilledException之外的所有Exception无限地执行重启，这也将终止其所有子actor。所有其他Throwable被上升，然后将导致整个actor系统的关闭。</p>
+<p>/: 根守护者</p>
+<p>根守护者所谓“顶级”actor的祖父，它监督所有在Actor路径的顶级作用域中定义的特殊actor，使用发现任何Exception就终止子actor的SupervisorStrategy.stoppingStrategy策略。其他所有Throwable都会被上升……但是上升给谁？所有的真实actor都有一个监管者，但是根守护者没有父actor，因为它就是整个树结构的根。因此这里使用一个虚拟的ActorRef，在发现问题后立即停掉其子actor，并在根守护者完全终止之后（所有子actor递归停止），立即把actor系统的isTerminated置为true。</p>
+<h3 id="Akka监管策略"><a href="#Akka监管策略" class="headerlink" title="Akka监管策略"></a>Akka监管策略</h3><p>Akka中有两种类型的监管策略：OneForOneStrategy 和AllForOneStrategy.</p>
+<p>两者都配置有从异常类型监管指令间的映射（见上文），并限制了一个孩子被终止之前允许失败的次数。它们之间的区别在于，前者只将所获得的指令应用在发生故障的子actor上，而后者则是应用在所有孩子上。通常情况下，你应该使用OneForOneStrategy，这也是默认的策略。</p>
+<h3 id="Akka消息传递机制"><a href="#Akka消息传递机制" class="headerlink" title="Akka消息传递机制"></a>Akka消息传递机制</h3><p>有三种基本类型：</p>
+<ul>
+<li>至多一次投递的意思是对该机制下的每条消息，会被投递0或1次；更随意的说法就是，它意味着消息可能会丢失。</li>
+<li>至少一次投递的意思对该机制下的每条消息，有可能为投递进行多次尝试，以使得至少有一个成功；更随意的说法就是，消息可能重复，但不会丢失。</li>
+<li>恰好一次投递的意思对该机制下的每条消息，接收者会正好得到一次投递；消息既不能丢，也不会重复。</li>
+</ul>
+<p>第一种是最廉价的——性能最高，实现开销最少——因为它可以用打后不管（fire-and-forget）的方式完成，不需要在发送端或传输机制中保留状态。第二种方式要求重试来对抗传输丢失，这意味着需要在发送端保持状态，并在接收端使用确认机制。第三种是最昂贵的——并因此表现最差——因为除了需要第二种方式的机制以外，还需要在接收端保持状态，以过滤重复的投递.</p>
+<h3 id="Akka入门示例"><a href="#Akka入门示例" class="headerlink" title="Akka入门示例"></a>Akka入门示例</h3><h4 id="Maven依赖"><a href="#Maven依赖" class="headerlink" title="Maven依赖"></a>Maven依赖</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.typesafe.akka<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>akka-actor_2.11<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5.9<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="定义Actor"><a href="#定义Actor" class="headerlink" title="定义Actor"></a>定义Actor</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloActor</span> <span class="keyword">extends</span> <span class="title">AbstractLoggingActor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Receive <span class="title">createReceive</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> receiveBuilder()</span><br><span class="line">                .match(Number.class, m -&gt; &#123;</span><br><span class="line">                    log().info(<span class="string">"[ACCEPT][String]:&#123;&#125;"</span>, m);</span><br><span class="line">                    System.out.println(m);</span><br><span class="line">                &#125;)</span><br><span class="line">                .match(String.class, StringUtils::isNotBlank, m -&gt; &#123;</span><br><span class="line">                    log().info(<span class="string">"[Accept][Number]:&#123;&#125;"</span>, m);</span><br><span class="line">                    System.out.println(m);</span><br><span class="line">                &#125;)</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="程序主类"><a href="#程序主类" class="headerlink" title="程序主类"></a>程序主类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloMain</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 1</span></span><br><span class="line">        ActorSystem system = ActorSystem.create(<span class="string">"helloSystem"</span>);</span><br><span class="line">        <span class="comment">// 2</span></span><br><span class="line">        ActorRef helloActor = system.actorOf(Props.create(HelloActor.class), <span class="string">"helloActor"</span>);</span><br><span class="line">        <span class="comment">// 3</span></span><br><span class="line">        helloActor.tell(<span class="string">"Hello, World!"</span>, ActorRef.noSender());</span><br><span class="line">        helloActor.tell(<span class="number">123</span>, ActorRef.noSender());</span><br><span class="line">        helloActor.tell(<span class="string">"Have Fun with Akka!"</span>, ActorRef.noSender());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>程序解读</strong></p>
+<ol>
+<li>创建一个Actor系统,命名为”helloSystem”</li>
+<li>每个Actor对外封闭,使用ActorRef的actorOf方法创建Actor,示例创建了一个名为”helloActor”的Actor,绑定HelloActor事件处理.</li>
+<li>发送消息给”helloActor”,tell()方法是异步的，它只给Actor的邮箱放一封邮件，然后就返回了。tell()方法的第一个参数是消息，第二个参数是发送者，这样接收者Actor就知道是谁给自己发的消息了. 示例中在主方法中发送消息,所以首次消息发送者为<code>ActorRef.noSender()</code>.</li>
+</ol>
+<h4 id="执行输出"><a href="#执行输出" class="headerlink" title="执行输出"></a>执行输出</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Hello, World!</span><br><span class="line">123</span><br><span class="line">Have Fun with Akka!</span><br><span class="line">[INFO] [01/26/2018 15:33:06.870] [helloSystem-akka.actor.default-dispatcher-5] [akka://helloSystem/user/helloActor] [Accept][Number]:Hello, World!</span><br><span class="line">[INFO] [01/26/2018 15:33:06.871] [helloSystem-akka.actor.default-dispatcher-5] [akka://helloSystem/user/helloActor] [ACCEPT][String]:123</span><br><span class="line">[INFO] [01/26/2018 15:33:06.871] [helloSystem-akka.actor.default-dispatcher-5] [akka://helloSystem/user/helloActor] [Accept][Number]:Have Fun with Akka!</span><br></pre></td></tr></table></figure>
+<h3 id="Akka消息传递"><a href="#Akka消息传递" class="headerlink" title="Akka消息传递"></a>Akka消息传递</h3><p>示例使用Akka实现一个MapReduce的经典示例<code>WordCount</code></p>
+<h4 id="Maven依赖-1"><a href="#Maven依赖-1" class="headerlink" title="Maven依赖"></a>Maven依赖</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.typesafe.akka<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>akka-actor_2.11<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5.9<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="工程结构"><a href="#工程结构" class="headerlink" title="工程结构"></a>工程结构</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">├── pom.xml</span><br><span class="line">├── src</span><br><span class="line">│   └── main</span><br><span class="line">│       ├── java</span><br><span class="line">│       │   └── com</span><br><span class="line">│       │       └── elons</span><br><span class="line">│       │           └── wordcount</span><br><span class="line">│       │               └── akka</span><br><span class="line">│       │                   ├── actor</span><br><span class="line">│       │                   │   ├── InputActor.java</span><br><span class="line">│       │                   │   ├── MapperActor.java</span><br><span class="line">│       │                   │   ├── OutputActor.java</span><br><span class="line">│       │                   │   └── ReduceActor.java</span><br><span class="line">│       │                   ├── main</span><br><span class="line">│       │                   │   └── WcApplication.java</span><br><span class="line">│       │                   └── trans</span><br><span class="line">│       │                       └── Message.java</span><br><span class="line">│       └── resources</span><br><span class="line">│           └── application.properties</span><br></pre></td></tr></table></figure>
+<h4 id="消息定义"><a href="#消息定义" class="headerlink" title="消息定义"></a>消息定义</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Message</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Data</span></span><br><span class="line">    <span class="meta">@Builder</span></span><br><span class="line">    <span class="meta">@NoArgsConstructor</span></span><br><span class="line">    <span class="meta">@AllArgsConstructor</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Count</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> String word;</span><br><span class="line">        <span class="keyword">private</span> Integer count;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> JSON.toJSONString(<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Data</span></span><br><span class="line">    <span class="meta">@Builder</span></span><br><span class="line">    <span class="meta">@NoArgsConstructor</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Mapper</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> List&lt;Count&gt; data;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Mapper</span><span class="params">(List&lt;Count&gt; data)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.data = Collections.unmodifiableList(data);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> JSON.toJSONString(<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Data</span></span><br><span class="line">    <span class="meta">@Builder</span></span><br><span class="line">    <span class="meta">@NoArgsConstructor</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Reduce</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> Map&lt;String, Integer&gt; data;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Reduce</span><span class="params">(Map&lt;String, Integer&gt; reduceDataList)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.data = Collections.unmodifiableMap(reduceDataList);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> JSON.toJSONString(<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Result</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Actor定义"><a href="#Actor定义" class="headerlink" title="Actor定义"></a>Actor定义</h4><p><code>InputActor</code>定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InputActor</span> <span class="keyword">extends</span> <span class="title">AbstractLoggingActor</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 链式逆向织入</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ActorRef wcOutputActor = context().system()</span><br><span class="line">            .actorOf(Props.create(OutputActor.class), <span class="string">"outputActor"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ActorRef reduceActor = context().system()</span><br><span class="line">            .actorOf(Props.create(ReduceActor.class, wcOutputActor), <span class="string">"reduceActor"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ActorRef mapperActor = context().system()</span><br><span class="line">            .actorOf(Props.create(MapperActor.class, reduceActor), <span class="string">"mapperActor"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Receive <span class="title">createReceive</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> receiveBuilder()</span><br><span class="line">                .match(String.class, x -&gt; &#123;</span><br><span class="line">                    log().info(<span class="string">"[事件][数据录入]: &#123;&#125;"</span>, x);</span><br><span class="line">                    mapperActor.tell(x, self());</span><br><span class="line">                &#125;)</span><br><span class="line">                .match(Message.Result.class, x -&gt; &#123;</span><br><span class="line">                    log().info(<span class="string">"[事件][结果统计]"</span>);</span><br><span class="line">                    wcOutputActor.tell(x, self());</span><br><span class="line">                &#125;)</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>MapperActor</code>定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MapperActor</span> <span class="keyword">extends</span> <span class="title">AbstractLoggingActor</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ActorRef reduceActor = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MapperActor</span><span class="params">(ActorRef reduceActor)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.reduceActor = reduceActor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Receive <span class="title">createReceive</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> receiveBuilder()</span><br><span class="line">                .match(String.class, x -&gt; &#123;</span><br><span class="line">                    Message.Mapper mapper = mapper(x);</span><br><span class="line">                    reduceActor.tell(mapper, self());</span><br><span class="line">                &#125;)</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Message.<span class="function">Mapper <span class="title">mapper</span><span class="params">(String line)</span> </span>&#123;</span><br><span class="line">        List&lt;Message.Count&gt; list = Lists.newArrayList();</span><br><span class="line">        StringTokenizer parser = <span class="keyword">new</span> StringTokenizer(line);</span><br><span class="line">        <span class="keyword">while</span> (parser.hasMoreTokens()) &#123;</span><br><span class="line">            String word = parser.nextToken().toLowerCase();</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isNotBlank(word)) &#123;</span><br><span class="line">                list.add(<span class="keyword">new</span> Message.Count(word, <span class="number">1</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Message.Mapper(list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>ReduceActor</code>定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReduceActor</span> <span class="keyword">extends</span> <span class="title">AbstractLoggingActor</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 结果集统计Actor</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> ActorRef wcOutputActor;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ReduceActor</span><span class="params">(ActorRef wcOutputActor)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.wcOutputActor = wcOutputActor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> AbstractActor.<span class="function">Receive <span class="title">createReceive</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> receiveBuilder()</span><br><span class="line">                .match(Message.Mapper.class, x -&gt; &#123;</span><br><span class="line">                    log().info(<span class="string">"[计算][Mapper]: &#123;&#125;"</span>, x);</span><br><span class="line">                    <span class="comment">// reduce the incoming data</span></span><br><span class="line">                    Message.Reduce reduceData = reduce(x.getData());</span><br><span class="line">                    <span class="comment">// forward the result to aggregate actor</span></span><br><span class="line">                    wcOutputActor.tell(reduceData, self());</span><br><span class="line">                &#125;)</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Message.<span class="function">Reduce <span class="title">reduce</span><span class="params">(List&lt;Message.Count&gt; coll)</span> </span>&#123;</span><br><span class="line">        HashMap&lt;String, Integer&gt; reducedMap = Maps.newHashMap();</span><br><span class="line">        <span class="keyword">for</span> (Message.Count count: coll) &#123;</span><br><span class="line">            <span class="keyword">if</span> (reducedMap.containsKey(count.getWord())) &#123;</span><br><span class="line">                Integer value = reducedMap.get(count.getWord());</span><br><span class="line">                value++;</span><br><span class="line">                reducedMap.put(count.getWord(), value);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                reducedMap.put(count.getWord(), <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Message.Reduce(reducedMap);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>OutputActor</code>定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OutputActor</span> <span class="keyword">extends</span> <span class="title">AbstractLoggingActor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Map&lt;String, Integer&gt; wcCount = Maps.newHashMap();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Receive <span class="title">createReceive</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> receiveBuilder()</span><br><span class="line">                .match(Message.Reduce.class, x -&gt; &#123;</span><br><span class="line">                    log().info(<span class="string">"[计算][Reduce]: &#123;&#125;"</span>, x);</span><br><span class="line">                    Map&lt;String, Integer&gt; map = x.getData();</span><br><span class="line">                    countReduce(map);</span><br><span class="line">                &#125;)</span><br><span class="line">                .match(Message.Result.class, x -&gt; &#123;</span><br><span class="line">                    System.out.println(<span class="string">"结果:"</span> + wcCount);</span><br><span class="line">                &#125;)</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">countReduce</span><span class="params">(Map&lt;String, Integer&gt; reduce)</span> </span>&#123;</span><br><span class="line">        Integer count = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">for</span> (String key : reduce.keySet()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (wcCount.containsKey(key)) &#123;</span><br><span class="line">                count = wcCount.get(key) + reduce.get(key) ;</span><br><span class="line">                wcCount.put(key, count);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                wcCount.put(key, reduce.get(key));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>WcApplication</code>测试主类定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WcApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">        ActorSystem system = ActorSystem.create(<span class="string">"wordCountSystem"</span>);</span><br><span class="line">        ActorRef inputActor = system.actorOf(Props.create(InputActor.class),<span class="string">"inputActor"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 推送待统计数据</span></span><br><span class="line">        inputActor.tell(<span class="string">"Akka Map Reduce Demo"</span>, ActorRef.noSender());</span><br><span class="line">        inputActor.tell(<span class="string">"Word Count With Akka , Map Reduce Test."</span>, ActorRef.noSender());</span><br><span class="line">        Thread.sleep(<span class="number">500</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取计算结果</span></span><br><span class="line">        inputActor.tell(<span class="keyword">new</span> Message.Result(), <span class="keyword">null</span>);</span><br><span class="line">        Thread.sleep(<span class="number">500</span>);</span><br><span class="line"></span><br><span class="line">        system.terminate();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="执行输出-1"><a href="#执行输出-1" class="headerlink" title="执行输出"></a>执行输出</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[INFO] [01/29/2018 12:00:27.089] [wordCountSystem-akka.actor.default-dispatcher-3] [akka://wordCountSystem/user/inputActor] [事件][数据录入]: Akka Map Reduce Demo</span><br><span class="line">[INFO] [01/29/2018 12:00:27.089] [wordCountSystem-akka.actor.default-dispatcher-3] [akka://wordCountSystem/user/inputActor] [事件][数据录入]: Word Count With Akka , Map Reduce Test.</span><br><span class="line">[INFO] [01/29/2018 12:00:27.224] [wordCountSystem-akka.actor.default-dispatcher-3] [akka://wordCountSystem/user/reduceActor] [计算][Mapper]: &#123;<span class="string">"data"</span>:[&#123;<span class="string">"count"</span>:1,<span class="string">"word"</span>:<span class="string">"akka"</span>&#125;,&#123;<span class="string">"count"</span>:1,<span class="string">"word"</span>:<span class="string">"map"</span>&#125;,&#123;<span class="string">"count"</span>:1,<span class="string">"word"</span>:<span class="string">"reduce"</span>&#125;,&#123;<span class="string">"count"</span>:1,<span class="string">"word"</span>:<span class="string">"demo"</span>&#125;]&#125;</span><br><span class="line">[INFO] [01/29/2018 12:00:27.224] [wordCountSystem-akka.actor.default-dispatcher-3] [akka://wordCountSystem/user/reduceActor] [计算][Mapper]: &#123;<span class="string">"data"</span>:[&#123;<span class="string">"count"</span>:1,<span class="string">"word"</span>:<span class="string">"word"</span>&#125;,&#123;<span class="string">"count"</span>:1,<span class="string">"word"</span>:<span class="string">"count"</span>&#125;,&#123;<span class="string">"count"</span>:1,<span class="string">"word"</span>:<span class="string">"with"</span>&#125;,&#123;<span class="string">"count"</span>:1,<span class="string">"word"</span>:<span class="string">"akka"</span>&#125;,&#123;<span class="string">"count"</span>:1,<span class="string">"word"</span>:<span class="string">","</span>&#125;,&#123;<span class="string">"count"</span>:1,<span class="string">"word"</span>:<span class="string">"map"</span>&#125;,&#123;<span class="string">"count"</span>:1,<span class="string">"word"</span>:<span class="string">"reduce"</span>&#125;,&#123;<span class="string">"count"</span>:1,<span class="string">"word"</span>:<span class="string">"test."</span>&#125;]&#125;</span><br><span class="line">[INFO] [01/29/2018 12:00:27.228] [wordCountSystem-akka.actor.default-dispatcher-5] [akka://wordCountSystem/user/outputActor] [计算][Reduce]: &#123;<span class="string">"data"</span>:&#123;<span class="string">"reduce"</span>:1,<span class="string">"akka"</span>:1,<span class="string">"map"</span>:1,<span class="string">"demo"</span>:1&#125;&#125;</span><br><span class="line">[INFO] [01/29/2018 12:00:27.229] [wordCountSystem-akka.actor.default-dispatcher-5] [akka://wordCountSystem/user/outputActor] [计算][Reduce]: &#123;<span class="string">"data"</span>:&#123;<span class="string">"reduce"</span>:1,<span class="string">"with"</span>:1,<span class="string">"count"</span>:1,<span class="string">","</span>:1,<span class="string">"word"</span>:1,<span class="string">"akka"</span>:1,<span class="string">"map"</span>:1,<span class="string">"test."</span>:1&#125;&#125;</span><br><span class="line">结果:&#123;reduce=2, with=1, count=1, ,=1, akka=2, map=2, demo=1, word=1, <span class="built_in">test</span>.=1&#125;</span><br><span class="line">[INFO] [01/29/2018 12:00:27.583] [wordCountSystem-akka.actor.default-dispatcher-4] [akka://wordCountSystem/user/inputActor] [事件][结果统计]</span><br></pre></td></tr></table></figure>
+<h3 id="相关文档"><a href="#相关文档" class="headerlink" title="相关文档"></a>相关文档</h3><ul>
+<li><a href="https://doc.yonyoucloud.com/doc/akka-doc-cn/2.3.6/scala/book/chapter1/introduction.html" target="_blank" rel="noopener">https://doc.yonyoucloud.com/doc/akka-doc-cn/2.3.6/scala/book/chapter1/introduction.html</a></li>
+<li><a href="http://blog.csdn.net/jmppok/article/details/17264495" target="_blank" rel="noopener">http://blog.csdn.net/jmppok/article/details/17264495</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/Akka/" rel="tag"># Akka</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/01/组件框架/Akka/Akka分布式计算应用/" rel="next" title="Akka分布式计算应用">
+                <i class="fa fa-chevron-left"></i> Akka分布式计算应用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/01/组件框架/Akka/Akka调度器和远程调用/" rel="prev" title="Akka调度器和远程调用">
+                Akka调度器和远程调用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/havatar.png" alt="蘇若年">
+            
+              <p class="site-author-name" itemprop="name">蘇若年</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">文章</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分類</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">標籤</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Akka介绍"><span class="nav-number">1.</span> <span class="nav-text">Akka介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#概念认知"><span class="nav-number">2.</span> <span class="nav-text">概念认知</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#并发-amp-并行"><span class="nav-number">2.1.</span> <span class="nav-text">并发&amp;并行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异步-amp-同步"><span class="nav-number">2.2.</span> <span class="nav-text">异步&amp;同步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阻塞-amp-非阻塞"><span class="nav-number">2.3.</span> <span class="nav-text">阻塞&amp;非阻塞</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Akka模块介绍"><span class="nav-number">3.</span> <span class="nav-text">Akka模块介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建议一个Akka系统的步骤"><span class="nav-number">4.</span> <span class="nav-text">建议一个Akka系统的步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Akka监管策略"><span class="nav-number">5.</span> <span class="nav-text">Akka监管策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Akka消息传递机制"><span class="nav-number">6.</span> <span class="nav-text">Akka消息传递机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Akka入门示例"><span class="nav-number">7.</span> <span class="nav-text">Akka入门示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Maven依赖"><span class="nav-number">7.1.</span> <span class="nav-text">Maven依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定义Actor"><span class="nav-number">7.2.</span> <span class="nav-text">定义Actor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#程序主类"><span class="nav-number">7.3.</span> <span class="nav-text">程序主类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行输出"><span class="nav-number">7.4.</span> <span class="nav-text">执行输出</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Akka消息传递"><span class="nav-number">8.</span> <span class="nav-text">Akka消息传递</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Maven依赖-1"><span class="nav-number">8.1.</span> <span class="nav-text">Maven依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工程结构"><span class="nav-number">8.2.</span> <span class="nav-text">工程结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息定义"><span class="nav-number">8.3.</span> <span class="nav-text">消息定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Actor定义"><span class="nav-number">8.4.</span> <span class="nav-text">Actor定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行输出-1"><span class="nav-number">8.5.</span> <span class="nav-text">执行输出</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关文档"><span class="nav-number">9.</span> <span class="nav-text">相关文档</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HuntsWork</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 強力驅動</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主題 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66129992";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz',
+        appKey: 'pYydnhaL1ddP6c3fPWRnj9AO',
+        placeholder: '天青色等烟雨 而我 在等你 ...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz", "pYydnhaL1ddP6c3fPWRnj9AO");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 15497,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

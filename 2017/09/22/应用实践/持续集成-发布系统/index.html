@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-tw">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="kFp8mZ25PsFpJW_ipN268gzlsa4pfBk-LYkLTBR2jQc">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="发布系统,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="花辭" type="application/atom+xml">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('该文章被加密, 输入访问口令!') !== ''){
+                alert('密码错误！');
+                //history.go(-1);
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<meta name="description" content="发布系统在技术团队中有着重要作用, 承担我们每天的服务部署工作, 企业发布系统根据企业技术能力来决定, 小公司不像那些公司一样,有充足的人力去开发一套自己的发布系统. 所以尽可能的去寻找一些适合企业应用的部署系统, 以提高人力成本.  这里推荐两款开源的发布系统:  jekins: https://jenkins.io/ (Java语言开发)[普遍] walle: http://www.walle">
+<meta name="keywords" content="发布系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="持续集成 - 发布系统">
+<meta property="og:url" content="http://dennisit.github.io/2017/09/22/应用实践/持续集成-发布系统/index.html">
+<meta property="og:site_name" content="花辭">
+<meta property="og:description" content="发布系统在技术团队中有着重要作用, 承担我们每天的服务部署工作, 企业发布系统根据企业技术能力来决定, 小公司不像那些公司一样,有充足的人力去开发一套自己的发布系统. 所以尽可能的去寻找一些适合企业应用的部署系统, 以提高人力成本.  这里推荐两款开源的发布系统:  jekins: https://jenkins.io/ (Java语言开发)[普遍] walle: http://www.walle">
+<meta property="og:locale" content="zh-tw">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15086776311511.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15086780819284.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15086787405090.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15086784831929.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15086785848544.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15086793329945.jpg">
+<meta property="og:updated_time" content="2019-02-23T09:47:26.545Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="持续集成 - 发布系统">
+<meta name="twitter:description" content="发布系统在技术团队中有着重要作用, 承担我们每天的服务部署工作, 企业发布系统根据企业技术能力来决定, 小公司不像那些公司一样,有充足的人力去开发一套自己的发布系统. 所以尽可能的去寻找一些适合企业应用的部署系统, 以提高人力成本.  这里推荐两款开源的发布系统:  jekins: https://jenkins.io/ (Java语言开发)[普遍] walle: http://www.walle">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15086776311511.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  document.oncontextmenu= function(){return false;}
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://dennisit.github.io/2017/09/22/应用实践/持续集成-发布系统/">
+
+
+
+
+
+  <title>持续集成 - 发布系统 | 花辭</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?57443a2926e41ae04a903a8093e16326";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">花辭</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">風月不瘦,雖以千年後。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            關於
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            標籤
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站點地圖
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dennisit.github.io/2017/09/22/应用实践/持续集成-发布系统/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蘇若年">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/havatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花辭">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">持续集成 - 发布系统</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-09-22T15:23:15+08:00">
+                2017-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/运维部署/" itemprop="url" rel="index">
+                    <span itemprop="name">运维部署</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/22/应用实践/持续集成-发布系统/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/09/22/应用实践/持续集成-发布系统/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/09/22/应用实践/持续集成-发布系统/" class="leancloud_visitors" data-flag-title="持续集成 - 发布系统">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">閱讀次數&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>发布系统在技术团队中有着重要作用, 承担我们每天的服务部署工作, 企业发布系统根据企业技术能力来决定, 小公司不像那些公司一样,有充足的人力去开发一套自己的发布系统. 所以尽可能的去寻找一些适合企业应用的部署系统, 以提高人力成本. </p>
+<p>这里推荐两款开源的发布系统:</p>
+<ul>
+<li>jekins: <a href="https://jenkins.io/" target="_blank" rel="noopener">https://jenkins.io/</a> (Java语言开发)[普遍]</li>
+<li>walle: <a href="http://www.walle-web.io/" target="_blank" rel="noopener">http://www.walle-web.io/</a> (PHP语言开发)[小众]</li>
+</ul>
+<p>jekins可能大家都很熟悉,也有好多文章, walle是国人写的一个轻量的发布系统, 只所以推荐它 是因为相对其它开源的发布系统来说, 其UI界面至少看着比较舒服, 基本功能也都有. 支持国产开源.</p>
+<h3 id="Walle安装部署"><a href="#Walle安装部署" class="headerlink" title="Walle安装部署"></a>Walle安装部署</h3><p>Walle是基于PHP写的, 所以安装前需要安装PHP环境.</p>
+<a id="more"></a>
+<h4 id="PHP环境安装"><a href="#PHP环境安装" class="headerlink" title="PHP环境安装"></a>PHP环境安装</h4><p>这里选用php最新稳定版7.1.10</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># wget http://cn2.php.net/distributions/php-7.1.10.tar.gz</span></span><br><span class="line">[root@localhost ~]<span class="comment"># tar -zxvf php-7.1.10.tar.gz </span></span><br><span class="line">[root@localhost ~]<span class="comment"># cd php-7.1.10/</span></span><br><span class="line">[root@localhost php-7.1.10]<span class="comment"># ./configure --help</span></span><br><span class="line">[root@localhost php-7.1.10]<span class="comment"># yum -y install libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel libxml2 libxml2-devel mysql pcre-devel</span></span><br><span class="line">[root@localhost php-7.1.10]<span class="comment"># ./configure --prefix=/usr/local/php \</span></span><br><span class="line"> --with-curl \</span><br><span class="line"> --with-freetype-dir \</span><br><span class="line"> --with-gd \</span><br><span class="line"> --with-gettext \</span><br><span class="line"> --with-iconv-dir \</span><br><span class="line"> --with-kerberos \</span><br><span class="line"> --with-libdir=lib64 \</span><br><span class="line"> --with-libxml-dir \</span><br><span class="line"> --with-mysqli \</span><br><span class="line"> --with-openssl \</span><br><span class="line"> --with-pcre-regex \</span><br><span class="line"> --with-pdo-mysql \</span><br><span class="line"> --with-pdo-sqlite \</span><br><span class="line"> --with-pear \</span><br><span class="line"> --with-png-dir \</span><br><span class="line"> --with-xmlrpc \</span><br><span class="line"> --with-zlib \</span><br><span class="line"> --<span class="built_in">enable</span>-fpm \</span><br><span class="line"> --<span class="built_in">enable</span>-bcmath \</span><br><span class="line"> --<span class="built_in">enable</span>-libxml \</span><br><span class="line"> --<span class="built_in">enable</span>-inline-optimization \</span><br><span class="line"> --<span class="built_in">enable</span>-gd-native-ttf \</span><br><span class="line"> --<span class="built_in">enable</span>-mbregex \</span><br><span class="line"> --<span class="built_in">enable</span>-mbstring \</span><br><span class="line"> --<span class="built_in">enable</span>-pcntl \</span><br><span class="line"> --<span class="built_in">enable</span>-shmop \</span><br><span class="line"> --<span class="built_in">enable</span>-soap \</span><br><span class="line"> --<span class="built_in">enable</span>-sockets \</span><br><span class="line"> --<span class="built_in">enable</span>-sysvsem \</span><br><span class="line"> --<span class="built_in">enable</span>-xml \</span><br><span class="line"> --<span class="built_in">enable</span>-zip</span><br><span class="line"> [root@localhost php-7.1.10]<span class="comment"># make &amp; make install</span></span><br><span class="line"> [root@localhost php-7.1.10]<span class="comment"># cp php.ini-development /usr/local/php/lib/php.ini</span></span><br><span class="line">[root@localhost php-7.1.10]<span class="comment"># cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf</span></span><br><span class="line">[root@localhost php-7.1.10]<span class="comment">#  cp /usr/local/php/etc/php-fpm.d/www.conf.default /usr/local/php/etc/php-fpm.d/www.conf</span></span><br><span class="line">[root@localhost php-7.1.10]<span class="comment"># cp -R ./sapi/fpm/php-fpm /etc/init.d/php-fpm</span></span><br><span class="line">[root@localhost php-7.1.10]<span class="comment"># /etc/init.d/php-fpm</span></span><br></pre></td></tr></table></figure>
+<p>修改php进程归属用户(<code>/usr/local/php/etc/php-fpm.d/www.conf</code>), 修改user和group值.<br>笔者示例中值均为 <code>elonsu</code>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[elonsu@localhost ~]$ grep -C 3 <span class="string">'elonsu'</span> /usr/<span class="built_in">local</span>/php/etc/php-fpm.d/www.conf -n</span><br><span class="line">20-; Unix user/group of processes</span><br><span class="line">21-; Note: The user is mandatory. If the group is not <span class="built_in">set</span>, the default user<span class="string">'s group</span></span><br><span class="line"><span class="string">22-;       will be used.</span></span><br><span class="line"><span class="string">23:user = elonsu</span></span><br><span class="line"><span class="string">24:group = elonsu</span></span><br><span class="line"><span class="string">25-</span></span><br><span class="line"><span class="string">26-; The address on which to accept FastCGI requests.</span></span><br><span class="line"><span class="string">27-; Valid syntaxes are:</span></span><br></pre></td></tr></table></figure>
+<h4 id="配置php环境变量"><a href="#配置php环境变量" class="headerlink" title="配置php环境变量"></a>配置php环境变量</h4><p>在<code>/etc/profile</code>文件末尾追加环境变量,如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这是PHP环境变量</span></span><br><span class="line">PHP_HOME=/usr/<span class="built_in">local</span>/php</span><br><span class="line"><span class="comment"># 设置Meven环境变量</span></span><br><span class="line">M2_HOME=/usr/<span class="built_in">local</span>/apache-maven-3.5.0</span><br><span class="line"><span class="comment"># 设置Java环境变量</span></span><br><span class="line">JAVA_HOME=/usr/<span class="built_in">local</span>/jdk1.8.0_121</span><br><span class="line">JRE_HOME=/usr/<span class="built_in">local</span>/jdk1.8.0_121/jre</span><br><span class="line">CLASS_PATH=.:<span class="variable">$JAVA_HOME</span>/lib/dt.jar:<span class="variable">$JAVA_HOME</span>/lib/tools.jar:<span class="variable">$JRE_HOME</span>/lib</span><br><span class="line">PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$JRE_HOME</span>/bin:<span class="variable">$M2_HOME</span>/bin:<span class="variable">$PHP_HOME</span>/bin:</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PHP_HOME M2_HOME JAVA_HOME JRE_HOME CLASS_PATH PATH</span><br></pre></td></tr></table></figure>
+<p>使配置生效</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]$ <span class="built_in">source</span> /etc/profile</span><br><span class="line">[elonsu@localhost ~]$ php -v</span><br><span class="line">PHP 7.1.10 (cli) (built: Oct 22 2017 14:23:52) ( NTS )</span><br><span class="line">Copyright (c) 1997-2017 The PHP Group</span><br><span class="line">Zend Engine v3.1.0, Copyright (c) 1998-2017 Zend Technologies</span><br></pre></td></tr></table></figure>
+<h4 id="下载Walle"><a href="#下载Walle" class="headerlink" title="下载Walle"></a>下载Walle</h4><p>Github: <a href="https://github.com/meolu/walle-web" target="_blank" rel="noopener">https://github.com/meolu/walle-web</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">elonsu@localhost cloud]$ <span class="built_in">pwd</span></span><br><span class="line">/<span class="built_in">export</span>/cloud</span><br><span class="line">elonsu@localhost cloud]$ git <span class="built_in">clone</span> git@github.com:meolu/walle-web.git</span><br><span class="line">elonsu@localhost cloud]$ <span class="built_in">cd</span> walle-web</span><br><span class="line">elonsu@localhost cloud]$ vi config/local.php</span><br></pre></td></tr></table></figure>
+<p>设置数据库链接和用户注册邮件通知服务配置</p>
+<h4 id="安装Walle"><a href="#安装Walle" class="headerlink" title="安装Walle"></a>安装Walle</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[elonsu@localhost walle-web]$ curl -sS https://getcomposer.org/installer | php</span><br><span class="line">[elonsu@localhost walle-web]$ php composer.phar require guzzlehttp/promises</span><br><span class="line">[elonsu@localhost walle-web]$ php composer.phar require guzzlehttp/guzzle</span><br><span class="line">[elonsu@localhost walle-web]$ php composer.phar install --prefer-dist --no-dev --optimize-autoloader -vvvv</span><br><span class="line">[elonsu@localhost walle-web]$ ./yii walle/setup</span><br></pre></td></tr></table></figure>
+<h4 id="Nginx反向代理"><a href="#Nginx反向代理" class="headerlink" title="Nginx反向代理"></a>Nginx反向代理</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[elonsu@localhost walle-web]$ cat /usr/<span class="built_in">local</span>/nginx/conf/domains/walle.wuyu.com </span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  walle.wuyu.com;</span><br><span class="line">    root /<span class="built_in">export</span>/cloud/walle-web/web;</span><br><span class="line">    index index.php;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 建议放内网</span></span><br><span class="line">    <span class="comment"># allow 192.168.0.0/24;</span></span><br><span class="line">    <span class="comment"># deny all;</span></span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        try_files <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.php<span class="variable">$is_args</span><span class="variable">$args</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">        try_files <span class="variable">$uri</span> = 404;</span><br><span class="line">        fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">        fastcgi_param  SCRIPT_FILENAME  <span class="variable">$document_root</span><span class="variable">$fastcgi_script_name</span>;</span><br><span class="line">        include        fastcgi_params;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="访问登录"><a href="#访问登录" class="headerlink" title="访问登录"></a>访问登录</h4><p>访问: <a href="http://walle.wuyu.com/" target="_blank" rel="noopener">http://walle.wuyu.com/</a><br>首次登录默认管理员用户<code>admin/admin</code>.</p>
+<h3 id="配置项目"><a href="#配置项目" class="headerlink" title="配置项目"></a>配置项目</h3><p>发布系统部署完后登录后效果图如下(苏若年账户为笔者自己创建): </p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15086776311511.jpg" alt></p>
+<h4 id="添加项目配置"><a href="#添加项目配置" class="headerlink" title="添加项目配置"></a>添加项目配置</h4><p>【项目配置】- 【新建项目】:</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15086780819284.jpg" alt></p>
+<p>上图为个人技术博客发布项配置.</p>
+<h4 id="检测项目配置"><a href="#检测项目配置" class="headerlink" title="检测项目配置"></a>检测项目配置</h4><p>【项目配置】-【配置列表】-【检测】, 检测配置项是否配置成功.</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15086787405090.jpg" alt></p>
+<h4 id="创建上线任务"><a href="#创建上线任务" class="headerlink" title="创建上线任务"></a>创建上线任务</h4><p>【我的上线单】-【创建上线单】-【选择上线的模板】, 填写如下项:</p>
+<ul>
+<li>上线单标题</li>
+<li>选取分之</li>
+<li>版本选取</li>
+<li>全量/增量</li>
+</ul>
+<p>填写完之后会在【我的上线单】, 中出现刚才添加的上线单项目. 如下图:</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15086784831929.jpg" alt></p>
+<h4 id="执行上线操作"><a href="#执行上线操作" class="headerlink" title="执行上线操作"></a>执行上线操作</h4><p>【我的上线单】-【选择上线单项】-【上线】-【部署】:</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15086785848544.jpg" alt></p>
+<h3 id="远程GIT仓库授权配置"><a href="#远程GIT仓库授权配置" class="headerlink" title="远程GIT仓库授权配置"></a>远程GIT仓库授权配置</h3><h4 id="远程私有仓库ssh-授权"><a href="#远程私有仓库ssh-授权" class="headerlink" title="远程私有仓库ssh 授权"></a>远程私有仓库ssh 授权</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[elonsu@localhost ~]<span class="comment">#  ssh-keygen -t rsa -C "dennisit@163.com"</span></span><br><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/elonsu/.ssh/id_rsa): </span><br><span class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase): </span><br><span class="line">Enter same passphrase again: </span><br><span class="line">Your identification has been saved <span class="keyword">in</span> /elonsu/.ssh/id_rsa.</span><br><span class="line">Your public key has been saved <span class="keyword">in</span> /elonsu/.ssh/id_rsa.pub.</span><br><span class="line">The key fingerprint is:</span><br><span class="line">8b:8a:a0:b3:a5:a1:5f:96:8a:3c:5a:c1:e0:b3:f4:f3 dennisit@163.com</span><br><span class="line">The key<span class="string">'s randomart image is:</span></span><br><span class="line"><span class="string">+--[ RSA 2048]----+</span></span><br><span class="line"><span class="string">|                 |</span></span><br><span class="line"><span class="string">|                 |</span></span><br><span class="line"><span class="string">|.                |</span></span><br><span class="line"><span class="string">|.o               |</span></span><br><span class="line"><span class="string">| +o     S        |</span></span><br><span class="line"><span class="string">|. +. . . .       |</span></span><br><span class="line"><span class="string">|o.oo+ . .        |</span></span><br><span class="line"><span class="string">|=O =o.           |</span></span><br><span class="line"><span class="string">|O== .E           |</span></span><br><span class="line"><span class="string">+-----------------+</span></span><br><span class="line"><span class="string">[elonsu@localhost ~]# ls </span></span><br><span class="line"><span class="string">[elonsu@localhost ~]$ ls ~/.ssh/</span></span><br><span class="line"><span class="string">id_rsa  id_rsa.pub</span></span><br></pre></td></tr></table></figure>
+<p>这里的id_rsa为私钥, id_rsa_pub为公钥</p>
+<h4 id="Git服务器配置SSH公钥"><a href="#Git服务器配置SSH公钥" class="headerlink" title="Git服务器配置SSH公钥"></a>Git服务器配置SSH公钥</h4><p>以开源中国为例, 【个人】-【设置】-【SSH公钥】</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15086793329945.jpg" alt></p>
+<p>开源中国官方配置说明:<a href="http://git.mydoc.io/?t=154712" target="_blank" rel="noopener">http://git.mydoc.io/?t=154712</a></p>
+<h4 id="检测配置"><a href="#检测配置" class="headerlink" title="检测配置"></a>检测配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[elonsu@localhost ~]$ ssh -T git@gitee.com</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">Welcome to Gitee.com, -苏若年-!</span><br></pre></td></tr></table></figure>
+<h3 id="部署目标机器授权"><a href="#部署目标机器授权" class="headerlink" title="部署目标机器授权"></a>部署目标机器授权</h3><p>我们以root用户身份, 将项目发布到<code>192.178.0.107</code>服务上时,需要给目标机器授权.如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]$ ssh-copy-id -i ~/.ssh/id_rsa.pub root@192.168.0.107</span><br></pre></td></tr></table></figure>
+<p>此时会提示让输入目标服务器密码. 正确输入密码后,配置成功.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/发布系统/" rel="tag"># 发布系统</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/03/组件框架/Elastic/Elastic实战Rest统计/" rel="next" title="Elastic实战Rest统计">
+                <i class="fa fa-chevron-left"></i> Elastic实战Rest统计
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/10/组件框架/Elastic/Elastic安装配置说明/" rel="prev" title="Elastic安装配置说明">
+                Elastic安装配置说明 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/havatar.png" alt="蘇若年">
+            
+              <p class="site-author-name" itemprop="name">蘇若年</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">文章</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分類</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">標籤</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Walle安装部署"><span class="nav-number">1.</span> <span class="nav-text">Walle安装部署</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP环境安装"><span class="nav-number">1.1.</span> <span class="nav-text">PHP环境安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置php环境变量"><span class="nav-number">1.2.</span> <span class="nav-text">配置php环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载Walle"><span class="nav-number">1.3.</span> <span class="nav-text">下载Walle</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装Walle"><span class="nav-number">1.4.</span> <span class="nav-text">安装Walle</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nginx反向代理"><span class="nav-number">1.5.</span> <span class="nav-text">Nginx反向代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#访问登录"><span class="nav-number">1.6.</span> <span class="nav-text">访问登录</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置项目"><span class="nav-number">2.</span> <span class="nav-text">配置项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加项目配置"><span class="nav-number">2.1.</span> <span class="nav-text">添加项目配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检测项目配置"><span class="nav-number">2.2.</span> <span class="nav-text">检测项目配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建上线任务"><span class="nav-number">2.3.</span> <span class="nav-text">创建上线任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行上线操作"><span class="nav-number">2.4.</span> <span class="nav-text">执行上线操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程GIT仓库授权配置"><span class="nav-number">3.</span> <span class="nav-text">远程GIT仓库授权配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#远程私有仓库ssh-授权"><span class="nav-number">3.1.</span> <span class="nav-text">远程私有仓库ssh 授权</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Git服务器配置SSH公钥"><span class="nav-number">3.2.</span> <span class="nav-text">Git服务器配置SSH公钥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检测配置"><span class="nav-number">3.3.</span> <span class="nav-text">检测配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署目标机器授权"><span class="nav-number">4.</span> <span class="nav-text">部署目标机器授权</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HuntsWork</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 強力驅動</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主題 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66129992";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz',
+        appKey: 'pYydnhaL1ddP6c3fPWRnj9AO',
+        placeholder: '天青色等烟雨 而我 在等你 ...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz", "pYydnhaL1ddP6c3fPWRnj9AO");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 15497,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

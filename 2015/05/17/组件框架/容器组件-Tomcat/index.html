@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-tw">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="kFp8mZ25PsFpJW_ipN268gzlsa4pfBk-LYkLTBR2jQc">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Tomcat,理论基础,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="花辭" type="application/atom+xml">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('该文章被加密, 输入访问口令!') !== ''){
+                alert('密码错误！');
+                //history.go(-1);
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<meta name="description" content="Tomcat简介Tomcat是全世界最著名的基于Java的轻量级应用服务器, 是一款完全开源免费的Servlet容器实现. 同时, 它支持Html、JS等静态资源的处理, 因此又可以作为轻量级Web服务器使用.  Tomcat启动脚本配置修改 可以通过编辑$CATALINA_HOME/bin/catalina.sh, 修改Tomcat启动配置: 1JAVA_OPS=&quot;-server -Xms102">
+<meta name="keywords" content="Tomcat,理论基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="容器组件-Tomcat">
+<meta property="og:url" content="http://dennisit.github.io/2015/05/17/组件框架/容器组件-Tomcat/index.html">
+<meta property="og:site_name" content="花辭">
+<meta property="og:description" content="Tomcat简介Tomcat是全世界最著名的基于Java的轻量级应用服务器, 是一款完全开源免费的Servlet容器实现. 同时, 它支持Html、JS等静态资源的处理, 因此又可以作为轻量级Web服务器使用.  Tomcat启动脚本配置修改 可以通过编辑$CATALINA_HOME/bin/catalina.sh, 修改Tomcat启动配置: 1JAVA_OPS=&quot;-server -Xms102">
+<meta property="og:locale" content="zh-tw">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15413024531718.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15398515439489.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15398716671578.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15399068458792.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15399069347964.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15398554993206.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15398585685272.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15398585867165.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15398586311404.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15398586606909.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15398586834256.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15398587669816.jpg">
+<meta property="og:updated_time" content="2019-02-13T01:08:45.173Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="容器组件-Tomcat">
+<meta name="twitter:description" content="Tomcat简介Tomcat是全世界最著名的基于Java的轻量级应用服务器, 是一款完全开源免费的Servlet容器实现. 同时, 它支持Html、JS等静态资源的处理, 因此又可以作为轻量级Web服务器使用.  Tomcat启动脚本配置修改 可以通过编辑$CATALINA_HOME/bin/catalina.sh, 修改Tomcat启动配置: 1JAVA_OPS=&quot;-server -Xms102">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15413024531718.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  document.oncontextmenu= function(){return false;}
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://dennisit.github.io/2015/05/17/组件框架/容器组件-Tomcat/">
+
+
+
+
+
+  <title>容器组件-Tomcat | 花辭</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?57443a2926e41ae04a903a8093e16326";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">花辭</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">風月不瘦,雖以千年後。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            關於
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            標籤
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站點地圖
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dennisit.github.io/2015/05/17/组件框架/容器组件-Tomcat/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蘇若年">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/havatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花辭">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">容器组件-Tomcat</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2015-05-17T19:57:53+08:00">
+                2015-05-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/组件框架/" itemprop="url" rel="index">
+                    <span itemprop="name">组件框架</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/组件框架/容器组件/" itemprop="url" rel="index">
+                    <span itemprop="name">容器组件</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/05/17/组件框架/容器组件-Tomcat/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2015/05/17/组件框架/容器组件-Tomcat/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2015/05/17/组件框架/容器组件-Tomcat/" class="leancloud_visitors" data-flag-title="容器组件-Tomcat">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">閱讀次數&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Tomcat简介"><a href="#Tomcat简介" class="headerlink" title="Tomcat简介"></a>Tomcat简介</h2><p>Tomcat是全世界最著名的基于Java的轻量级应用服务器, 是一款完全开源免费的Servlet容器实现. 同时, 它支持Html、JS等静态资源的处理, 因此又可以作为轻量级Web服务器使用.</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15413024531718.jpg" width="620px"></p>
+<h3 id="Tomcat启动脚本"><a href="#Tomcat启动脚本" class="headerlink" title="Tomcat启动脚本"></a>Tomcat启动脚本</h3><p>配置修改</p>
+<p>可以通过编辑$CATALINA_HOME/bin/catalina.sh, 修改Tomcat启动配置:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_OPS="-server -Xms1024m -Xmx2048m -XX:PermSize=256m -XX:MaxPermSize=512m"</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>启动容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[unzone@localhost ~ ]$ <span class="variable">$CATALINA_HOME</span>/bin/startup.sh</span><br></pre></td></tr></table></figure>
+<h3 id="Tomcat目录说明"><a href="#Tomcat目录说明" class="headerlink" title="Tomcat目录说明"></a>Tomcat目录说明</h3><p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15398515439489.jpg" alt></p>
+<h3 id="Tomcat新特性"><a href="#Tomcat新特性" class="headerlink" title="Tomcat新特性"></a>Tomcat新特性</h3><ul>
+<li><p>自8.0版本开始, Tomcat支持Servlet3.1、JSP2.3、EL3.0、WebSocket1.1; 并且9.0版本开始支持Servlet4.0</p>
+</li>
+<li><p>自8.0版本开始, 默认的HTTP、AJP链接器采用NIO、而非Tomcat7以前版本的BIO；并且从8.5开始, 移除了对BIO的支持</p>
+</li>
+<li><p>自8.0版本开始, 链接器新增支持JDK7的NIO2</p>
+</li>
+<li><p>自8.0版本开始, 链接器新增支持HTTP/2协议.</p>
+</li>
+<li><p>在自8.0版本中, Tomcat提供了一套全新的资源实现, 采用单独、一致的方法配置Web应用的附件资源.</p>
+</li>
+</ul>
+<h2 id="Tomcat架构"><a href="#Tomcat架构" class="headerlink" title="Tomcat架构"></a>Tomcat架构</h2><h3 id="Tomcat组成模块"><a href="#Tomcat组成模块" class="headerlink" title="Tomcat组成模块"></a>Tomcat组成模块</h3><p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15398716671578.jpg" alt></p>
+<p>组件说明</p>
+<ul>
+<li><p>Server: 表示整个Servlet容器, 因此Tomcat运行环境中只有唯一一个Servlet实例</p>
+</li>
+<li><p>Service: Service表示一个或者多个Connector的集合, 这些Connector共享同一个Container来处理其请求, 在同一个Tomcat实例内可以包含任意多个Service实例, 他们彼此独立</p>
+</li>
+<li><p>Connector: 即Tomcat链接器, 用于监听并转换Socket请求, 同时将读取的Socket请求交由Container处理, 支持不同协议以及不同的I/O方式</p>
+</li>
+<li><p>Container: Container表示能够执行客户端请求并返回响应的一类对象. 在Tomcat中存在不同级别的容器: Engine、Host、Context、Wrapper</p>
+</li>
+<li><p>Engine: Engine表示整个Servlet引擎. 在Tomcat中, Engine为最高层级的容器对象, 尽管Engine不是直接处理请求的容器, 却是获取目标容器的入口.</p>
+</li>
+<li><p>Host: Host作为一类容器, 表示Servlet引擎(即Engine)中的虚拟机, 与一个服务器的网络名有关, 如域名等. 客户端可以使用这个网络名连接服务器, 这个名称必须要在DNS服务器上注册.</p>
+</li>
+<li><p>Context: Context作为一类容器, 用于表示ServletContext, 在Servlet规范中, 一个ServletContext即表示一个独立的Web应用.</p>
+</li>
+<li><p>Wrapper: Wrapper作为一类容器, 用于表示Web应用中定义的Servlet</p>
+</li>
+<li><p>Executor: 表示Tomcat组件间可以共享的线程池</p>
+</li>
+</ul>
+<h3 id="Tomcat类加载器"><a href="#Tomcat类加载器" class="headerlink" title="Tomcat类加载器"></a>Tomcat类加载器</h3><h4 id="Java类加载器"><a href="#Java类加载器" class="headerlink" title="Java类加载器"></a>Java类加载器</h4><p>JVM默认提供3个类加载器, 他们以一种父子树的方式创建, 同时使用委派模式确保应用程序可以通过自身的类加载器加载所有可见的Java类.</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15399068458792.jpg" alt></p>
+<ul>
+<li><p><strong>Bootstrap</strong>: 用于加载JVM提供的基础运行类,即位于<code>%JAVA_HOME%/jre/lib</code>目录下的核心类库</p>
+</li>
+<li><p><strong>Extension</strong>: Java提供的一个标准的扩展机制用于加载除核心类库外的Jar包, 即只要复制到指定扩展目录(可以多个)下的Jar, JVM会自动加载(不需要通过-class指定), 默认的扩展目录是<code>%JAVA_HOME%/jre/lib/ext</code>.</p>
+</li>
+<li><p><strong>System</strong>: 用于加载环境变量CLASSPATH(不推荐使用)指定目录下的或者-classpath运行参数指定的JAR包, System类加载器通常用于加载应用程序Jar包以及其启动入口类(Tomcat的Bootstrap类即由System类加载器加载)</p>
+</li>
+</ul>
+<h4 id="双亲委派模式"><a href="#双亲委派模式" class="headerlink" title="双亲委派模式"></a>双亲委派模式</h4><p>Java默认的类加载机制是委派模式, 委派过程如下:</p>
+<ol>
+<li>从缓存中加载</li>
+<li>如果缓存中没有, 则从父亲加载器中加载</li>
+<li>如果父亲加载器中没有, 则从当前类加载器加载</li>
+<li>如果没有,则抛出异常</li>
+</ol>
+<h4 id="Tomcat类加载器-1"><a href="#Tomcat类加载器-1" class="headerlink" title="Tomcat类加载器"></a>Tomcat类加载器</h4><p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15399069347964.jpg" alt></p>
+<p>Tomcat除了每个Web应用的类加载器外, 也提供了3个基础的类加载器和Web应用类加载器. 而且这3个类加载器指向的路径和包列表均可以由catalina.propertis配置</p>
+<ul>
+<li><p><strong>Common</strong>: 以System为父类加载器, 是位于Tomcat应用服务器顶层的公用类加载器, 其路径为<code>common.loader</code>, 默认指向$CATALINA_HOME/lib下的包.</p>
+</li>
+<li><p><strong>Catalina</strong>: 以Common为父加载器, 是用于加载Tomcat应用服务器的类加载器, 其路径为<code>server.loader</code>, 默认为空, 此时Tomcat使用Common类加载器加载应用服务器.</p>
+</li>
+<li><p><strong>Shared</strong>: 以Common为父加载器, 是所有Web应用的父加载器, 其路径为<code>shared.loader</code>, 默认为空,  此时Tomcat使用ommon类加载器作为Web应用的父加载器.</p>
+</li>
+<li><p><strong>Web应用</strong>: 以Shared为父加载器, 加载<code>/WEB-INF/classes</code>目录下的未压缩的Class和资源文件以及<code>/WEB-INF/lib</code>目录下的包, 该类加载器只对当前Web应用可见, 对其它Web应用均不可见.</p>
+</li>
+</ul>
+<h4 id="Web应用类加载顺序"><a href="#Web应用类加载顺序" class="headerlink" title="Web应用类加载顺序"></a>Web应用类加载顺序</h4><p>Tomcat提供了delegate属性用于控制是否启用Java委派模式, 默认为false(不启用), 当配置为true时, Tomcat将使用Java默认的委派顺序. </p>
+<p><strong>delegate=false(默认)</strong></p>
+<p>Tomcat提供的Web应用类加载器与默认的委派模式稍有不同, 当进行类加载时, 除JVM基础类库外, 它会首先尝试通过当前类加载器加载, 然后才进行委派. 过程如下:</p>
+<ol>
+<li>从缓存中加载</li>
+<li>如果缓存中没有, 则从JVM的Bootstrap类加载器加载</li>
+<li>如果没有, 则从当前加载器加载(按照WEB-INF/classes、WEB-INF/lib的顺序)</li>
+<li>如果没有, 则从父类加载器加载, 由于父类加载器采用默认的委派模式, 所以加载顺序为System、Common、Shared。</li>
+</ol>
+<p><strong>delegate=true</strong></p>
+<ol>
+<li>从缓存中加载</li>
+<li>如果没有, 则从JVM的Bootstrap类加载器加载</li>
+<li>如果没有, 则从父类加载器加载, 加载顺序为System、Common、Shared。</li>
+<li>如果没有, 则从当前加载器加载(按照WEB-INF/classes、WEB-INF/lib的顺序)</li>
+</ol>
+<h2 id="Tomcat请求处理"><a href="#Tomcat请求处理" class="headerlink" title="Tomcat请求处理"></a>Tomcat请求处理</h2><p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15398554993206.jpg" alt></p>
+<p><strong>过程描述</strong></p>
+<p>1、用户点击网页内容，请求被发送到本机端口8080(默认)，被在那里监听的Coyote HTTP/1.1 Connector获得.</p>
+<p>2、Connector把该请求交给它所在的Service的Engine来处理，并等待Engine的回应.</p>
+<p>3、Engine获得请求localhost/test/index.jsp，匹配所有的虚拟主机Host。 </p>
+<p>4、Engine匹配到名为localhost的Host(即使匹配不到也把请求交给该Host处理，因为该Host被定义为该Engine的默认主机)名为localhost的Host获得请求/test/index.jsp，匹配它所拥有的所有的Context。Host匹配到路径为/test的Context（如果匹配不到就把该请求交给路径名为“ ”的Context去处理).</p>
+<p>5、path=“/test”的Context获得请求/index.jsp，在它的mapping table中寻找出对应的Servlet。Context匹配到URL PATTERN为*.jsp的Servlet,对应于JspServlet类.</p>
+<p>6、构造HttpServletRequest对象和HttpServletResponse对象，作为参数调用JspServlet的doGet()或doPost().执行业务逻辑、数据存储等程序。 </p>
+<p>7、Context把执行完之后的HttpServletResponse对象返回给Host.</p>
+<p>8、Host把HttpServletResponse对象返回给Engine.</p>
+<p>9、Engine把HttpServletResponse对象返回Connector.</p>
+<p>10、Connector把HttpServletResponse对象返回给客户Browser</p>
+<h2 id="Tomcat集群"><a href="#Tomcat集群" class="headerlink" title="Tomcat集群"></a>Tomcat集群</h2><h3 id="集群增量会话管理器-DeltaManager"><a href="#集群增量会话管理器-DeltaManager" class="headerlink" title="集群增量会话管理器 DeltaManager"></a>集群增量会话管理器 DeltaManager</h3><p>DeltaManager会话管理器是tomcat默认的集群会话管理器，它主要用于集群中各个节点之间会话状态的同步维护.</p>
+<p>集群增量会话管理器的职责是将某节点的会话该变同步到集群内其他成员节点上，它属于全节点复制模式，所谓全节点复制是指集群中某个节点的状态变化后需要同步到集群中剩余的节点，非全节点方式可能只是同步到其中某个或若干节点.</p>
+<h3 id="集群备份会话管理器-BackupManage"><a href="#集群备份会话管理器-BackupManage" class="headerlink" title="集群备份会话管理器 BackupManage"></a>集群备份会话管理器 BackupManage</h3><p>全节点复制的网络流量随节点数量增加呈平方趋势增长，也正是因为这个因素导致无法构建较大规模的集群，为了使集群节点能更加大，首要解决的就是数据复制时流量增长的问题，于是tomcat提出了另外一种会话管理方式，每个会话只会有一个备份，它使会话备份的网络流量随节点数量的增加呈线性趋势增长，大大减少了网络流量和逻辑操作，可构建较大的集群.</p>
+<p>BackupManager并不是基于SessionMessage实现的, 它的本地会话存储采用的是一个有状态的,可复制的Map-LazyReplicatedMap(它采用主从的备份策略), 通过这个Map, BackupManager仅会将会话的增量数据复制到一个备份节点, 集群中的所有节点均知晓该备份节点的位置.</p>
+<h3 id="集群替代方案"><a href="#集群替代方案" class="headerlink" title="集群替代方案"></a>集群替代方案</h3><p>Tomcat集群组件多用于实现会话同步, 但是这种方案不适用于较大规模的集群. 除了通信开销外, 部署架构也显的比较复杂, 实际上, 在搭建负载均衡时, 完全可以将会话集中管理. 当规模较大时, 可以采用数据库(PersistentManager+JDBCStore); 当规模较大时, 可以采用高速缓存替代, 如Redis、Memcached. 此时需要自己实现Tomcat的会话管理器. 当前网上已经有非常多的实现方案,如redis-session-manager.</p>
+<h2 id="性能调优"><a href="#性能调优" class="headerlink" title="性能调优"></a>性能调优</h2><h3 id="性能检测工具"><a href="#性能检测工具" class="headerlink" title="性能检测工具"></a>性能检测工具</h3><p>ApacheBench、JMeter</p>
+<h3 id="JVM调优概述"><a href="#JVM调优概述" class="headerlink" title="JVM调优概述"></a>JVM调优概述</h3><p>Tomcat是一款Java应用, 所以JVM的配置与其运行性能密切相关. JVM优化的重点则集中在内存分配以及GC策略调整上, 因为JVM垃圾回收机制会不同程度地导致程序运行中断.</p>
+<h4 id="垃圾回收性能度量"><a href="#垃圾回收性能度量" class="headerlink" title="垃圾回收性能度量"></a>垃圾回收性能度量</h4><ul>
+<li><p>吞吐量: 工作时间(排除GC时间)占总时间的百分比, 工作时间并不仅是程序运行的时间, 还包括内存分配的时间.</p>
+</li>
+<li><p>暂停: 测量时间段内, 由垃圾回收导致的应用程序停止响应测次数. </p>
+</li>
+</ul>
+<h4 id="垃圾区收集器选择"><a href="#垃圾区收集器选择" class="headerlink" title="垃圾区收集器选择"></a>垃圾区收集器选择</h4><ul>
+<li><p>串行收集器: (Serial Collector), 采用单线程执行所有垃圾回收, 适用于单核的服务器.</p>
+</li>
+<li><p>并行收集器: (Parallel Collector), 又称吞吐量收集器, 以并行的方式执行年轻代垃圾回收, 它适用于在多处理器或者多线程硬件上运行的数据集为中大型的应用</p>
+</li>
+<li><p>并发收集器: (Concurrent Collector), 以并发的方式执行大部分垃圾回收工作,以缩短垃圾回收的暂停时间, 它适用于那些数据集为中大型、响应时间优先于吞吐量的应用.</p>
+</li>
+<li><p>CMS收集器: (Concurrent Mark Sweep Collector, 并发标记扫描收集器) 适用于那些更愿意缩短垃圾回收暂停时间并且负担得起与垃圾回收共享处理资源的应用.</p>
+</li>
+<li><p>G1收集器: (Garbage-First Garbage Collector) 适用于大容量内存的多核服务器, 它在满足垃圾回收暂停时间目标的同时, 以最大可能性实现高吞吐量.</p>
+</li>
+</ul>
+<p><strong>并行与并发</strong></p>
+<ul>
+<li><p>并发是指一个处理器同时处理多个任务。 </p>
+</li>
+<li><p>并行是指多个处理器或者是多核的处理器同时处理多个不同的任务。 </p>
+</li>
+</ul>
+<p>并发是逻辑上的同时发生，而并行是物理上的同时发生。<br>来个比喻：并发是一个人同时吃三个馒头，而并行是三个人同时吃三个馒头。 </p>
+<h4 id="JVM相关参数说明"><a href="#JVM相关参数说明" class="headerlink" title="JVM相关参数说明"></a>JVM相关参数说明</h4><p><strong>JVM通用选项说明</strong></p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15398585685272.jpg" alt></p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15398585867165.jpg" alt></p>
+<p><strong>并行收集器性能相关选项</strong></p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15398586311404.jpg" alt></p>
+<p><strong>CMS收集器相关选项</strong></p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15398586606909.jpg" alt></p>
+<p><strong>G1收集器相关选项</strong></p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15398586834256.jpg" alt></p>
+<p><strong>打印输出相关选项</strong></p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/15398587669816.jpg" alt></p>
+<h3 id="Tomcat配置"><a href="#Tomcat配置" class="headerlink" title="Tomcat配置"></a>Tomcat配置</h3><p>Tomcat容器相关的配置均在<code>$CATALINA_BASE/conf/server.xml</code>中.</p>
+<ul>
+<li><p>修改链接器的maxConnections属性, 该属性决定了服务器在同一时间接收并处理的最大连接数. 当达到该值后, 服务器接收但不会处理更多的请求, 额外的请求将会被阻塞直到连接数低于maxConnections, 此时,服务器将再次接收并处理新连接.</p>
+</li>
+<li><p>将tcpNoDelay属性设置为true, 会开启Socket的TCP_NO_DELAY选项, 它会禁用Nagle算法. 该算法永不链接小的缓冲消息, 它会降低通过网络发送数据包的数量, 提升网络传输效率, 但是对于交互式应用(如Web)会增加影响时间.</p>
+</li>
+<li><p>调整maxKeepAliveRequest属性值, 该属性用于控制HTTP请求的keep-alive行为, 指定了链接被服务器关闭之前可以接受的请求最大数目</p>
+</li>
+<li><p>修改socketbuffer属性, 调整Socket缓冲区大小, 通过合理调整Socket缓冲器有助于提升服务器性能.</p>
+</li>
+<li><p>将enableLookups属性设置为false, 禁用request.getRemoteHost的DNS查找功能, 减少查找时间.</p>
+</li>
+<li><p>关闭自动部署功能(线上), 修改Host元素,将autoDeploy属性设置为false.</p>
+</li>
+</ul>
+<p>上面只是简单列出常见的一些调优参数, 更多的可以根据应用场景来选择调整. </p>
+<h3 id="应用性能优化"><a href="#应用性能优化" class="headerlink" title="应用性能优化"></a>应用性能优化</h3><ul>
+<li><p>尽量减少浏览器与服务器通信次数, 对于浏览器触发的远程操作, 尽量由一次调用完成.</p>
+</li>
+<li><p>尽量减少请求响应数据量. 去除无用数据, 降低网络开销.</p>
+</li>
+<li><p>尽量推迟创建会话的时机, 对于不需要会话的则尽量不要创建.</p>
+</li>
+<li><p>不要再会话中存储大对象, 这会导致占用内存过多, 降低服务器性能.</p>
+</li>
+<li><p>尽量缩短会话的有效期, 能够及时移除无效会话, 降低会话管理成本.</p>
+</li>
+<li><p>合理定义对象作用域, 以便对象可以及时回收.</p>
+</li>
+<li><p>采用连接池提升访问性能. 如数据库连接池.</p>
+</li>
+<li><p>对于极少变更的数据, 可以采用考虑缓存提升查询性能.</p>
+</li>
+<li><p>最小化应用日志, 或者尽量采用简单的日志格式. 生成环境避免生成大量非重要日志,建议只输出INFO及以上的日志. </p>
+</li>
+</ul>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="http://www.importnew.com/27724.html" target="_blank" rel="noopener">http://www.importnew.com/27724.html</a></li>
+<li><a href="https://blog.csdn.net/wangyangzhizhou/article/details/52125704" target="_blank" rel="noopener">https://blog.csdn.net/wangyangzhizhou/article/details/52125704</a></li>
+<li>《Tomcat架构解析》</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Tomcat/" rel="tag"># Tomcat</a>
+          
+            <a href="/tags/理论基础/" rel="tag"># 理论基础</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/10/组件框架/开发工具-Intellij IDEA/" rel="next" title="开发工具-Intellij IDEA">
+                <i class="fa fa-chevron-left"></i> 开发工具-Intellij IDEA
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/06/19/组件框架/数据组件-Databus/" rel="prev" title="数据组件-Databus">
+                数据组件-Databus <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/havatar.png" alt="蘇若年">
+            
+              <p class="site-author-name" itemprop="name">蘇若年</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">文章</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分類</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">標籤</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tomcat简介"><span class="nav-number">1.</span> <span class="nav-text">Tomcat简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat启动脚本"><span class="nav-number">1.1.</span> <span class="nav-text">Tomcat启动脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat目录说明"><span class="nav-number">1.2.</span> <span class="nav-text">Tomcat目录说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat新特性"><span class="nav-number">1.3.</span> <span class="nav-text">Tomcat新特性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tomcat架构"><span class="nav-number">2.</span> <span class="nav-text">Tomcat架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat组成模块"><span class="nav-number">2.1.</span> <span class="nav-text">Tomcat组成模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat类加载器"><span class="nav-number">2.2.</span> <span class="nav-text">Tomcat类加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java类加载器"><span class="nav-number">2.2.1.</span> <span class="nav-text">Java类加载器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#双亲委派模式"><span class="nav-number">2.2.2.</span> <span class="nav-text">双亲委派模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Tomcat类加载器-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">Tomcat类加载器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Web应用类加载顺序"><span class="nav-number">2.2.4.</span> <span class="nav-text">Web应用类加载顺序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tomcat请求处理"><span class="nav-number">3.</span> <span class="nav-text">Tomcat请求处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tomcat集群"><span class="nav-number">4.</span> <span class="nav-text">Tomcat集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#集群增量会话管理器-DeltaManager"><span class="nav-number">4.1.</span> <span class="nav-text">集群增量会话管理器 DeltaManager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集群备份会话管理器-BackupManage"><span class="nav-number">4.2.</span> <span class="nav-text">集群备份会话管理器 BackupManage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集群替代方案"><span class="nav-number">4.3.</span> <span class="nav-text">集群替代方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能调优"><span class="nav-number">5.</span> <span class="nav-text">性能调优</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性能检测工具"><span class="nav-number">5.1.</span> <span class="nav-text">性能检测工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM调优概述"><span class="nav-number">5.2.</span> <span class="nav-text">JVM调优概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#垃圾回收性能度量"><span class="nav-number">5.2.1.</span> <span class="nav-text">垃圾回收性能度量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#垃圾区收集器选择"><span class="nav-number">5.2.2.</span> <span class="nav-text">垃圾区收集器选择</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JVM相关参数说明"><span class="nav-number">5.2.3.</span> <span class="nav-text">JVM相关参数说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat配置"><span class="nav-number">5.3.</span> <span class="nav-text">Tomcat配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用性能优化"><span class="nav-number">5.4.</span> <span class="nav-text">应用性能优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文档"><span class="nav-number">6.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HuntsWork</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 強力驅動</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主題 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66129992";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz',
+        appKey: 'pYydnhaL1ddP6c3fPWRnj9AO',
+        placeholder: '天青色等烟雨 而我 在等你 ...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz", "pYydnhaL1ddP6c3fPWRnj9AO");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 15497,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

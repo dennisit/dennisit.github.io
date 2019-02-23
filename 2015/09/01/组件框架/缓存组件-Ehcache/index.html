@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-tw">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="kFp8mZ25PsFpJW_ipN268gzlsa4pfBk-LYkLTBR2jQc">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Cache,Ehcache,Spring Cache,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="花辭" type="application/atom+xml">
+
+
+
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('该文章被加密, 输入访问口令!') !== ''){
+                alert('密码错误！');
+                //history.go(-1);
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<meta name="description" content="Ehcache概述Ehcache是一个用Java实现的使用简单、高速、线程安全的缓存管理类库, 其提供了用内存、磁盘文件寸纯、以及分布式存储等多种灵活的管理方案. Ehcache从Hibernate发展而来, 快速、简单、低消耗、依赖性小、扩展性强. Ehcache特点  快速、简单；  多种缓存策略: LRU、LFU和FIFO；  缓存数据有两级：内存和磁盘，因此无需担心容量问题；  缓存数据会">
+<meta name="keywords" content="Cache,Ehcache,Spring Cache">
+<meta property="og:type" content="article">
+<meta property="og:title" content="缓存组件-Ehcache">
+<meta property="og:url" content="http://dennisit.github.io/2015/09/01/组件框架/缓存组件-Ehcache/index.html">
+<meta property="og:site_name" content="花辭">
+<meta property="og:description" content="Ehcache概述Ehcache是一个用Java实现的使用简单、高速、线程安全的缓存管理类库, 其提供了用内存、磁盘文件寸纯、以及分布式存储等多种灵活的管理方案. Ehcache从Hibernate发展而来, 快速、简单、低消耗、依赖性小、扩展性强. Ehcache特点  快速、简单；  多种缓存策略: LRU、LFU和FIFO；  缓存数据有两级：内存和磁盘，因此无需担心容量问题；  缓存数据会">
+<meta property="og:locale" content="zh-tw">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15392113342006.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15392161353269.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15392160699453.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15392161058873.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15392136888628.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15392138754320.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15392139323840.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15392124993556.jpg">
+<meta property="og:updated_time" content="2018-12-11T14:47:28.529Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="缓存组件-Ehcache">
+<meta name="twitter:description" content="Ehcache概述Ehcache是一个用Java实现的使用简单、高速、线程安全的缓存管理类库, 其提供了用内存、磁盘文件寸纯、以及分布式存储等多种灵活的管理方案. Ehcache从Hibernate发展而来, 快速、简单、低消耗、依赖性小、扩展性强. Ehcache特点  快速、简单；  多种缓存策略: LRU、LFU和FIFO；  缓存数据有两级：内存和磁盘，因此无需担心容量问题；  缓存数据会">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15392113342006.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  document.oncontextmenu= function(){return false;}
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://dennisit.github.io/2015/09/01/组件框架/缓存组件-Ehcache/">
+
+
+
+
+
+  <title>缓存组件-Ehcache | 花辭</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?57443a2926e41ae04a903a8093e16326";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">花辭</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">風月不瘦,雖以千年後。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            關於
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            標籤
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站點地圖
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dennisit.github.io/2015/09/01/组件框架/缓存组件-Ehcache/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="蘇若年">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/havatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花辭">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">缓存组件-Ehcache</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2015-09-01T19:57:53+08:00">
+                2015-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/组件框架/" itemprop="url" rel="index">
+                    <span itemprop="name">组件框架</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/组件框架/缓存组件/" itemprop="url" rel="index">
+                    <span itemprop="name">缓存组件</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/09/01/组件框架/缓存组件-Ehcache/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2015/09/01/组件框架/缓存组件-Ehcache/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2015/09/01/组件框架/缓存组件-Ehcache/" class="leancloud_visitors" data-flag-title="缓存组件-Ehcache">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">閱讀次數&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Ehcache概述"><a href="#Ehcache概述" class="headerlink" title="Ehcache概述"></a>Ehcache概述</h2><p>Ehcache是一个用Java实现的使用简单、高速、线程安全的缓存管理类库, 其提供了用内存、磁盘文件寸纯、以及分布式存储等多种灵活的管理方案. Ehcache从Hibernate发展而来, 快速、简单、低消耗、依赖性小、扩展性强.</p>
+<p><strong>Ehcache特点</strong></p>
+<ol>
+<li><p>快速、简单；</p>
+</li>
+<li><p>多种缓存策略: LRU、LFU和FIFO；</p>
+</li>
+<li><p>缓存数据有两级：内存和磁盘，因此无需担心容量问题；</p>
+</li>
+<li><p>缓存数据会在虚拟机重启的过程中写入磁盘；</p>
+</li>
+<li><p>可以通过 RMI、可插入 API 等方式进行分布式缓存；</p>
+</li>
+<li><p>具有缓存和缓存管理器的侦听接口: 缓存管理器监听器、缓存事件监听器；</p>
+</li>
+<li><p>支持多缓存管理器实例，以及一个实例的多个缓存区域；</p>
+</li>
+<li><p>提供 Hibernate 的缓存实现: Hibernate默认二级缓存是不启动的, 启动二级缓存需要采用 Ehcache来实现；</p>
+</li>
+</ol>
+<a id="more"></a>
+<h2 id="Ehcache缓存数据过期策略"><a href="#Ehcache缓存数据过期策略" class="headerlink" title="Ehcache缓存数据过期策略"></a>Ehcache缓存数据过期策略</h2><p>Ehcache提供三种缓存过期策略.</p>
+<ul>
+<li><p>FIFO: (First In First Out)先进先出, 驱除原则是优先驱除最先储存的元素.</p>
+</li>
+<li><p>LRU: (Least Recently Used) 最近最少使用, 驱除原则是优先驱除最后使用时间最早的元素. 缓存的元素有一个时间戳, 距离当前时间最远的元素优先被清出缓存.</p>
+</li>
+<li><p>LFU: (Least Frequently Used)最不常使用, 每次我们从Cache中获取一个元素时都会更新该元素的hitCount属性值加1。当采用最不常使用原则进行驱除时hitCount属性值最小的元素将优先驱除.</p>
+</li>
+</ul>
+<h3 id="对比LRU、LFU、FIFO"><a href="#对比LRU、LFU、FIFO" class="headerlink" title="对比LRU、LFU、FIFO"></a>对比LRU、LFU、FIFO</h3><ul>
+<li><p>LRU: 比较最后的访问时间</p>
+</li>
+<li><p>LFU: 比较get次数</p>
+</li>
+<li><p>FIFO: 根据创建或修改时间</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15392113342006.jpg" alt></p>
+<h2 id="Ehcache基本使用"><a href="#Ehcache基本使用" class="headerlink" title="Ehcache基本使用"></a>Ehcache基本使用</h2><h3 id="Ehcache配置"><a href="#Ehcache配置" class="headerlink" title="Ehcache配置"></a>Ehcache配置</h3><p>CacheManager是Ehcache的核心，它的主要职责是对Cache的创建、移除和访问。只有CacheManager里面的Cache才能实现缓存数据的功能。一切使用Ehcache的应用都是从构建CacheManager开始的, 一个应用可以有多个CacheManager，而一个CacheManager下又可以有多个Cache。Cache内部保存的是一个个的Element，而一个Element中保存的是一个key和value的配对，相当于Map里面的一个Entry.</p>
+<p>ehcache.xml文件是用来定义Ehcache的配置信息的，更准确的来说它是定义CacheManager的配置信息的, 配置示例如下.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ehcache</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">xsi:noNamespaceSchemaLocation</span>=<span class="string">"http://ehcache.org/ehcache.xsd"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">updateCheck</span>=<span class="string">"false"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"> 	 <span class="comment">&lt;!-- 硬盘缓存的临时路径 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">diskStore</span> <span class="attr">path</span>=<span class="string">"java.io.tmpdir"</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 默认的缓存区域的缓存策略</span></span><br><span class="line"><span class="comment">       </span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">defaultCache</span></span></span><br><span class="line"><span class="tag">            <span class="attr">maxElementsInMemory</span>=<span class="string">"20000"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">eternal</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">timeToIdleSeconds</span>=<span class="string">"120"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">timeToLiveSeconds</span>=<span class="string">"120"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">overflowToDisk</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">maxElementsOnDisk</span>=<span class="string">"10000000"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">diskPersistent</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">diskExpiryThreadIntervalSeconds</span>=<span class="string">"120"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">memoryStoreEvictionPolicy</span>=<span class="string">"LRU"</span></span></span><br><span class="line"><span class="tag">            /&gt;</span></span><br><span class="line">          </span><br><span class="line">    <span class="comment">&lt;!-- 自定义缓存区域 --&gt;</span>        </span><br><span class="line">    <span class="tag">&lt;<span class="name">cache</span> <span class="attr">name</span>=<span class="string">"eternalCache"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">maxElementsInMemory</span>=<span class="string">"20000"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">eternal</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">overflowToDisk</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">diskPersistent</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">timeToLiveSeconds</span>=<span class="string">"0"</span></span></span><br><span class="line"><span class="tag">           <span class="attr">diskExpiryThreadIntervalSeconds</span>=<span class="string">"120"</span></span></span><br><span class="line"><span class="tag">            /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ehcache</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>参数说明</p>
+<ul>
+<li><p>name: cache的唯一标识</p>
+</li>
+<li><p>maxElementsInMemory：内存中最大容纳的缓存对象数量</p>
+</li>
+<li><p>maxElementsOnDisk：硬盘上能存放的最大缓存对象数量, 0标识无穷大.</p>
+</li>
+<li><p>eternal: 对象是否永生，默认是false, 一丹设置了, timeout将不起作用</p>
+</li>
+<li><p>overflowToDisk: 配置此属性,当内存中缓存对象数量达到maxElementsInMemory, Ehcahce会将Element写到磁盘中.</p>
+</li>
+<li><p>timeToIdleSeconds: 设置缓存对象在失效前的允许闲置时间. 仅当缓存对象不是永久有效时使用, 默认值是0, 也就是闲置时间无穷大.</p>
+</li>
+<li><p>timeToLiveSeconds: 设置缓存对象在失效前允许存活时间. 最大时间介于创建时间和失效时间之间;  仅当缓存对象不是永久有效时使用, 默认值是0, 也就是存活时间无穷大.</p>
+</li>
+<li><p>diskPersistent: 是否将缓存数据持久化在磁盘上, 默认为false, true表示JVM重启 原来的缓存数据仍然存在.</p>
+</li>
+<li><p>diskExpiryThreadIntervalSeconds: 磁盘失效线程运行时间间隔, 默认是120秒.</p>
+</li>
+<li><p>memoryStoreEvictionPolicy：当达到maxElementsInMemory限制时, Ehcache将会根据指定的策略进行清理内存, 支持: LRU(默认侧),LFU,FIFO.</p>
+</li>
+</ul>
+<p>更多参数: <a href="http://elim.iteye.com/blog/2113728" target="_blank" rel="noopener">http://elim.iteye.com/blog/2113728</a></p>
+<h3 id="新增元素"><a href="#新增元素" class="headerlink" title="新增元素"></a>新增元素</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span>  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">create</span><span class="params">()</span> </span>&#123;  </span><br><span class="line"> Cache cache = cacheManager.getCache(<span class="string">"cache"</span>);  </span><br><span class="line"> Element ele = <span class="keyword">new</span> Element(<span class="string">"key"</span>, <span class="string">"value"</span>);  </span><br><span class="line"> <span class="comment">//把ele放入缓存cache中  </span></span><br><span class="line"> cache.put(ele);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="获取元素"><a href="#获取元素" class="headerlink" title="获取元素"></a>获取元素</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">   Cache cache = cacheManager.getCache(<span class="string">"cache"</span>);  </span><br><span class="line">   <span class="comment">//通过key来获取缓存中对应的元素  </span></span><br><span class="line">   Element ele = cache.get(<span class="string">"key"</span>);  </span><br><span class="line">   System.out.println(ele);  </span><br><span class="line">   <span class="keyword">if</span> (ele != <span class="keyword">null</span>) &#123;<span class="comment">//当缓存的元素存在时获取缓存的值  </span></span><br><span class="line">      System.out.println(ele.getObjectValue());  </span><br><span class="line">   &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="更新元素"><a href="#更新元素" class="headerlink" title="更新元素"></a>更新元素</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">   Cache cache = cacheManager.getCache(<span class="string">"cache"</span>);  </span><br><span class="line">   cache.put(<span class="keyword">new</span> Element(<span class="string">"key"</span>, <span class="string">"value1"</span>));  </span><br><span class="line">   System.out.println(cache.get(<span class="string">"key"</span>));  </span><br><span class="line">   <span class="comment">//当添加元素的时候，如果缓存中已经存在相同key的元素则会将后者覆盖前者  </span></span><br><span class="line">   cache.put(<span class="keyword">new</span> Element(<span class="string">"key"</span>, <span class="string">"value2"</span>));  </span><br><span class="line">   System.out.println(cache.get(<span class="string">"key"</span>));  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">   Cache cache = cacheManager.getCache(<span class="string">"cache"</span>);  </span><br><span class="line">   <span class="comment">//根据key来移除一个元素  </span></span><br><span class="line">   cache.remove(<span class="string">"key"</span>);  </span><br><span class="line">   System.out.println(cache.get(<span class="string">"key"</span>));  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="http://elim.iteye.com/blog/2112170" target="_blank" rel="noopener">http://elim.iteye.com/blog/2112170</a></li>
+</ul>
+<h2 id="Ehcache集群方式"><a href="#Ehcache集群方式" class="headerlink" title="Ehcache集群方式"></a>Ehcache集群方式</h2><p>Ehcache从1.7版本开始, 支持5种集群方案: Terracotta、RMI、JMS、JGroup、Ehcache Server; 其中RMI、JMS和Ehcache Server是最经常使用的.</p>
+<h3 id="RMI组播"><a href="#RMI组播" class="headerlink" title="RMI组播"></a>RMI组播</h3><p>RMI 是一种点对点的基于Java 对象的通讯方式, Ehcache从1.2版本开始就支持RMI方式的缓存机器. 在集群环境中Ehcache所有缓存对象的Key和value都必须是可序列化的， 也就是必须实现java.io.serializable. 这点在其它集群方式下也是需要遵守的.</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15392161353269.jpg" alt></p>
+<h3 id="JMS消息方式"><a href="#JMS消息方式" class="headerlink" title="JMS消息方式"></a>JMS消息方式</h3><p>JSM 是两个应用程序之间进行异步通信的API, 它为标准消息协议和消息服务提供了一组通用接口, 包括创建、发送、读取消息等, 用于支持Java应用程序开发, JMS也支持基于事件的通信机制, 通过发布事件机制向所有服务器保持连接的客户端发送消息, 在发送消息时, 接受者不需要在线, 等到客户端上线的时候, 能保证接收到服务器发送的消息.</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15392160699453.jpg" alt></p>
+<p>JMS 的核心就是一个消息队列, 每个应用节点都订阅预先定义好的主题, 同时,节点有元素更新时, 也会发布更新元素到主题去, 各个应用服务器节点通过侦听MQ获取到最新的数据, 然后分别更新自己的Ehcache缓存.</p>
+<p>Ehcache默认支持ActiveMQ, 也可以通过自定义组件的方式实现类似Kafka和RabbitMQ等.</p>
+<h3 id="Cache-Server-模式"><a href="#Cache-Server-模式" class="headerlink" title="Cache Server 模式"></a>Cache Server 模式</h3><p>缓存服务器集群模式, 缓存数据集中放在Ehcache Server中, Ehcache Server之间做数据复制.</p>
+<p>Cache Server一般以War包方式独立部署, Cache Server有两种类型的API: 面向资源的Restful和Soap. 这两种API都能够跨语言支持.</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15392161058873.jpg" alt></p>
+<h2 id="Spring中使用cache"><a href="#Spring中使用cache" class="headerlink" title="Spring中使用cache"></a>Spring中使用cache</h2><p>和Spring对事务管理的支持一样，Spring对Cache的支持也有基于注解和基于XML配置两种方式。下面我们先来看看基于注解的方式</p>
+<p>Spring提供了4中方法级的缓存注解:</p>
+<h3 id="Cacheable"><a href="#Cacheable" class="headerlink" title="@Cacheable"></a>@Cacheable</h3><p><code>@Cacheable</code> 可以标记在一个方法上，也可以标记在一个类上。当标记在一个方法上时表示该方法是支持缓存的，当标记在一个类上时则表示该类所有的方法都是支持缓存的.</p>
+<p>该注解支持用condition属性来设置条件, 如果不满足条件, 就不适用缓存能力, 直接执行方法.</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15392136888628.jpg" alt></p>
+<h4 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h4><p>示例表示只有当user的id为偶数时才会进行缓存.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Cacheable</span>(value=&#123;<span class="string">"users"</span>&#125;, key=<span class="string">"#user.id"</span>, condition=<span class="string">"#user.id%2==0"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">find</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">	System.out.println(<span class="string">"find user by user "</span> + user);</span><br><span class="line"> 	<span class="keyword">return</span> user;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="CachePut"><a href="#CachePut" class="headerlink" title="@CachePut"></a>@CachePut</h3><p>此注解的支持的属性和方法与@Cacheable一致, 对于使用@Cacheable标注的方法，Spring在每次执行前都会检查Cache中是否存在相同key的缓存元素，如果存在就不再执行该方法，而是直接从缓存中获取结果进行返回，否则才会执行并将返回结果存入指定的缓存中。@CachePut也可以声明一个方法支持缓存功能。与@Cacheable不同的是使用@CachePut标注的方法在执行前不会去检查缓存中是否存在之前执行过的结果，而是每次都会执行该方法，并将执行结果以键值对的形式存入指定的缓存中。</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15392138754320.jpg" alt></p>
+<h4 id="使用示例-1"><a href="#使用示例-1" class="headerlink" title="使用示例"></a>使用示例</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@CachePut</span>(<span class="string">"users"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">find</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> getFromDB(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="对比-CachePut-和-Cacheable"><a href="#对比-CachePut-和-Cacheable" class="headerlink" title="对比@CachePut 和 @Cacheable"></a>对比<code>@CachePut</code> 和 <code>@Cacheable</code></h4><ul>
+<li><p>@CachePut: 这个注释可以确保方法被执行，同时方法的返回值也被记录到缓存中。</p>
+</li>
+<li><p>@Cacheable: 当重复使用相同参数调用方法的时候，方法本身不会被调用执行，即方法本身被略过了，取而代之的是方法的结果直接从缓存中找到并返回了</p>
+</li>
+</ul>
+<h3 id="CacheEvict"><a href="#CacheEvict" class="headerlink" title="@CacheEvict"></a>@CacheEvict</h3><p>@CacheEvict是用来标注在需要清除缓存元素的方法或类上的.</p>
+<p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15392139323840.jpg" alt></p>
+<h4 id="应用示例"><a href="#应用示例" class="headerlink" title="应用示例"></a>应用示例</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@CacheEvict</span>(value=<span class="string">"users"</span>, allEntries=<span class="keyword">true</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">	System.out.println(<span class="string">"delete user by id: "</span> + id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="CacheConfig"><a href="#CacheConfig" class="headerlink" title="@CacheConfig"></a>@CacheConfig</h3><p>这是一个类级别的注解, 主要是共享缓存的名称, 比如@Cacheable里面有一个value=”xxx”的属性, 如果需要配置的方法很多, 以后维护起来非常不方便, 所以@CacheConfig就是用来统一声明.</p>
+<h2 id="Ehcache架构图"><a href="#Ehcache架构图" class="headerlink" title="Ehcache架构图"></a>Ehcache架构图</h2><p><img src="https://raw.githubusercontent.com/dennisit/static/master/tech/image/cache/15392124993556.jpg" alt></p>
+<h2 id="Ehcache应用场景"><a href="#Ehcache应用场景" class="headerlink" title="Ehcache应用场景"></a>Ehcache应用场景</h2><ul>
+<li><p>比较少的更新数据表的场景</p>
+</li>
+<li><p>对并发要求不是很严格的场景</p>
+</li>
+<li><p>对一致性要求不高的场景</p>
+</li>
+</ul>
+<h2 id="Ehcache瓶颈点"><a href="#Ehcache瓶颈点" class="headerlink" title="Ehcache瓶颈点"></a>Ehcache瓶颈点</h2><h3 id="缓存漂移"><a href="#缓存漂移" class="headerlink" title="缓存漂移"></a>缓存漂移</h3><p>每个应用节点只管理自己的缓存, 在更新某个节点的时候, 不会影响到其它的节点, 这样数据之间可能就不同步了.</p>
+<h3 id="数据库瓶颈"><a href="#数据库瓶颈" class="headerlink" title="数据库瓶颈"></a>数据库瓶颈</h3><p>对于单实例应用来说, 缓存可以保护数据库的读风暴, 但是在集群环境下, 每个应用节点都要定期保证数据最新, 节点越多, 节点越大, 维护这样的情况对数据库开销也越大.</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li>《深入分布式缓存-从原理到实践》</li>
+<li><a href="https://www.cnblogs.com/s-b-b/p/6047954.html" target="_blank" rel="noopener">https://www.cnblogs.com/s-b-b/p/6047954.html</a></li>
+<li><a href="http://www.iteye.com/blogs/subjects/ehcache" target="_blank" rel="noopener">http://www.iteye.com/blogs/subjects/ehcache</a></li>
+<li><a href="http://elim.iteye.com/blog/2123030" target="_blank" rel="noopener">http://elim.iteye.com/blog/2123030</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Cache/" rel="tag"># Cache</a>
+          
+            <a href="/tags/Ehcache/" rel="tag"># Ehcache</a>
+          
+            <a href="/tags/Spring-Cache/" rel="tag"># Spring Cache</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/09/01/组件框架/缓存组件-Memcached/" rel="next" title="缓存组件-Memcached">
+                <i class="fa fa-chevron-left"></i> 缓存组件-Memcached
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/09/11/应用实践/Linux流量复制工具/" rel="prev" title="Linux流量复制工具">
+                Linux流量复制工具 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/havatar.png" alt="蘇若年">
+            
+              <p class="site-author-name" itemprop="name">蘇若年</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">64</span>
+                  <span class="site-state-item-name">文章</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分類</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-name">標籤</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ehcache概述"><span class="nav-number">1.</span> <span class="nav-text">Ehcache概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ehcache缓存数据过期策略"><span class="nav-number">2.</span> <span class="nav-text">Ehcache缓存数据过期策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对比LRU、LFU、FIFO"><span class="nav-number">2.1.</span> <span class="nav-text">对比LRU、LFU、FIFO</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ehcache基本使用"><span class="nav-number">3.</span> <span class="nav-text">Ehcache基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ehcache配置"><span class="nav-number">3.1.</span> <span class="nav-text">Ehcache配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新增元素"><span class="nav-number">3.2.</span> <span class="nav-text">新增元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取元素"><span class="nav-number">3.3.</span> <span class="nav-text">获取元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新元素"><span class="nav-number">3.4.</span> <span class="nav-text">更新元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除元素"><span class="nav-number">3.5.</span> <span class="nav-text">删除元素</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ehcache集群方式"><span class="nav-number">4.</span> <span class="nav-text">Ehcache集群方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RMI组播"><span class="nav-number">4.1.</span> <span class="nav-text">RMI组播</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JMS消息方式"><span class="nav-number">4.2.</span> <span class="nav-text">JMS消息方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache-Server-模式"><span class="nav-number">4.3.</span> <span class="nav-text">Cache Server 模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring中使用cache"><span class="nav-number">5.</span> <span class="nav-text">Spring中使用cache</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cacheable"><span class="nav-number">5.1.</span> <span class="nav-text">@Cacheable</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用示例"><span class="nav-number">5.1.1.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CachePut"><span class="nav-number">5.2.</span> <span class="nav-text">@CachePut</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用示例-1"><span class="nav-number">5.2.1.</span> <span class="nav-text">使用示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对比-CachePut-和-Cacheable"><span class="nav-number">5.2.2.</span> <span class="nav-text">对比@CachePut 和 @Cacheable</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CacheEvict"><span class="nav-number">5.3.</span> <span class="nav-text">@CacheEvict</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#应用示例"><span class="nav-number">5.3.1.</span> <span class="nav-text">应用示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CacheConfig"><span class="nav-number">5.4.</span> <span class="nav-text">@CacheConfig</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ehcache架构图"><span class="nav-number">6.</span> <span class="nav-text">Ehcache架构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ehcache应用场景"><span class="nav-number">7.</span> <span class="nav-text">Ehcache应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ehcache瓶颈点"><span class="nav-number">8.</span> <span class="nav-text">Ehcache瓶颈点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存漂移"><span class="nav-number">8.1.</span> <span class="nav-text">缓存漂移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库瓶颈"><span class="nav-number">8.2.</span> <span class="nav-text">数据库瓶颈</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文档"><span class="nav-number">9.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">HuntsWork</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 強力驅動</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主題 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=66129992";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz',
+        appKey: 'pYydnhaL1ddP6c3fPWRnj9AO',
+        placeholder: '天青色等烟雨 而我 在等你 ...',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("KWPKbpyuekKLatvOFnCpz9dF-gzGzoHsz", "pYydnhaL1ddP6c3fPWRnj9AO");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 15497,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
